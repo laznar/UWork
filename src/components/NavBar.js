@@ -1,5 +1,5 @@
 import Logo from '../assets/img/logo.png';
-import { NavLink, Link, Redirect } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -58,10 +58,7 @@ const NavBar = () => {
             </li>
 
             <li className="nav-item mx-lg-2">
-              <button
-                onClick={() => <Redirect to="/auth/login" />}
-                className="btn btn-primary text-white"
-              >
+              <button className="btn btn-primary text-white">
                 Sé un Worker
               </button>
             </li>

@@ -4,7 +4,10 @@ import SignUp from '../components/auth/SignUp';
 
 const AuthRoutes = () => {
   return (
-    <div>
+    <div
+      style={{ maxWidth: 500 }}
+      className="mx-auto mt-4 border rounded-3 p-4 shadow-sm"
+    >
       <Switch>
         <Route exact path="/auth/register" component={SignUp} />
         <Route exact path="/auth/login" component={LogIn} />
