@@ -7,13 +7,13 @@ import {
 import NavBar from '../components/NavBar';
 import AuthRoutes from './AuthRoutes';
 
-import Home from '../components/Home';
+import Home from '../views/home/Home';
 
 const AppRouter = () => {
   return (
     <Router>
       <NavBar />
-      <div className="container">
+      <div>
         <Switch>
           <Route path="/auth" component={AuthRoutes} />
           <Route exact path="/" component={Home} />

@@ -5,7 +5,7 @@ const SignUp = () => {
     <>
       <h1 className="mb-4">Crear cuenta</h1>
       <form action="" className="row g-3">
-        <div className="col-6">
+        <div className="col-md-6">
           <div className="form-floating">
             <input
               autoComplete="off"
@@ -18,7 +18,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="col-6">
+        <div className="col-md-6">
           <div className="form-floating">
             <input
               autoComplete="off"

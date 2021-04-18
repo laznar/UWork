@@ -1,5 +1,25 @@
 $primary: #45a8d8;
-@import "bootstrap/scss/bootstrap";
+
+@import 'bootstrap/scss/bootstrap';
+
 body {
-  font-family: "Karla", sans-serif;
+  font-family: 'Karla', sans-serif;
+}
+
+.custom-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
+
+.home-input {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
