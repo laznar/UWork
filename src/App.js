@@ -1,11 +1,5 @@
-import NavBar from "./NavBar";
-function App() {
-  return (
-    <div className="App">
-      <NavBar />
-      <h1>Hello world</h1>
-    </div>
-  );
-}
+import AppRouter from './router/AppRouter';
 
-export default App;
+export const App = () => {
+  return <AppRouter />;
+};
