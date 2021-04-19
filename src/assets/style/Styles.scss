@@ -23,3 +23,17 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.fade-anim {
+  animation: fade 300ms ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

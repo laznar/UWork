@@ -41,11 +41,13 @@ const TaskSearch = () => {
           setText(e.target.value);
         }}
         type="text"
-        className="form-control form-control-lg fs-6 home-input border me-2 flex-grow-1"
+        className="form-control form-control-lg fs-6 home-input border flex-grow-1 rounded-0 rounded-start"
         placeholder={!text ? 'Necesito ayuda con ...' : ''}
       />
 
-      <button className="btn btn-primary text-white btn-lg">Buscar</button>
+      <button className="btn btn-primary text-white rounded-0 rounded-end">
+        Buscar
+      </button>
       {focused && (
         <TaskList
           text={text}

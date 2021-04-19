@@ -6,7 +6,7 @@ const AuthRoutes = () => {
   return (
     <div className="container">
       <div
-        style={{ maxWidth: 500, marginTop: 150 }}
+        style={{ maxWidth: 400, marginTop: 150 }}
         className="mx-auto border rounded-3 p-4 shadow-sm"
       >
         <Switch>

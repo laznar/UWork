@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   return (
-    <>
-      <h1 className="mb-4">Crear cuenta</h1>
+    <div className="fade-anim">
+      <h2 className="mb-4">Crear cuenta</h2>
       <form action="" className="row g-3">
         <div className="col-md-6">
           <div className="form-floating">
@@ -67,7 +67,7 @@ const SignUp = () => {
           Ya tienes una cuenta? <Link to="/auth/login">Inicia sesión</Link>
         </p>
       </form>
-    </>
+    </div>
   );
 };
 

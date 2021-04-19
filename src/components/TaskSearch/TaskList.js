@@ -1,10 +1,10 @@
 const TaskList = ({ text, setText, results, unFocus }) => {
   return (
-    <div className="position-absolute rounded-3 top-100 border shadow-sm w-50">
-      <ul className="list-group list-group-flush">
+    <div className="position-absolute rounded-3 top-100 border shadow-sm col-12 col-md-8">
+      <ul className="list-group list-group-flush font-small">
         {!text && (
           <li
-            className="list-group-item"
+            className="list-group-item py-1 py-md-2 lh-1"
             style={{ backgroundColor: '#fafafa' }}
           >
             Servicios populares
@@ -22,7 +22,7 @@ const TaskList = ({ text, setText, results, unFocus }) => {
                 setText(task.name);
                 unFocus();
               }}
-              className="list-group-item list-group-item-action border-0 cursor-pointer"
+              className="list-group-item list-group-item-action py-md-2 border-0 cursor-pointer lh-1"
             >
               {task.name}
             </li>
