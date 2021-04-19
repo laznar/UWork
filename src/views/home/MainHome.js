@@ -20,7 +20,7 @@ const CustomMain = styled.main`
 
 const MainHome = () => {
   return (
-    <CustomMain className="d-flex align-items-center main-home">
+    <CustomMain className="d-flex align-items-center border-bottom">
       <div className="container">
         <div className="row ps-lg-5 gx-0 pt-5 pt-lg-0 mt-5 mt-lg-0">
           <div

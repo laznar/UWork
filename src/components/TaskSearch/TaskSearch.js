@@ -13,9 +13,11 @@ const TaskSearch = () => {
       setResults(tasks.filter((task) => task.popular));
     } else {
       setResults(
-        tasks.filter((task) =>
-          normalizeString(task.name).includes(normalizeString(text))
-        )
+        tasks
+          .filter((task) =>
+            normalizeString(task.name).includes(normalizeString(text))
+          )
+          .slice(0, 5)
       );
     }
   }, [text]);
