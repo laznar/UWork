@@ -1,7 +1,7 @@
 import cleaning from '../../assets/img/services/cleaning.jpg';
 import delivery from '../../assets/img/services/delivery.jpg';
 import gardening from '../../assets/img/services/gardening.jpg';
-import plumbering from '../../assets/img/services/plumbering.jpg';
+import plumbing from '../../assets/img/services/plumbing.jpg';
 import electric from '../../assets/img/services/electric.jpg';
 import repair from '../../assets/img/services/repair.jpg';
 
@@ -9,7 +9,7 @@ const services = [
   { name: 'Limpieza', image: cleaning },
   { name: 'Mensajería', image: delivery },
   { name: 'Jardinería', image: gardening },
-  { name: 'Plomería', image: plumbering },
+  { name: 'Plomería', image: plumbing },
   { name: 'Electricidad', image: electric },
   { name: 'Reparaciones', image: repair },
 ];

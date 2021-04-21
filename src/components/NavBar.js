@@ -1,4 +1,5 @@
 import Logo from '../assets/img/logo.png';
+import Text from '../assets/img/text.png';
 import { useRef, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -28,7 +29,12 @@ const NavBar = () => {
             className="ms-5"
             src={Logo}
             alt="UWork logo"
-            style={{ height: '70px', width: '70px' }}
+            style={{ height: '85px', width: '85px' }}
+          ></img>
+          <img
+            src={Text}
+            alt="UWork"
+            style={{ height: '85px', width: '85px', padding: 0, margin: 0 }}
           ></img>
         </Link>
         <button
