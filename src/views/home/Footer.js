@@ -1,4 +1,5 @@
 import Logo from '../../assets/img/logo.png';
+import {Link} from 'react-router-dom'
 
 export const Footer = () => {
   return (
@@ -13,34 +14,34 @@ export const Footer = () => {
             <h5>Features</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none">
                   Cool Stuff
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Random Feature
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Team Feature
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Stuff for Developers
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Another one
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Last time
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -48,24 +49,24 @@ export const Footer = () => {
             <h5>Resources</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Resource
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Resource name
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Another Resource
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Final Resource
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,24 +74,24 @@ export const Footer = () => {
             <h5>About</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Team
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Locations
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Privacy
-                </a>
+                </Link>
               </li>
               <li className="mb-1">
-                <a className="link-secondary text-decoration-none" href="#">
+                <Link className="link-secondary text-decoration-none" href="#">
                   Terms
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
