@@ -4,12 +4,12 @@ export const Footer = () => {
   return (
     <div className="container">
       <footer className="pt-4 mb-md-5">
-        <div className="row">
-          <div className="col-12 col-md">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md d-flex flex-column align-items-center">
             <img className="mb-2" src={Logo} alt="" width="80" height="80" />
             <small className="d-block mb-3 text-muted">© 2021</small>
           </div>
-          <div className="col-6 col-md">
+          <div className="col-6 col-md text-center text-md-start">
             <h5>Features</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
@@ -44,7 +44,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-6 col-md">
+          <div className="col-6 col-md  text-center text-md-start">
             <h5>Resources</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
@@ -69,7 +69,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-6 col-md">
+          <div className="col-6 col-md text-center text-md-start">
             <h5>About</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
