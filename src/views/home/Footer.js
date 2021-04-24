@@ -1,16 +1,16 @@
 import Logo from '../../assets/img/logo.png';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
     <div className="container">
-      <footer className="pt-4 mb-md-5">
+      <footer className="py-5 mb-md-5">
         <div className="row justify-content-center">
-          <div className="col-12 col-md d-flex flex-column align-items-center">
+          <div className="col-md-3 d-flex flex-column align-items-center order-1 order-md-0">
             <img className="mb-2" src={Logo} alt="" width="80" height="80" />
             <small className="d-block mb-3 text-muted">© 2021</small>
           </div>
-          <div className="col-6 col-md text-center text-md-start">
+          <div className="col-sm-6 col-md-3 text-center text-md-start mb-4 mb-md-0">
             <h5>Features</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
@@ -45,7 +45,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-6 col-md  text-center text-md-start">
+          <div className="col-sm-6 col-md-3 text-center text-md-start mb-4 mb-md-0">
             <h5>Resources</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
@@ -70,7 +70,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-6 col-md text-center text-md-start">
+          <div className="col-sm-6 col-md-3 text-center text-md-start mb-4 mb-md-0">
             <h5>About</h5>
             <ul className="list-unstyled text-small">
               <li className="mb-1">
