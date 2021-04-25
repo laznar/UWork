@@ -1,11 +1,26 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useForm } from '../../hooks/useForm';
+import { startLoginWithEmailPassword } from '../../redux/actions/auth';
 import google from '../../assets/img/google.svg';
 
 const LogIn = () => {
+  const [{ email, password }, handleChange] = useForm({
+    email: '',
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(startLoginWithEmailPassword(email, password));
+  };
+
   return (
     <div className="fade-anim">
       <h2 className="mb-4">Inicia sesión</h2>
-      <form action="" className="row g-3">
+      <form action="" className="row g-3" onSubmit={handleSubmit}>
         <div>
           <button className="btn btn-outline-light text-dark border flex align-items-center w-100">
             <img src={google} height={20} width={20} alt="Google logo" />
@@ -26,7 +41,10 @@ const LogIn = () => {
               type="email"
               className="form-control"
               id="email"
+              name="email"
               placeholder="Correo electrónico"
+              value={email}
+              onChange={handleChange}
             />
             <label htmlFor="email">Correo electrónico</label>
           </div>
@@ -39,7 +57,10 @@ const LogIn = () => {
               type="password"
               className="form-control"
               id="password"
+              name="password"
               placeholder="Contraseña"
+              value={password}
+              onChange={handleChange}
             />
             <label htmlFor="password">Contraseña</label>
           </div>

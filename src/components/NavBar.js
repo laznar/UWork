@@ -1,8 +1,7 @@
 import Logo from '../assets/img/logo.png';
 import Text from '../assets/img/text.png';
 import { useRef, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
   const location = useLocation();
