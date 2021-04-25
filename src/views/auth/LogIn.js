@@ -41,7 +41,7 @@ const LogIn = () => {
 
         <div className="d-flex align-items-center">
           <hr className="flex-grow-1 bg-secondary" />
-          <span className="mx-2 small">O inicia con tu correo</span>
+          <span className="mx-2 small text-muted">O inicia con tu correo</span>
           <hr className="flex-grow-1 bg-secondary" />
         </div>
 
