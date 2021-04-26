@@ -6,12 +6,14 @@ import {
 } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import AuthRoutes from './AuthRoutes';
+import { Toaster } from 'react-hot-toast';
 
 import Home from '../views/home/Home';
 
 const AppRouter = () => {
   return (
     <Router>
+      <Toaster />
       <NavBar />
       <div>
         <Switch>
