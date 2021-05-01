@@ -24,12 +24,8 @@ export const Popular = () => {
           {services.map((service) => (
             <figure key={service.name} className="col-sm-6 col-lg-4">
               <img
-                className="w-100 rounded shadow"
-                style={{
-                  height: 200,
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
+                className="w-100 rounded shadow object-position-center object-fit-cover"
+                height={200}
                 src={service.image}
                 alt={service.name}
               />

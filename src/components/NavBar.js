@@ -2,9 +2,13 @@ import Logo from '../assets/img/logo.png';
 import Text from '../assets/img/text.png';
 import { useRef, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import ProfileMenu from './ProfileMenu';
 
 const NavBar = () => {
   const location = useLocation();
+
+  const state = useSelector((state) => state.auth);
 
   useEffect(() => {
     hideNavBar();
@@ -65,31 +69,44 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item mx-lg-2">
-              <NavLink
-                to="/auth/register"
-                className="nav-link"
-                activeClassName="active"
-              >
-                Crear cuenta
-              </NavLink>
-            </li>
+            {!state.uid && (
+              <li className="nav-item mx-lg-2">
+                <NavLink
+                  to="/auth/register"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  Crear cuenta
+                </NavLink>
+              </li>
+            )}
 
-            <li className="nav-item mx-lg-2">
-              <NavLink
-                to="/auth/login"
-                className="nav-link"
-                activeClassName="active"
-              >
-                Iniciar sesión
-              </NavLink>
-            </li>
+            {!state.uid && (
+              <li className="nav-item mx-lg-2">
+                <NavLink
+                  to="/auth/login"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  Iniciar sesión
+                </NavLink>
+              </li>
+            )}
 
             <li className="nav-item mx-lg-2">
               <button className="btn btn-primary text-white">
                 Sé un Worker
               </button>
             </li>
+
+            {state.uid && (
+              <li className="nav-item mx-lg-2">
+                <ProfileMenu
+                  photoURL={state.photoURL}
+                  displayName={state.name}
+                />
+              </li>
+            )}
           </ul>
         </div>
       </div>

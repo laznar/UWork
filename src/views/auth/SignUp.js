@@ -39,7 +39,7 @@ const SignUp = () => {
 
   return (
     <div className="fade-anim">
-      <h2 className="mb-4">Crear cuenta</h2>
+      <h2 className="mb-3">Crear cuenta</h2>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <CustomInput
@@ -59,7 +59,7 @@ const SignUp = () => {
             placeholder="Mínimo 6 caracteres"
           />
           <div>
-            <button className="btn btn-primary text-white col-12">
+            <button type="submit" className="btn btn-primary text-white col-12">
               Crear cuenta
             </button>
           </div>
