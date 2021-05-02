@@ -9,10 +9,10 @@ const CustomInput = ({ name, placeholder, label, type = 'text' }) => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-baseline">
+      <div className="d-flex justify-content-between align-items-baseline mb-1">
         {label && (
-          <label htmlFor={name} className="form-label mb-1">
-            {label}
+          <label htmlFor={name} className="form-label mb-0">
+            <strong className="text-secondary">{label}</strong>
           </label>
         )}
         {errors[name] && (

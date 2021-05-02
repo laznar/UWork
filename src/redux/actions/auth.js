@@ -81,6 +81,19 @@ export const startLogout = () => {
   };
 };
 
+export const startSendPasswordResetEmail = (email) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      toast.success('Link de recuperación enviado');
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
 export const logout = () => ({
   type: types.logout
 });

@@ -93,7 +93,7 @@ const LogIn = () => {
           </CustomButton>
         </form>
         <div className="text-center small mt-2">
-          <Link to="/auth/login">Olvidaste la contraseña?</Link>
+          <Link to="/auth/reset">Olvidaste la contraseña?</Link>
         </div>
 
         <div className="mt-0">
