@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 const reducers = combineReducers({
   auth: authReducer,
-  authUi: authUiReducer,
+  authUi: authUiReducer
 });
 
 const composeEnhancers =

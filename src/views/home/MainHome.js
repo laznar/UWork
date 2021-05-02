@@ -26,7 +26,7 @@ const MainHome = () => {
           <div
             style={{
               backgroundColor: 'rgba(255,255,255,0.7)',
-              backdropFilter: 'blur(4px)',
+              backdropFilter: 'blur(4px)'
             }}
             className="col-md-8 col-lg-6 border p-3 p-md-4 mt-5 mt-lg-0 rounded-3 shadow-sm"
           >

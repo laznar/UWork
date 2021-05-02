@@ -12,7 +12,7 @@ import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 const fieldNames = {
   name: 'name',
   email: 'email',
-  password: 'password',
+  password: 'password'
 };
 
 const schema = yup.object().shape({
@@ -24,12 +24,12 @@ const schema = yup.object().shape({
   [fieldNames.password]: yup
     .string()
     .required('campo requerido')
-    .min(6, 'mínimo 6 caracteres'),
+    .min(6, 'mínimo 6 caracteres')
 });
 
 const SignUp = () => {
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
   const dispatch = useDispatch();

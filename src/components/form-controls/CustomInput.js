@@ -4,7 +4,7 @@ import clsx from 'clsx';
 const CustomInput = ({ name, placeholder, label, type = 'text' }) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors }
   } = useFormContext();
 
   return (

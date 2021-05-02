@@ -1,4 +1,6 @@
 $primary: #45a8d8;
+$brown: #714601;
+$yellow: #fdf7e7;
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -41,6 +43,11 @@ body {
 
 .fade-anim {
   animation: fade 300ms ease;
+}
+
+.profile-photo {
+  background-color: $yellow;
+  color: $brown;
 }
 
 @keyframes fade {

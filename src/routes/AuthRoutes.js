@@ -4,16 +4,21 @@ import SignUp from '../views/auth/SignUp';
 
 const AuthRoutes = () => {
   return (
-    <div className="container">
+    <div className="bg-light">
       <div
-        style={{ maxWidth: 400, marginTop: 150 }}
-        className="mx-auto border rounded-3 p-4 shadow-sm"
+        className="container"
+        style={{ paddingTop: 150, paddingBottom: 150 }}
       >
-        <Switch>
-          <Route exact path="/auth/register" component={SignUp} />
-          <Route exact path="/auth/login" component={LogIn} />
-          <Redirect to="/auth/login" />
-        </Switch>
+        <div
+          style={{ maxWidth: 400 }}
+          className="mx-auto border rounded-3 p-4 shadow-sm bg-white"
+        >
+          <Switch>
+            <Route exact path="/auth/register" component={SignUp} />
+            <Route exact path="/auth/login" component={LogIn} />
+            <Redirect to="/auth/login" />
+          </Switch>
+        </div>
       </div>
     </div>
   );

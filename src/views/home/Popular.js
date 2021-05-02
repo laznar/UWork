@@ -11,12 +11,12 @@ const services = [
   { name: 'Jardinería', image: gardening },
   { name: 'Plomería', image: plumbing },
   { name: 'Electricidad', image: electric },
-  { name: 'Reparaciones', image: repair },
+  { name: 'Reparaciones', image: repair }
 ];
 
 export const Popular = () => {
   return (
-    <div className="bg-light border-bottom">
+    <div className="bg-light">
       <div className="container p-5">
         <h2 className="mb-5">Servicios populares</h2>
 

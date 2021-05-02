@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  Redirect
 } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import AuthRoutes from './AuthRoutes';
@@ -18,6 +18,7 @@ import Home from '../views/home/Home';
 import Dashboard from '../views/dashboard/Dashboard';
 import AppLoading from '../components/AppLoading';
 import Profile from '../views/profile/Profile';
+import Footer from '../views/home/Footer';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const AppRouter = () => {
             component={Dashboard}
           />
           <PrivateRoute
-            path="/perfil"
+            path="/profile"
             isAuthenticated={isAuthenticated}
             component={Profile}
           />
@@ -70,6 +71,7 @@ const AppRouter = () => {
           <Redirect to="/" />
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 };

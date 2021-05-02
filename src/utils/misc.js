@@ -8,8 +8,8 @@ const firebaseErrors = {
   auth: {
     emailAlreadyInUse: 'auth/email-already-in-use',
     userNotFound: 'auth/user-not-found',
-    wrongPassword: 'auth/wrong-password',
-  },
+    wrongPassword: 'auth/wrong-password'
+  }
 };
 
 export const renderError = (code) => {
@@ -25,4 +25,17 @@ export const renderError = (code) => {
     default:
       return 'Ocurrió un error';
   }
+};
+
+export const renderName = (name) => {
+  return name ? name.split(' ')[0] : null;
+};
+
+export const renderInitials = (name) => {
+  return name
+    ? name
+        .split(' ')
+        .map((word) => word.slice(0, 1))
+        .join('')
+    : null;
 };

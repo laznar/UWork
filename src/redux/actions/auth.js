@@ -33,7 +33,7 @@ export const startRegisterWithEmailPassword = (email, password, name) => {
       toast.success('Registro exitoso!');
       // Update user's displayName
       await user.updateProfile({
-        displayName: name,
+        displayName: name
       });
 
       dispatch(login(user.uid, user.displayName, user.photoURL));
@@ -66,8 +66,8 @@ export const login = (uid, displayName, photoURL) => ({
   payload: {
     uid,
     displayName,
-    photoURL,
-  },
+    photoURL
+  }
 });
 
 export const startLogout = () => {
@@ -82,10 +82,10 @@ export const startLogout = () => {
 };
 
 export const logout = () => ({
-  type: types.logout,
+  type: types.logout
 });
 
 const authUiLoading = (loading = false) => ({
   type: types.loading,
-  payload: loading,
+  payload: loading
 });

@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { startLogout } from '../redux/actions/auth';
 import { ChevronDownIcon } from '@heroicons/react/outline';
-import user from '../assets/img/user.svg';
+import ProfilePhoto from './ProfilePhoto';
+import { renderName } from '../utils/misc';
 
 const ProfileMenu = ({ photoURL, displayName }) => {
   const dispatch = useDispatch();
@@ -11,23 +12,18 @@ const ProfileMenu = ({ photoURL, displayName }) => {
     dispatch(startLogout());
   };
 
-  const renderName = (name) => {
-    return name ? name.split(' ')[0] : null;
-  };
-
   return (
     <div className="dropdown">
       <button
         id="dropdown"
         data-bs-toggle="dropdown"
-        className="cursor-pointer p-1 btn"
+        className="cursor-pointer p-1 btn d-flex align-items-center"
       >
-        <img
-          className="border border-2 rounded-circle object-position-center object-fit-cover"
+        <ProfilePhoto
           width={40}
           height={40}
-          src={photoURL ? photoURL : user}
-          alt="Profile pic"
+          photoURL={photoURL}
+          displayName={displayName}
         />
 
         <span className="mx-1">{renderName(displayName)}</span>
@@ -40,7 +36,7 @@ const ProfileMenu = ({ photoURL, displayName }) => {
         aria-labelledby="dropdown"
       >
         <li>
-          <Link className="dropdown-item" to="/perfil">
+          <Link className="dropdown-item" to="/profile">
             Perfil
           </Link>
         </li>

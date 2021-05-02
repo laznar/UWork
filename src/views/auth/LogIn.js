@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   startLoginWithEmailPassword,
-  startGoogleLogin,
+  startGoogleLogin
 } from '../../redux/actions/auth';
 import google from '../../assets/img/google.svg';
 import CustomInput from '../../components/form-controls/CustomInput';
@@ -14,7 +14,7 @@ import CustomButton from '../../components/form-controls/CustomButton';
 
 const fieldNames = {
   email: 'email',
-  password: 'password',
+  password: 'password'
 };
 
 const schema = yup.object().shape({
@@ -25,12 +25,12 @@ const schema = yup.object().shape({
   [fieldNames.password]: yup
     .string()
     .required('campo requerido')
-    .min(6, 'mínimo 6 caracteres'),
+    .min(6, 'mínimo 6 caracteres')
 });
 
 const LogIn = () => {
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
   const dispatch = useDispatch();

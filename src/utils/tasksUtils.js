@@ -64,7 +64,7 @@ const tasks = [
   // Legal:
   { name: 'Servicio de abogados' },
   { name: 'Mediación' },
-  { name: 'Testamentos y planificación patrimonial' },
+  { name: 'Testamentos y planificación patrimonial' }
 ];
 
 export default tasks;

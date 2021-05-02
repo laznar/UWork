@@ -35,7 +35,7 @@ jobs:
       - name: Deploy to uwork.surge.sh
         uses: dswistowski/surge-sh-action@v1
         with:
-          domain: 'https://uwork.surge.sh'
-          project: 'build'
+          domain: "https://uwork.surge.sh"
+          project: "build"
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
