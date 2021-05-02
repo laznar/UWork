@@ -12,7 +12,7 @@ const ProfileMenu = ({ photoURL, displayName }) => {
   };
 
   const renderName = (name) => {
-    return name.split(' ')[0];
+    return name ? name.split(' ')[0] : null;
   };
 
   return (

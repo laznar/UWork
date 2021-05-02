@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import CustomInput from '../../components/CustomInput';
+import CustomInput from '../../components/form-controls/CustomInput';
+import CustomButton from '../../components/form-controls/CustomButton';
 
 import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 
@@ -32,9 +33,12 @@ const SignUp = () => {
   });
 
   const dispatch = useDispatch();
+  const authUi = useSelector((state) => state.authUi);
 
   const onSubmit = ({ email, password, name }) => {
-    dispatch(startRegisterWithEmailPassword(email, password, name));
+    if (!authUi.loading) {
+      dispatch(startRegisterWithEmailPassword(email, password, name));
+    }
   };
 
   return (
@@ -58,11 +62,13 @@ const SignUp = () => {
             label="Contraseña"
             placeholder="Mínimo 6 caracteres"
           />
-          <div>
-            <button type="submit" className="btn btn-primary text-white col-12">
-              Crear cuenta
-            </button>
-          </div>
+          <CustomButton
+            loading={authUi.loading}
+            type="submit"
+            className="btn btn-primary text-white w-100"
+          >
+            Crear cuenta
+          </CustomButton>
           <p className="text-center small">
             Ya tienes una cuenta? <Link to="/auth/login">Inicia sesión</Link>
           </p>

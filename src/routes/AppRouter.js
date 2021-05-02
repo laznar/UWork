@@ -8,7 +8,7 @@ import {
 import NavBar from '../components/NavBar';
 import AuthRoutes from './AuthRoutes';
 import { Toaster } from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../redux/actions/auth';
 import PrivateRoute from './PrivateRoute';
@@ -21,21 +21,24 @@ import Profile from '../views/profile/Profile';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
+  const authUi = useSelector((state) => state.authUi);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user?.uid) {
+      if (user?.uid && user?.displayName && !authUi.loading) {
         dispatch(login(user.uid, user.displayName, user.photoURL));
         setIsAuthenticated(true);
-      } else {
+      } else if (!authUi.loading) {
         setIsAuthenticated(false);
       }
 
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     });
-  }, [dispatch]);
+  }, [dispatch, authUi.loading]);
 
   if (loading) {
     return <AppLoading />;

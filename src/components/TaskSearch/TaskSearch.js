@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import TaskList from './TaskList';
-import tasks, { normalizeString } from '../../utils/tasksUtils';
+import tasks from '../../utils/tasksUtils';
+import { normalizeString } from '../../utils/misc';
 
 const TaskSearch = () => {
   const [focused, setFocused] = useState(false);

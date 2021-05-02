@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   startLoginWithEmailPassword,
   startGoogleLogin,
 } from '../../redux/actions/auth';
 import google from '../../assets/img/google.svg';
-import CustomInput from '../../components/CustomInput';
+import CustomInput from '../../components/form-controls/CustomInput';
+import CustomButton from '../../components/form-controls/CustomButton';
 
 const fieldNames = {
   email: 'email',
@@ -33,14 +34,18 @@ const LogIn = () => {
   });
 
   const dispatch = useDispatch();
+  const authUi = useSelector((state) => state.authUi);
 
   const onSubmit = ({ email, password }) => {
-    dispatch(startLoginWithEmailPassword(email, password));
+    if (!authUi.loading) {
+      dispatch(startLoginWithEmailPassword(email, password));
+    }
   };
 
-  const handleGoogleLogIn = (e) => {
-    e.preventDefault();
-    dispatch(startGoogleLogin());
+  const handleGoogleLogIn = () => {
+    if (!authUi.loading) {
+      dispatch(startGoogleLogin());
+    }
   };
 
   return (
@@ -49,6 +54,7 @@ const LogIn = () => {
 
       <div>
         <button
+          disabled={authUi.loading}
           onClick={handleGoogleLogIn}
           className="btn mb-2 btn-outline-light text-dark border flex align-items-center w-100"
         >
@@ -78,16 +84,25 @@ const LogIn = () => {
             placeholder="Mínimo 6 caracteres"
           />
 
-          <div>
-            <button type="submit" className="btn btn-primary text-white w-100">
-              Iniciar sesión
-            </button>
-          </div>
-
-          <div className="text-center small">
-            No tienes una cuenta? <Link to="/auth/register">Regístrate</Link>
-          </div>
+          <CustomButton
+            type="submit"
+            className="btn btn-primary text-white w-100"
+            loading={authUi.loading}
+          >
+            Iniciar Sesión
+          </CustomButton>
         </form>
+        <div className="text-center small mt-2">
+          <Link to="/auth/login">Olvidaste la contraseña?</Link>
+        </div>
+
+        <div className="mt-0">
+          <hr className="my-2 mx-4 bg-secondary" />
+        </div>
+
+        <div className="text-center small mt-0">
+          ¿No tienes una cuenta? <Link to="/auth/register">Regístrate</Link>
+        </div>
       </FormProvider>
     </div>
   );

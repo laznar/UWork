@@ -1,5 +1,3 @@
-import removeAccents from 'remove-accents';
-
 const tasks = [
   // Mantenimiento del hogar:
   { name: 'Limpieza', popular: true },
@@ -68,9 +66,5 @@ const tasks = [
   { name: 'Mediación' },
   { name: 'Testamentos y planificación patrimonial' },
 ];
-
-export const normalizeString = (s) => {
-  return removeAccents(s.toLowerCase().replace(/ /g, ''));
-};
 
 export default tasks;
