@@ -1,6 +1,7 @@
 $primary: #45a8d8;
 $brown: #714601;
 $yellow: #fdf7e7;
+$gray: #383843;
 
 @import 'bootstrap/scss/bootstrap';
 
@@ -48,6 +49,10 @@ body {
 .profile-photo {
   background-color: $yellow;
   color: $brown;
+}
+
+.custom-label {
+  color: $gray;
 }
 
 @keyframes fade {

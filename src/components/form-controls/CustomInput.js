@@ -11,8 +11,8 @@ const CustomInput = ({ name, placeholder, label, type = 'text' }) => {
     <div>
       <div className="d-flex justify-content-between align-items-baseline mb-1">
         {label && (
-          <label htmlFor={name} className="form-label mb-0">
-            <strong className="text-secondary">{label}</strong>
+          <label htmlFor={name} className="form-label mb-0 custom-label">
+            <strong>{label}</strong>
           </label>
         )}
         {errors[name] && (
