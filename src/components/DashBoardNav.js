@@ -1,9 +1,7 @@
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const DashBoardNav = () => {
-  const location = useLocation();
-
   const state = useSelector((state) => state.auth);
 
   return (
