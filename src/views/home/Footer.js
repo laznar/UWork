@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="border-top">
       <div className="container">
-        <footer className="py-5 mb-md-5">
+        <footer className="py-2 mb-md-2">
           <div className="row justify-content-center">
             <div className="col-md-3 d-flex flex-column align-items-center order-1 order-md-0">
               <img className="mb-2" src={Logo} alt="" width="80" height="80" />

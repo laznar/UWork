@@ -1,7 +1,8 @@
+import DashBoardNav from '../../components/DashBoardNav';
 const Dashboard = () => {
   return (
-    <div className="container mt-5">
-      <h1 className="pt-5">Dashboard</h1>
+    <div className="container mt-5 pt-4">
+      <DashBoardNav />
     </div>
   );
 };

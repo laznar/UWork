@@ -93,11 +93,19 @@ const NavBar = () => {
               </li>
             )}
 
-            <li className="nav-item mx-lg-2">
-              <button className="btn btn-primary text-white">
-                Sé un Worker
-              </button>
-            </li>
+            {!state.uid && (
+              <li className="nav-item mx-lg-2">
+                <NavLink
+                  to="/worker"
+                  className="nav-link"
+                  activeClassName="active"
+                >
+                  <button className="btn btn-primary text-white">
+                    Sé un Worker
+                  </button>
+                </NavLink>
+              </li>
+            )}
 
             {state.uid && (
               <li className="nav-item mx-lg-2">
