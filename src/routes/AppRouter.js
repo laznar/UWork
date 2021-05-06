@@ -15,10 +15,10 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { firebase } from '../firebase';
 import Home from '../views/home/Home';
-import Dashboard from '../views/dashboard/Dashboard';
 import AppLoading from '../components/AppLoading';
 import Profile from '../views/profile/Profile';
 import Footer from '../views/home/Footer';
+import DashboardRoutes from './DashboardRoutes';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -59,13 +59,14 @@ const AppRouter = () => {
           <PrivateRoute
             path="/dashboard"
             isAuthenticated={isAuthenticated}
-            component={Dashboard}
+            component={DashboardRoutes}
           />
           <PrivateRoute
             path="/profile"
             isAuthenticated={isAuthenticated}
             component={Profile}
           />
+
           <Route exact path="/" component={Home} />
 
           <Redirect to="/" />

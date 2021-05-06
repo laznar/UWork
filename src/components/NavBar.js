@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileMenu from './ProfileMenu';
+import DashboardNav from './DashboardNav';
 
 const NavBar = () => {
   const location = useLocation();
@@ -29,7 +30,7 @@ const NavBar = () => {
       <div className="container">
         <Link to="/" className="navbar-brand">
           <img
-            className="ms-5"
+            className="ms-lg-5 ms-3"
             src={Logo}
             alt="UWork logo"
             style={{ height: '85px', width: '85px' }}
@@ -57,6 +58,7 @@ const NavBar = () => {
           className="collapse navbar-collapse"
           id="navbarNav"
         >
+          {state.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item mx-lg-2">
               <NavLink

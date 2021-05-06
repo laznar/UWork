@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
-import Card from '../../components/Card';
+import Card from '../../components/cards/Card';
 import Previews from '../../components/Previews';
 import Ratings from '../../components/Ratings';
 
