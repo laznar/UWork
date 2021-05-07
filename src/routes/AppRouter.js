@@ -16,9 +16,9 @@ import PublicRoute from './PublicRoute';
 import { firebase } from '../firebase';
 import Home from '../views/home/Home';
 import AppLoading from '../components/AppLoading';
-import Profile from '../views/profile/Profile';
 import Footer from '../views/home/Footer';
 import DashboardRoutes from './DashboardRoutes';
+import ProfileRoutes from './ProfileRoutes';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ const AppRouter = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user?.uid && user?.displayName && !authUi.loading) {
-        dispatch(login(user.uid, user.displayName, user.photoURL));
+      if (user?.uid && user?.email && user?.displayName && !authUi.loading) {
+        dispatch(login(user.uid, user?.email, user.displayName, user.photoURL));
         setIsAuthenticated(true);
       } else if (!authUi.loading) {
         setIsAuthenticated(false);
@@ -49,7 +49,7 @@ const AppRouter = () => {
     <Router>
       <Toaster />
       <NavBar />
-      <div>
+      <div className="bg-light">
         <Switch>
           <PublicRoute
             path="/auth"
@@ -64,7 +64,7 @@ const AppRouter = () => {
           <PrivateRoute
             path="/profile"
             isAuthenticated={isAuthenticated}
-            component={Profile}
+            component={ProfileRoutes}
           />
 
           <Route exact path="/" component={Home} />

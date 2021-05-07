@@ -16,7 +16,7 @@ const services = [
 
 export const Popular = () => {
   return (
-    <div className="bg-light">
+    <div>
       <div className="container p-5">
         <h2 className="mb-5">Servicios populares</h2>
 

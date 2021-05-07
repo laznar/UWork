@@ -29,7 +29,7 @@ const ResetPassword = () => {
 
   const onSubmit = ({ email }) => {
     if (!authUi.loading) {
-      dispatch(startSendPasswordResetEmail(email));
+      dispatch(startSendPasswordResetEmail(email, methods.reset));
     }
   };
 

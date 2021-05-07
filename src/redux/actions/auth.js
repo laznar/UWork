@@ -12,7 +12,7 @@ export const startLoginWithEmailPassword = (email, password) => {
         .signInWithEmailAndPassword(email, password);
       const { user } = loginResult;
 
-      dispatch(login(user.uid, user.displayName, user.photoURL));
+      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
       toast.success('Inicio de sesión exitoso');
     } catch (error) {
       toast.error(renderError(error.code));
@@ -36,7 +36,7 @@ export const startRegisterWithEmailPassword = (email, password, name) => {
         displayName: name
       });
 
-      dispatch(login(user.uid, user.displayName, user.photoURL));
+      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -53,7 +53,7 @@ export const startGoogleLogin = () => {
         .signInWithPopup(googleAuthProvider);
 
       const { user } = loginResult;
-      dispatch(login(user.uid, user.displayName, user.photoURL));
+      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -61,10 +61,11 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const login = (uid, displayName, photoURL) => ({
+export const login = (uid, email, displayName, photoURL) => ({
   type: types.login,
   payload: {
     uid,
+    email,
     displayName,
     photoURL
   }
@@ -81,12 +82,37 @@ export const startLogout = () => {
   };
 };
 
-export const startSendPasswordResetEmail = (email) => {
+export const startSendPasswordResetEmail = (email, reset) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
       await firebase.auth().sendPasswordResetEmail(email);
       toast.success('Link de recuperación enviado');
+      reset();
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
+export const startPasswordUpdate = (email, password, newPassword, reset) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+
+    try {
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        email,
+        password
+      );
+      // Re-authentiicate user to check old password
+      await firebase
+        .auth()
+        .currentUser.reauthenticateWithCredential(credential);
+      // Update user password
+      firebase.auth().currentUser.updatePassword(newPassword);
+      toast.success('Contraseña actualizada');
+      reset();
     } catch (error) {
       toast.error(renderError(error.code));
     }

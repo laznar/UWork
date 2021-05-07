@@ -60,7 +60,7 @@ const NavBar = () => {
         >
           {state.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-            <li className="nav-item mx-lg-2">
+            <li className="nav-item mx-lg-2 ">
               <NavLink
                 exact
                 to="/"

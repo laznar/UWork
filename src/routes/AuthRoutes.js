@@ -5,7 +5,7 @@ import ResetPassword from '../views/auth/ResetPassword';
 
 const AuthRoutes = () => {
   return (
-    <div className="bg-light">
+    <div>
       <div
         className="container"
         style={{ paddingTop: 150, paddingBottom: 150 }}
