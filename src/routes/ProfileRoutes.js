@@ -1,6 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Profile from '../views/profile/Profile';
 import Password from '../views/profile/Password';
+import Edit from '../views/profile/Edit';
 
 const ProfileRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const ProfileRoutes = () => {
       >
         <Switch>
           <Route exact path="/profile/password" component={Password} />
+          <Route exact path="/profile/edit" component={Edit} />
           <Route exact path="/profile" component={Profile} />
 
           <Redirect to="/profile" />

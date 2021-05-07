@@ -60,7 +60,7 @@ const NavBar = () => {
         >
           {state.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-            <li className="nav-item mx-lg-2 ">
+            <li className="nav-item mx-lg-1 ">
               <NavLink
                 exact
                 to="/"
@@ -72,19 +72,19 @@ const NavBar = () => {
             </li>
 
             {!state.uid && (
-              <li className="nav-item mx-lg-2">
+              <li className="nav-item mx-lg-1">
                 <NavLink
                   to="/auth/register"
                   className="nav-link"
                   activeClassName="active"
                 >
-                  Crear cuenta
+                  Sé un cliente
                 </NavLink>
               </li>
             )}
 
             {!state.uid && (
-              <li className="nav-item mx-lg-2">
+              <li className="nav-item mx-lg-1">
                 <NavLink
                   to="/auth/login"
                   className="nav-link"
@@ -95,22 +95,20 @@ const NavBar = () => {
               </li>
             )}
 
-            {!state.uid && (
-              <li className="nav-item mx-lg-2">
-                <NavLink
-                  to="/worker"
-                  className="nav-link"
-                  activeClassName="active"
-                >
-                  <button className="btn btn-primary text-white">
-                    Sé un Worker
-                  </button>
-                </NavLink>
-              </li>
-            )}
+            <li className="nav-item mx-lg-1">
+              <NavLink
+                to={!state.uid ? '/worker' : '/worker/to-be-worker'}
+                className="nav-link"
+                activeClassName="active"
+              >
+                <button className="btn btn-primary text-white">
+                  Sé un Worker
+                </button>
+              </NavLink>
+            </li>
 
             {state.uid && (
-              <li className="nav-item mx-lg-2">
+              <li className="nav-item mx-lg-1">
                 <ProfileMenu
                   photoURL={state.photoURL}
                   displayName={state.name}

@@ -19,6 +19,7 @@ import AppLoading from '../components/AppLoading';
 import Footer from '../views/home/Footer';
 import DashboardRoutes from './DashboardRoutes';
 import ProfileRoutes from './ProfileRoutes';
+import WorkerRoutes from './WorkerRoutes';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,11 @@ const AppRouter = () => {
             path="/profile"
             isAuthenticated={isAuthenticated}
             component={ProfileRoutes}
+          />
+          <Route
+            path="/worker"
+            isAuthenticated={isAuthenticated}
+            component={WorkerRoutes}
           />
 
           <Route exact path="/" component={Home} />

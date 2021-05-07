@@ -11,6 +11,7 @@ import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 
 const fieldNames = {
   name: 'name',
+  lastname: 'lastname',
   email: 'email',
   password: 'password'
 };
@@ -48,8 +49,13 @@ const SignUp = () => {
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <CustomInput
             name={fieldNames.name}
-            label="Nombre"
-            placeholder="Ingresa tu nombre completo"
+            label="Nombres"
+            placeholder="Ingresa nombres"
+          />
+          <CustomInput
+            name={fieldNames.lastname}
+            label="Apellidos"
+            placeholder="Ingresa apellidos"
           />
           <CustomInput
             name={fieldNames.email}
