@@ -34,6 +34,17 @@ body {
   }
 }
 
+.profile-photo {
+  background-color: $yellow;
+  color: $brown;
+}
+
+.custom-label {
+  color: $gray;
+}
+
+/*========= Helpers =========*/
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -50,13 +61,9 @@ body {
   animation: fade 300ms ease;
 }
 
-.profile-photo {
-  background-color: $yellow;
-  color: $brown;
-}
-
-.custom-label {
-  color: $gray;
+.custom-navlink-border {
+  border-color: transparent;
+  border-bottom-style: solid;
 }
 
 @keyframes fade {

@@ -35,11 +35,7 @@ const NavBar = () => {
             alt="UWork logo"
             style={{ height: '85px', width: '85px' }}
           ></img>
-          <img
-            src={Text}
-            alt="UWork"
-            style={{ height: '85px', width: '85px', padding: 0, margin: 0 }}
-          ></img>
+          <img src={Text} alt="UWork" style={{ width: '85px' }}></img>
         </Link>
         <button
           ref={toggler}
@@ -60,23 +56,23 @@ const NavBar = () => {
         >
           {state.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-            <li className="nav-item mx-lg-1 ">
+            <li className="nav-item mx-lg-3">
               <NavLink
                 exact
                 to="/"
-                className="nav-link"
-                activeClassName="active"
+                className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
+                activeClassName="active border-primary text-primary"
               >
                 Inicio
               </NavLink>
             </li>
 
             {!state.uid && (
-              <li className="nav-item mx-lg-1">
+              <li className="nav-item mx-lg-2">
                 <NavLink
                   to="/auth/register"
-                  className="nav-link"
-                  activeClassName="active"
+                  className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
+                  activeClassName="active border-primary text-primary"
                 >
                   Sé un cliente
                 </NavLink>
@@ -84,23 +80,19 @@ const NavBar = () => {
             )}
 
             {!state.uid && (
-              <li className="nav-item mx-lg-1">
+              <li className="nav-item mx-lg-3">
                 <NavLink
                   to="/auth/login"
-                  className="nav-link"
-                  activeClassName="active"
+                  className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
+                  activeClassName="active border-primary text-primary"
                 >
                   Iniciar sesión
                 </NavLink>
               </li>
             )}
 
-            <li className="nav-item mx-lg-1">
-              <NavLink
-                to={!state.uid ? '/worker' : '/worker/to-be-worker'}
-                className="nav-link"
-                activeClassName="active"
-              >
+            <li className="nav-item">
+              <NavLink to={!state.uid ? '/worker' : '/worker/to-be-worker'}>
                 <button className="btn btn-primary text-white">
                   Sé un Worker
                 </button>
@@ -108,7 +100,7 @@ const NavBar = () => {
             </li>
 
             {state.uid && (
-              <li className="nav-item mx-lg-1">
+              <li className="nav-item mx-lg-3">
                 <ProfileMenu
                   photoURL={state.photoURL}
                   displayName={state.name}

@@ -29,7 +29,7 @@ const AppRouter = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user?.uid && user?.email && user?.displayName && !authUi.loading) {
+      if (user?.uid && !authUi.loading) {
         dispatch(login(user.uid, user?.email, user.displayName, user.photoURL));
         setIsAuthenticated(true);
       } else if (!authUi.loading) {
