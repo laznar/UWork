@@ -1,4 +1,5 @@
 import OpCard from '../../components/cards/OpCard';
+
 let oportunidades = [
   {
     titulo: 'Se necesita limpiar ventanas',

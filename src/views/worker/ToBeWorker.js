@@ -6,6 +6,12 @@ import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import Previews from '../../components/Previews';
 import TaskSearch from '../../components/TaskSearch/TaskSearch';
+import Select from 'react-select';
+import DatePicker from 'react-date-picker';
+import 'react-calendar/dist/Calendar.css';
+import 'react-date-picker/dist/DatePicker.css';
+import SelectCiudad from '../../components/SelectCiudad';
+import { useState } from 'react';
 
 const fieldNames = {
   nombres: 'nombres',
@@ -24,6 +30,18 @@ const fieldNames = {
   foto: 'foto',
   habilidad: 'habilidad'
 };
+
+const genero = [
+  { value: 'M', label: 'Masculino' },
+  { value: 'F', label: 'Femenino' },
+  { value: 'O', label: 'Otro' }
+];
+const transporte = [
+  { value: 'Público', label: 'Publico' },
+  { value: 'Bicicleta', label: 'Bicicleta' },
+  { value: 'Moto', label: 'Moto' },
+  { value: 'Carro', label: 'Carro' }
+];
 
 const schema = yup.object().shape({
   [fieldNames.email]: yup
@@ -56,27 +74,38 @@ const ToBeWorker = () => {
       //dispatch(startLoginWithEmailPassword(email, password));
     }
   };
+
+  const [value, onChange] = useState(new Date());
   return (
     <div>
       <h1>Módulo de ser un Worker</h1>
       <FormProvider {...methods}>
         <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-            <CustomInput
-              name={fieldNames.genero}
-              label="Genero"
-              placeholder="Genero"
-            />
+            <div>
+              <label htmlFor="select" className="form-label mb-1 custom-label">
+                <strong>Género</strong>
+              </label>
+              <Select
+                options={genero}
+                isSearchable={false}
+                placeholder="Selecciona un género"
+              />
+            </div>
+            <div>
+              <label htmlFor="select" className="form-label mb-1 custom-label">
+                <strong>Fecha de Nacimiento</strong>
+              </label>
+              <div>
+                <DatePicker onChange={onChange} value={value} />
+              </div>
+            </div>
             <CustomInput
               name={fieldNames.cedula}
               label="Cédula"
               placeholder="Ingresa tu cédula"
             />
-            <CustomInput
-              name={fieldNames.ciudad}
-              label="Ciudad"
-              placeholder="Ingrese ciudad"
-            />
+            <SelectCiudad />
             <CustomInput
               name={fieldNames.direccion}
               label="Direccion"
@@ -87,17 +116,27 @@ const ToBeWorker = () => {
               label="Número celular"
               placeholder="Ingresa celular"
             />
-            <CustomInput
-              name={fieldNames.medioTransporte}
-              label="Medio de Transporte"
-              placeholder="Escoja medio de transporte"
-            />
-            <textarea
-              name={fieldNames.aboutMe}
-              label="Acerca de mi"
-              placeholder="Acerca de mi"
-              className="form-control"
-            ></textarea>
+            <div>
+              <label htmlFor="select" className="form-label mb-1 custom-label">
+                <strong>Medio de Transporte</strong>
+              </label>
+              <Select
+                options={transporte}
+                isSearchable={false}
+                placeholder="Selecciona medio de transporte"
+              />
+            </div>
+            <div>
+              <label htmlFor="select" className="form-label mb-1 custom-label">
+                <strong>Acerca de mi</strong>
+              </label>
+              <textarea
+                name={fieldNames.aboutMe}
+                label="Acerca de mi"
+                placeholder="Acerca de mi"
+                className="form-control"
+              ></textarea>
+            </div>
           </form>
         </Card>
       </FormProvider>
