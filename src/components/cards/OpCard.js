@@ -67,7 +67,7 @@ const OpCard = ({
       <div className="row gx-0 d-md-none">
         <button className="btn col-6 rounded-0 border">Rechazar</button>
         <button className="btn col-6 rounded-0 text-primary border-primary">
-          Aceptar
+          Aplicar
         </button>
       </div>
     </div>

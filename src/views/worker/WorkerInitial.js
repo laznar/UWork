@@ -1,3 +1,4 @@
+import { useRef, useLayoutEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -10,6 +11,7 @@ import Select from 'react-select';
 import SelectCiudad from '../../components/SelectCiudad';
 import { useState } from 'react';
 import DatePicker from 'react-date-picker';
+import autosize from 'autosize';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
 
@@ -64,9 +66,14 @@ const schema = yup.object().shape({
 
 const WorkerInitial = () => {
   const methods = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onBlur'
+    resolver: yupResolver(schema)
   });
+
+  const aboutMe = useRef(null);
+
+  useLayoutEffect(() => {
+    autosize(aboutMe.current);
+  }, []);
 
   const authUi = useSelector((state) => state.authUi);
 
@@ -94,9 +101,6 @@ const WorkerInitial = () => {
               placeholder="Apellidos"
             />
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Género</strong>
-              </label>
               <Select
                 options={genero}
                 isSearchable={false}
@@ -145,9 +149,6 @@ const WorkerInitial = () => {
               placeholder="Ingresa celular"
             />
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Medio de Transporte</strong>
-              </label>
               <Select
                 options={transporte}
                 isSearchable={false}
@@ -155,11 +156,9 @@ const WorkerInitial = () => {
               />
             </div>
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Acerca de mi</strong>
-              </label>
               <textarea
                 name={fieldNames.aboutMe}
+                ref={aboutMe}
                 label="Acerca de mi"
                 placeholder="Acerca de mi"
                 className="form-control"

@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/actions/auth';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import { firebase } from '../firebase';
+import { firebase, db } from '../firebase';
 import Home from '../views/home/Home';
 import AppLoading from '../components/AppLoading';
 import Footer from '../views/home/Footer';
@@ -28,17 +28,33 @@ const AppRouter = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user?.uid && !authUi.loading) {
-        dispatch(login(user.uid, user?.email, user.displayName, user.photoURL));
-        setIsAuthenticated(true);
-      } else if (!authUi.loading) {
+    firebase.auth().onAuthStateChanged(async (user) => {
+      try {
+        if (user?.uid && !authUi.loading) {
+          const userRef = db.collection('users').doc(user.uid);
+          const doc = await userRef.get();
+
+          dispatch(
+            login(
+              user.uid,
+              user.email,
+              doc.data().name,
+              doc.data().surname,
+              user.displayName,
+              user.photoURL
+            )
+          );
+          setIsAuthenticated(true);
+        } else if (!authUi.loading) {
+          setIsAuthenticated(false);
+        }
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
         setIsAuthenticated(false);
       }
-
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     });
   }, [dispatch, authUi.loading]);
 

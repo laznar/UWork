@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import clsx from 'clsx';
 
-const CustomInput = ({ name, placeholder, label, type = 'text' }) => {
+const CustomInput = ({ name, placeholder, type = 'text' }) => {
   const {
     register,
     formState: { errors }
@@ -9,24 +9,20 @@ const CustomInput = ({ name, placeholder, label, type = 'text' }) => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-baseline mb-1">
-        {label && (
-          <label htmlFor={name} className="form-label mb-0 custom-label">
-            <strong>{label}</strong>
-          </label>
-        )}
+      <div className="d-flex flex-column">
+        <input
+          // autoComplete="off"
+          type={type}
+          className={clsx('form-control', errors[name] && 'is-invalid')}
+          id={name}
+          placeholder={placeholder}
+          {...register(name)}
+        />
+
         {errors[name] && (
-          <div className="text-danger small">{errors[name].message}</div>
+          <span className="text-danger small">{errors[name].message}</span>
         )}
       </div>
-      <input
-        autoComplete="off"
-        type={type}
-        className={clsx('form-control', errors[name] && 'is-invalid')}
-        id={name}
-        {...register(name)}
-        placeholder={placeholder}
-      />
     </div>
   );
 };

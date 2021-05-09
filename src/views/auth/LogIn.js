@@ -71,17 +71,12 @@ const LogIn = () => {
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <CustomInput
-            name={fieldNames.email}
-            label="Correo"
-            placeholder="Ingresa tu correo"
-          />
+          <CustomInput name={fieldNames.email} placeholder="Correo" />
 
           <CustomInput
             name={fieldNames.password}
             type="password"
-            label="Contraseña"
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Contraseña"
           />
 
           <CustomButton

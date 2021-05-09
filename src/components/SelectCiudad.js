@@ -1,11 +1,8 @@
 const SelectCiudad = () => {
   return (
     <div>
-      <label htmlFor="select" className="form-label mb-0 custom-label">
-        <strong>Ciudad</strong>
-      </label>
       <select class="form-select px-1" aria-label="Default select example">
-        <option value="">Selecciona una opción...</option>
+        <option value="">Selecciona una ciudad...</option>
         <option value="Abejorral">Abejorral</option>
         <option value="Abrego">Abrego</option>
         <option value="Abriaquí">Abriaquí</option>

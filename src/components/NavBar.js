@@ -56,7 +56,7 @@ const NavBar = () => {
         >
           {state.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-            <li className="nav-item mx-lg-3">
+            <li className="nav-item my-1 my-lg-0 mx-lg-2">
               <NavLink
                 exact
                 to="/"
@@ -68,7 +68,7 @@ const NavBar = () => {
             </li>
 
             {!state.uid && (
-              <li className="nav-item mx-lg-2">
+              <li className="nav-item my-1 my-lg-0 mx-lg-2">
                 <NavLink
                   to="/auth/register"
                   className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
@@ -80,7 +80,7 @@ const NavBar = () => {
             )}
 
             {!state.uid && (
-              <li className="nav-item mx-lg-3">
+              <li className="nav-item my-1 my-lg-0 mx-lg-2">
                 <NavLink
                   to="/auth/login"
                   className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
@@ -91,7 +91,7 @@ const NavBar = () => {
               </li>
             )}
 
-            <li className="nav-item">
+            <li className="nav-item my-1 my-lg-0 mx-lg-2">
               <NavLink to={!state.uid ? '/worker' : '/worker/to-be-worker'}>
                 <button className="btn btn-primary text-white">
                   Sé un Worker

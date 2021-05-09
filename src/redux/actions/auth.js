@@ -1,4 +1,4 @@
-import { firebase, googleAuthProvider } from '../../firebase';
+import { firebase, googleAuthProvider, db } from '../../firebase';
 import { types } from '../types/types';
 import toast from 'react-hot-toast';
 import { renderError } from '../../utils/misc';
@@ -12,7 +12,18 @@ export const startLoginWithEmailPassword = (email, password) => {
         .signInWithEmailAndPassword(email, password);
       const { user } = loginResult;
 
-      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
+      const { name, surname } = await db.collection('users').get(user.uid);
+
+      dispatch(
+        login(
+          user.uid,
+          user.email,
+          name,
+          surname,
+          user.displayName,
+          user.photoURL
+        )
+      );
       toast.success('Inicio de sesión exitoso');
     } catch (error) {
       toast.error(renderError(error.code));
@@ -21,7 +32,12 @@ export const startLoginWithEmailPassword = (email, password) => {
   };
 };
 
-export const startRegisterWithEmailPassword = (email, password, name) => {
+export const startRegisterWithEmailPassword = (
+  email,
+  password,
+  name,
+  surname
+) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
@@ -33,10 +49,21 @@ export const startRegisterWithEmailPassword = (email, password, name) => {
       toast.success('Registro exitoso!');
       // Update user's displayName
       await user.updateProfile({
-        displayName: name
+        displayName: name + ' ' + surname
       });
 
-      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
+      // Save user in Firestore db
+      const userRef = db.collection('users').doc(user.uid);
+      await userRef.set({ name, surname, email, isWorker: false });
+
+      login(
+        user.uid,
+        user.email,
+        name,
+        surname,
+        user.displayName,
+        user.photoURL
+      );
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -48,12 +75,33 @@ export const startGoogleLogin = () => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
+      // Google firebase sign in
       const loginResult = await firebase
         .auth()
         .signInWithPopup(googleAuthProvider);
 
       const { user } = loginResult;
-      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
+      // Save user in Firestore db
+      const userRef = db.collection('users').doc(user.uid);
+
+      await userRef.set({
+        name: user.displayName,
+        email: user.email,
+        isWorker: false
+      });
+
+      const { name, surname } = await db.collection('users').get(user.uid);
+
+      dispatch(
+        login(
+          user.uid,
+          user.email,
+          name,
+          surname,
+          user.displayName,
+          user.photoURL
+        )
+      );
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -61,12 +109,14 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const login = (uid, email, displayName, photoURL) => ({
+export const login = (uid, email, name, surname, fullName, photoURL) => ({
   type: types.login,
   payload: {
     uid,
     email,
-    displayName,
+    name,
+    surname,
+    fullName,
     photoURL
   }
 });

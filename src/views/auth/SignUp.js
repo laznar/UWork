@@ -11,13 +11,15 @@ import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 
 const fieldNames = {
   name: 'name',
-  lastname: 'lastname',
+  surname: 'surname',
   email: 'email',
-  password: 'password'
+  password: 'password',
+  confirm: 'confirm'
 };
 
 const schema = yup.object().shape({
   [fieldNames.name]: yup.string().required('campo requerido'),
+  [fieldNames.surname]: yup.string().required('campo requerido'),
   [fieldNames.email]: yup
     .string()
     .email('correo inválido')
@@ -25,7 +27,12 @@ const schema = yup.object().shape({
   [fieldNames.password]: yup
     .string()
     .required('campo requerido')
+    .min(6, 'mínimo 6 caracteres'),
+  [fieldNames.confirm]: yup
+    .string()
+    .required('campo requerido')
     .min(6, 'mínimo 6 caracteres')
+    .oneOf([yup.ref(fieldNames.password)], 'las contraseñas deben coincidir')
 });
 
 const SignUp = () => {
@@ -36,9 +43,9 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const authUi = useSelector((state) => state.authUi);
 
-  const onSubmit = ({ email, password, name }) => {
+  const onSubmit = ({ email, password, name, surname }) => {
     if (!authUi.loading) {
-      dispatch(startRegisterWithEmailPassword(email, password, name));
+      dispatch(startRegisterWithEmailPassword(email, password, name, surname));
     }
   };
 
@@ -47,26 +54,18 @@ const SignUp = () => {
       <h2 className="mb-3">Crear cuenta</h2>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <CustomInput
-            name={fieldNames.name}
-            label="Nombres"
-            placeholder="Ingresa nombres"
-          />
-          <CustomInput
-            name={fieldNames.lastname}
-            label="Apellidos"
-            placeholder="Ingresa apellidos"
-          />
-          <CustomInput
-            name={fieldNames.email}
-            label="Correo"
-            placeholder="Ingresa tu correo"
-          />
+          <CustomInput name={fieldNames.name} placeholder="Nombre" />
+          <CustomInput name={fieldNames.surname} placeholder="Apellidos" />
+          <CustomInput name={fieldNames.email} placeholder="Correo" />
           <CustomInput
             name={fieldNames.password}
             type="password"
-            label="Contraseña"
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Ingresa tu contraseña"
+          />
+          <CustomInput
+            name={fieldNames.confirm}
+            type="password"
+            placeholder="Confirma la contraseña"
           />
           <CustomButton
             loading={authUi.loading}

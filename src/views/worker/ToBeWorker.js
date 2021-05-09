@@ -83,9 +83,6 @@ const ToBeWorker = () => {
         <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Género</strong>
-              </label>
               <Select
                 options={genero}
                 isSearchable={false}
@@ -100,6 +97,15 @@ const ToBeWorker = () => {
                 <DatePicker onChange={onChange} value={value} />
               </div>
             </div>
+
+            <div>
+              <Select
+                options={transporte}
+                isSearchable={false}
+                placeholder="Selecciona tipo de identificación"
+              />
+            </div>
+
             <CustomInput
               name={fieldNames.cedula}
               label="Cédula"
@@ -117,9 +123,6 @@ const ToBeWorker = () => {
               placeholder="Ingresa celular"
             />
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Medio de Transporte</strong>
-              </label>
               <Select
                 options={transporte}
                 isSearchable={false}
@@ -127,9 +130,6 @@ const ToBeWorker = () => {
               />
             </div>
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Acerca de mi</strong>
-              </label>
               <textarea
                 name={fieldNames.aboutMe}
                 label="Acerca de mi"
