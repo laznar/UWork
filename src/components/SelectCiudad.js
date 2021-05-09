@@ -1,7 +1,7 @@
 const SelectCiudad = () => {
   return (
     <div>
-      <select class="form-select px-1" aria-label="Default select example">
+      <select className="form-select px-1" aria-label="Default select example">
         <option value="">Selecciona una ciudad...</option>
         <option value="Abejorral">Abejorral</option>
         <option value="Abrego">Abrego</option>

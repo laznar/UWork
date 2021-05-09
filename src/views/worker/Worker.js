@@ -1,3 +1,4 @@
+import { useRef, useLayoutEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -7,11 +8,12 @@ import CustomInput from '../../components/form-controls/CustomInput';
 import Previews from '../../components/Previews';
 import TaskSearch from '../../components/TaskSearch/TaskSearch';
 import Select from 'react-select';
-import DatePicker from 'react-date-picker';
-import 'react-calendar/dist/Calendar.css';
-import 'react-date-picker/dist/DatePicker.css';
 import SelectCiudad from '../../components/SelectCiudad';
 import { useState } from 'react';
+import DatePicker from 'react-date-picker';
+import autosize from 'autosize';
+import 'react-calendar/dist/Calendar.css';
+import 'react-date-picker/dist/DatePicker.css';
 
 const fieldNames = {
   nombres: 'nombres',
@@ -36,6 +38,7 @@ const genero = [
   { value: 'F', label: 'Femenino' },
   { value: 'O', label: 'Otro' }
 ];
+
 const transporte = [
   { value: 'Público', label: 'Publico' },
   { value: 'Bicicleta', label: 'Bicicleta' },
@@ -61,13 +64,19 @@ const schema = yup.object().shape({
     .min(10, '10 dígitos')
 });
 
-const ToBeWorker = () => {
+const Worker = () => {
   const methods = useForm({
-    resolver: yupResolver(schema),
-    mode: 'onBlur'
+    resolver: yupResolver(schema)
   });
 
+  const aboutMe = useRef(null);
+
+  useLayoutEffect(() => {
+    autosize(aboutMe.current);
+  }, []);
+
   const authUi = useSelector((state) => state.authUi);
+  const auth = useSelector((state) => state.auth);
 
   const onSubmit = ({ email, password }) => {
     if (!authUi.loading) {
@@ -77,11 +86,25 @@ const ToBeWorker = () => {
 
   const [value, onChange] = useState(new Date());
   return (
-    <div>
+    <div style={{ paddingTop: 100, paddingBottom: 100 }}>
       <h1>Módulo de ser un Worker</h1>
       <FormProvider {...methods}>
         <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
+            {!auth.uid && (
+              <>
+                <CustomInput
+                  name={fieldNames.nombres}
+                  label="Nombres"
+                  placeholder="Nombres"
+                />
+                <CustomInput
+                  name={fieldNames.apellidos}
+                  label="Apellidos"
+                  placeholder="Apellidos"
+                />
+              </>
+            )}
             <div>
               <Select
                 options={genero}
@@ -89,14 +112,14 @@ const ToBeWorker = () => {
                 placeholder="Selecciona un género"
               />
             </div>
-            <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Fecha de Nacimiento</strong>
-              </label>
-              <div>
-                <DatePicker onChange={onChange} value={value} />
-              </div>
-            </div>
+
+            {!auth.uid && (
+              <CustomInput
+                name={fieldNames.email}
+                label="Correo"
+                placeholder="Ingresa tu correo"
+              />
+            )}
 
             <div>
               <Select
@@ -109,14 +132,39 @@ const ToBeWorker = () => {
             <CustomInput
               name={fieldNames.cedula}
               label="Cédula"
-              placeholder="Ingresa tu cédula"
+              placeholder="Ingresa número de identificación"
             />
+
+            {!auth.uid && (
+              <>
+                <CustomInput
+                  name={fieldNames.password}
+                  label="Contraseña"
+                  type="password"
+                  placeholder="Ingrese contraseña"
+                />
+                <CustomInput
+                  name={fieldNames.confirmpass}
+                  label="Confirmar contraseña"
+                  type="password"
+                  placeholder="Confirme contraseña"
+                />
+              </>
+            )}
             <SelectCiudad />
             <CustomInput
               name={fieldNames.direccion}
               label="Direccion"
               placeholder="Ingrese dirección del servicio"
             />
+            <div>
+              <label htmlFor="select" className="form-label mb-1 custom-label">
+                <strong>Fecha de Nacimiento</strong>
+              </label>
+              <div>
+                <DatePicker onChange={onChange} value={value} />
+              </div>
+            </div>
             <CustomInput
               name={fieldNames.celular}
               label="Número celular"
@@ -132,6 +180,7 @@ const ToBeWorker = () => {
             <div>
               <textarea
                 name={fieldNames.aboutMe}
+                ref={aboutMe}
                 label="Acerca de mi"
                 placeholder="Acerca de mi"
                 className="form-control"
@@ -152,4 +201,4 @@ const ToBeWorker = () => {
   );
 };
 
-export default ToBeWorker;
+export default Worker;
