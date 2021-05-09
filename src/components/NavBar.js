@@ -92,7 +92,7 @@ const NavBar = () => {
             )}
 
             <li className="nav-item my-1 my-lg-0 mx-lg-2">
-              <NavLink to={!state.uid ? '/worker' : '/worker/to-be-worker'}>
+              <NavLink to={!state.uid ? '/worker' : '/worker'}>
                 <button className="btn btn-primary text-white">
                   Sé un Worker
                 </button>

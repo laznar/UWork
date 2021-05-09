@@ -66,6 +66,25 @@ body {
   border-bottom-style: solid;
 }
 
+.fileContainer .chooseFileButton:hover {
+  background: #61b5de !important;
+  border-color: #58b1dc !important;
+}
+
+.fileContainer .uploadPictureContainer {
+  width: 100px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+.fileContainer .deleteImage {
+  font-size: 18.5px !important;
+  line-height: 1 !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
 @keyframes fade {
   from {
     opacity: 0;

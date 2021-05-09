@@ -1,19 +1,18 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
-import Previews from '../../components/Previews';
 import TaskSearch from '../../components/TaskSearch/TaskSearch';
 import Select from 'react-select';
 import SelectCiudad from '../../components/SelectCiudad';
-import { useState } from 'react';
 import DatePicker from 'react-date-picker';
 import autosize from 'autosize';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
+import ImageUploader from 'react-images-upload';
 
 const fieldNames = {
   nombres: 'nombres',
@@ -40,10 +39,17 @@ const genero = [
 ];
 
 const transporte = [
-  { value: 'Público', label: 'Publico' },
+  { value: 'Público', label: 'Público' },
   { value: 'Bicicleta', label: 'Bicicleta' },
   { value: 'Moto', label: 'Moto' },
   { value: 'Carro', label: 'Carro' }
+];
+
+const identificacion = [
+  { value: 'CC', label: 'Cédula de Ciudadanía' },
+  { value: 'CE', label: 'Cédula de Extranjería' },
+  { value: 'PA', label: 'Pasaporte' },
+  { value: 'TI', label: 'Tarjeta de Identidad' }
 ];
 
 const schema = yup.object().shape({
@@ -82,6 +88,12 @@ const Worker = () => {
     if (!authUi.loading) {
       //dispatch(startLoginWithEmailPassword(email, password));
     }
+  };
+
+  const [pictures, setPictures] = useState([]);
+
+  const onDrop = (picture) => {
+    setPictures([...pictures, picture]);
   };
 
   const [value, onChange] = useState(new Date());
@@ -123,7 +135,7 @@ const Worker = () => {
 
             <div>
               <Select
-                options={transporte}
+                options={identificacion}
                 isSearchable={false}
                 placeholder="Selecciona tipo de identificación"
               />
@@ -191,7 +203,29 @@ const Worker = () => {
       </FormProvider>
       <Card>
         <h5>Fotos de Perfil</h5>
-        <Previews />
+        <ImageUploader
+          withIcon={false}
+          onChange={onDrop}
+          imgExtension={[
+            '.jpg',
+            '.gif',
+            '.png',
+            '.heic',
+            'tiff',
+            '.tif',
+            'jpeg',
+            '.svg'
+          ]}
+          label="Archivo máximo de 2,5 MB"
+          maxFileSize={2621440}
+          withPreview={true}
+          singleImage={true}
+          buttonText="Seleccionar foto"
+          fileSizeError={'debe ser menor a 2,5MB'}
+          fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
+          buttonClassName="btn btn-primary"
+          buttonStyles={{ backgroundColor: '#45a8d8' }}
+        />
       </Card>
       <Card>
         <h5>Registra habilidades</h5>

@@ -19,6 +19,7 @@
     "react-dropzone": "^11.3.2",
     "react-hook-form": "^7.4.2",
     "react-hot-toast": "^1.0.2",
+    "react-images-upload": "^1.2.8",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
