@@ -30,7 +30,6 @@ const NavBar = () => {
       <div className="container">
         <Link to="/" className="navbar-brand">
           <img
-            className="ms-lg-5 ms-3"
             src={Logo}
             alt="UWork logo"
             style={{ height: '85px', width: '85px' }}

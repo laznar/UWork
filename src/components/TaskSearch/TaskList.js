@@ -14,17 +14,17 @@ const TaskList = ({ text, setText, results, unFocus }) => {
         {results.length > 0 ? (
           results.map((task) => (
             <li
-              key={task.name}
+              key={task.value}
               onMouseDown={(e) => {
                 e.preventDefault();
               }}
               onClick={() => {
-                setText(task.name);
+                setText(task.value);
                 unFocus();
               }}
               className="list-group-item list-group-item-action py-md-2 border-0 cursor-pointer lh-1"
             >
-              {task.name}
+              {task.value}
             </li>
           ))
         ) : (

@@ -1,7 +1,7 @@
 const Servicios = () => {
   return (
-    <div>
-      <h1>Modulo de Servicios</h1>
+    <div style={{ maxWidth: 600 }} className="mx-auto">
+      <h2 className="mb-4">Servicios</h2>
     </div>
   );
 };

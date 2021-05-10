@@ -4,8 +4,11 @@ import * as yup from 'yup';
 import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
-import Previews from '../../components/Previews';
 import Ratings from '../../components/Ratings';
+import { useState } from 'react';
+import ImageUploader from 'react-images-upload';
+import SelectCiudad from '../../components/SelectCiudad';
+
 const fieldNames = {
   nombres: 'nombres',
   apellidos: 'apellidos',
@@ -51,6 +54,12 @@ const Edit = () => {
       //dispatch(startLoginWithEmailPassword(email, password));
     }
   };
+
+  const [pictures, setPictures] = useState([]);
+
+  const onDrop = (picture) => {
+    setPictures([...pictures, picture]);
+  };
   return (
     <div>
       <FormProvider {...methods}>
@@ -71,20 +80,11 @@ const Edit = () => {
               label="Correo"
               placeholder="Ingresa tu correo"
             />
-            <CustomInput
-              name={fieldNames.ciudad}
-              label="Ciudad"
-              placeholder="Ingrese ciudad"
-            />
+            <SelectCiudad />
             <CustomInput
               name={fieldNames.direccion}
               label="Direccion"
-              placeholder="Ingrese dirección del servicio"
-            />
-            <CustomInput
-              name={fieldNames.telefono}
-              label="Teléfono fijo"
-              placeholder="Ingrese teléfono fijo"
+              placeholder="Dirección de domicilio"
             />
             <CustomInput
               name={fieldNames.celular}
@@ -95,8 +95,30 @@ const Edit = () => {
         </Card>
       </FormProvider>
       <Card>
-        <h5>Fotos de trabajo</h5>
-        <Previews />
+        <h5>Foto de Perfil</h5>
+        <ImageUploader
+          withIcon={false}
+          onChange={onDrop}
+          imgExtension={[
+            '.jpg',
+            '.gif',
+            '.png',
+            '.heic',
+            'tiff',
+            '.tif',
+            'jpeg',
+            '.svg'
+          ]}
+          label="Archivo máximo de 2,5 MB"
+          maxFileSize={2621440}
+          withPreview={true}
+          singleImage={true}
+          buttonText="Seleccionar foto"
+          fileSizeError={'debe ser menor a 2,5MB'}
+          fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
+          buttonClassName="btn btn-primary"
+          buttonStyles={{ backgroundColor: '#45a8d8' }}
+        />
       </Card>
       <Card>
         <h5>Reviews</h5>

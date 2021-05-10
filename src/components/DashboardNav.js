@@ -36,11 +36,11 @@ const DashboardNav = () => {
 
       <li className="nav-item my-1 my-lg-0 mx-lg-2">
         <NavLink
-          to="/dashboard/calendario"
+          to="/dashboard/proyectos"
           className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
           activeClassName="active text-primary border-primary"
         >
-          Calendario
+          Proyectos
         </NavLink>
       </li>
     </ul>

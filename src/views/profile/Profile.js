@@ -1,13 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { ChevronRightIcon } from '@heroicons/react/outline';
 import ProfilePhoto from '../../components/ProfilePhoto';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { startLogout } from '../../redux/actions/auth';
 
 const Profile = () => {
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.auth);
+
+  const history = useHistory();
+  const handleLogout = () => {
+    dispatch(startLogout());
+    history.push('/');
+  };
 
   return (
     <div className="fade-anim">
@@ -46,7 +52,7 @@ const Profile = () => {
           </div>
           <div className="list-group shadow-sm">
             <button
-              onClick={() => dispatch(startLogout())}
+              onClick={handleLogout}
               className="list-group-item list-group-item-action"
             >
               Cerrar sesión

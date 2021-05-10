@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
-import TaskSearch from '../../components/TaskSearch/TaskSearch';
 import Select from 'react-select';
 import SelectCiudad from '../../components/SelectCiudad';
 import DatePicker from 'react-date-picker';
@@ -13,6 +12,7 @@ import autosize from 'autosize';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
 import ImageUploader from 'react-images-upload';
+import tasks from '../../utils/tasksUtils';
 
 const fieldNames = {
   nombres: 'nombres',
@@ -98,8 +98,16 @@ const Worker = () => {
 
   const [value, onChange] = useState(new Date());
   return (
-    <div style={{ paddingTop: 100, paddingBottom: 100 }}>
-      <h1>Módulo de ser un Worker</h1>
+    <div
+      style={{
+        paddingTop: 100,
+        paddingBottom: 100,
+        maxWidth: 550,
+        width: '90%'
+      }}
+      className="mx-auto container"
+    >
+      <h2>Ser un Worker</h2>
       <FormProvider {...methods}>
         <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
@@ -121,7 +129,7 @@ const Worker = () => {
               <Select
                 options={genero}
                 isSearchable={false}
-                placeholder="Selecciona un género"
+                placeholder="Género"
               />
             </div>
 
@@ -137,14 +145,14 @@ const Worker = () => {
               <Select
                 options={identificacion}
                 isSearchable={false}
-                placeholder="Selecciona tipo de identificación"
+                placeholder="Tipo de identificación"
               />
             </div>
 
             <CustomInput
               name={fieldNames.cedula}
               label="Cédula"
-              placeholder="Ingresa número de identificación"
+              placeholder="Número de identificación"
             />
 
             {!auth.uid && (
@@ -167,7 +175,7 @@ const Worker = () => {
             <CustomInput
               name={fieldNames.direccion}
               label="Direccion"
-              placeholder="Ingrese dirección del servicio"
+              placeholder="Dirección del servicio"
             />
             <div>
               <label htmlFor="select" className="form-label mb-1 custom-label">
@@ -186,7 +194,7 @@ const Worker = () => {
               <Select
                 options={transporte}
                 isSearchable={false}
-                placeholder="Selecciona medio de transporte"
+                placeholder="Medio de transporte"
               />
             </div>
             <div>
@@ -202,7 +210,7 @@ const Worker = () => {
         </Card>
       </FormProvider>
       <Card>
-        <h5>Fotos de Perfil</h5>
+        <h5>Foto de Perfil</h5>
         <ImageUploader
           withIcon={false}
           onChange={onDrop}
@@ -223,13 +231,14 @@ const Worker = () => {
           buttonText="Seleccionar foto"
           fileSizeError={'debe ser menor a 2,5MB'}
           fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
-          buttonClassName="btn btn-primary"
           buttonStyles={{ backgroundColor: '#45a8d8' }}
         />
       </Card>
       <Card>
-        <h5>Registra habilidades</h5>
-        <TaskSearch />
+        <div>
+          <h5>Registra habilidades</h5>
+          <Select options={tasks} isMulti placeholder="Añadir habilidades" />
+        </div>
       </Card>
     </div>
   );

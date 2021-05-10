@@ -16,7 +16,7 @@ const TaskSearch = () => {
       setResults(
         tasks
           .filter((task) =>
-            normalizeString(task.name).includes(normalizeString(text))
+            normalizeString(task.value).includes(normalizeString(text))
           )
           .slice(0, 5)
       );

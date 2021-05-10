@@ -25,7 +25,7 @@ let oportunidades = [
 const Oportunidades = () => {
   return (
     <div style={{ maxWidth: 600 }} className="mx-auto">
-      <h2>Modulo de Oportunidades</h2>
+      <h2 className="mb-4">Oportunidades</h2>
       {oportunidades.map((oportunidad) => {
         return <OpCard {...oportunidad} />;
       })}

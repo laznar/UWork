@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { startLogout } from '../redux/actions/auth';
 import { ChevronDownIcon } from '@heroicons/react/outline';
@@ -8,8 +8,10 @@ import { renderName } from '../utils/misc';
 const ProfileMenu = ({ photoURL, displayName }) => {
   const dispatch = useDispatch();
 
+  const history = useHistory();
   const handleLogout = () => {
     dispatch(startLogout());
+    history.push('/');
   };
 
   return (
