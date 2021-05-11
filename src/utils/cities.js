@@ -1279,7 +1279,10 @@ let cities = [];
 
 citiesDepartments.forEach((element) => {
   element.ciudades.forEach((city) => {
-    cities.push({ label: city, value: city });
+    cities.push({
+      label: `${city} (${element.departamento})`,
+      value: `${city} (${element.departamento})`
+    });
   });
 });
 
