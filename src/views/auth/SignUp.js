@@ -61,26 +61,25 @@ const SignUp = () => {
   return (
     <div className="fade-anim">
       <h2 className="mb-3">Crear cuenta</h2>
+
+      <button
+        disabled={authUi.loading}
+        onClick={handleGoogleLogIn}
+        className="btn mb-2 btn-outline-light text-dark border flex align-items-center w-100"
+      >
+        <img src={google} height={20} width={20} alt="Google logo" />
+        <span className="ms-2">Registrarse con Google</span>
+      </button>
+
+      <div className="d-flex align-items-center mb-2">
+        <hr className="flex-grow-1 bg-secondary" />
+        <span className="mx-2 small text-muted">
+          O regístrate con tu correo
+        </span>
+        <hr className="flex-grow-1 bg-secondary" />
+      </div>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <div>
-            <button
-              disabled={authUi.loading}
-              onClick={handleGoogleLogIn}
-              className="btn mb-2 btn-outline-light text-dark border flex align-items-center w-100"
-            >
-              <img src={google} height={20} width={20} alt="Google logo" />
-              <span className="ms-2">Registrarse con Google</span>
-            </button>
-          </div>
-
-          <div className="d-flex align-items-center">
-            <hr className="flex-grow-1 bg-secondary" />
-            <span className="mx-2 small text-muted">
-              O regístrate con tu correo
-            </span>
-            <hr className="flex-grow-1 bg-secondary" />
-          </div>
           <CustomInput name={fieldNames.name} placeholder="Nombre" />
           <CustomInput name={fieldNames.surname} placeholder="Apellidos" />
           <CustomInput name={fieldNames.email} placeholder="Correo" />

@@ -52,18 +52,16 @@ const LogIn = () => {
     <div className="fade-anim">
       <h2 className="mb-3">Inicia sesión</h2>
 
-      <div>
-        <button
-          disabled={authUi.loading}
-          onClick={handleGoogleLogIn}
-          className="btn mb-2 btn-outline-light text-dark border flex align-items-center w-100"
-        >
-          <img src={google} height={20} width={20} alt="Google logo" />
-          <span className="ms-2">Iniciar con Google</span>
-        </button>
-      </div>
+      <button
+        disabled={authUi.loading}
+        onClick={handleGoogleLogIn}
+        className="btn mb-2 btn-outline-light text-dark border flex align-items-center w-100"
+      >
+        <img src={google} height={20} width={20} alt="Google logo" />
+        <span className="ms-2">Iniciar con Google</span>
+      </button>
 
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center mb-2">
         <hr className="flex-grow-1 bg-secondary" />
         <span className="mx-2 small text-muted">O inicia con tu correo</span>
         <hr className="flex-grow-1 bg-secondary" />

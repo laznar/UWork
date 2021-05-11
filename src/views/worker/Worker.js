@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,13 +6,13 @@ import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import Select from 'react-select';
-import SelectCiudad from '../../components/SelectCiudad';
-import DatePicker from 'react-date-picker';
 import autosize from 'autosize';
-import 'react-calendar/dist/Calendar.css';
-import 'react-date-picker/dist/DatePicker.css';
 import ImageUploader from 'react-images-upload';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
+import 'react-datepicker/dist/react-datepicker.css';
 import tasks from '../../utils/tasksUtils';
+import { cities } from '../../utils/cities';
 
 const fieldNames = {
   nombres: 'nombres',
@@ -70,7 +70,25 @@ const schema = yup.object().shape({
     .min(10, '10 dígitos')
 });
 
+const customSelectStyles = {
+  option: (provided, state) => ({
+    ...provided
+  }),
+  control: (provided, state) => ({
+    ...provided,
+    boxShadow: state.isFocused ? '0 0 0 0.25rem rgb(69 168 216 / 25%)' : 'none',
+    borderColor: state.isFocused ? '#a2d4ec' : '#ced4da',
+
+    '&:hover': {
+      borderColor: undefined
+    }
+  })
+};
+
 const Worker = () => {
+  const [pictures, setPictures] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+
   const methods = useForm({
     resolver: yupResolver(schema)
   });
@@ -79,6 +97,10 @@ const Worker = () => {
 
   useLayoutEffect(() => {
     autosize(aboutMe.current);
+  }, []);
+
+  useEffect(() => {
+    registerLocale('es', es);
   }, []);
 
   const authUi = useSelector((state) => state.authUi);
@@ -90,13 +112,10 @@ const Worker = () => {
     }
   };
 
-  const [pictures, setPictures] = useState([]);
-
   const onDrop = (picture) => {
     setPictures([...pictures, picture]);
   };
 
-  const [value, onChange] = useState(new Date());
   return (
     <div
       style={{
@@ -130,6 +149,7 @@ const Worker = () => {
                 options={genero}
                 isSearchable={false}
                 placeholder="Género"
+                styles={customSelectStyles}
               />
             </div>
 
@@ -146,6 +166,7 @@ const Worker = () => {
                 options={identificacion}
                 isSearchable={false}
                 placeholder="Tipo de identificación"
+                styles={customSelectStyles}
               />
             </div>
 
@@ -171,32 +192,51 @@ const Worker = () => {
                 />
               </>
             )}
-            <SelectCiudad />
+
+            <div>
+              <Select
+                options={cities}
+                placeholder="Seleccione ciudad"
+                styles={customSelectStyles}
+              />
+            </div>
+
             <CustomInput
               name={fieldNames.direccion}
               label="Direccion"
               placeholder="Dirección del servicio"
             />
+
             <div>
-              <label htmlFor="select" className="form-label mb-1 custom-label">
-                <strong>Fecha de Nacimiento</strong>
-              </label>
-              <div>
-                <DatePicker onChange={onChange} value={value} />
-              </div>
+              <DatePicker
+                placeholderText="Fecha de nacimiento"
+                className="form-control"
+                selected={startDate}
+                isClearable
+                onChange={(date) => {
+                  setStartDate(date);
+                }}
+                showYearDropdown
+                scrollableYearDropdown
+                locale="es"
+              />
             </div>
+
             <CustomInput
               name={fieldNames.celular}
               label="Número celular"
               placeholder="Ingresa celular"
             />
+
             <div>
               <Select
                 options={transporte}
                 isSearchable={false}
                 placeholder="Medio de transporte"
+                styles={customSelectStyles}
               />
             </div>
+
             <div>
               <textarea
                 name={fieldNames.aboutMe}
@@ -209,6 +249,7 @@ const Worker = () => {
           </form>
         </Card>
       </FormProvider>
+
       <Card>
         <h5>Foto de Perfil</h5>
         <ImageUploader
@@ -234,10 +275,16 @@ const Worker = () => {
           buttonStyles={{ backgroundColor: '#45a8d8' }}
         />
       </Card>
+
       <Card>
         <div>
           <h5>Registra habilidades</h5>
-          <Select options={tasks} isMulti placeholder="Añadir habilidades" />
+          <Select
+            styles={customSelectStyles}
+            options={tasks}
+            isMulti
+            placeholder="Añadir habilidades"
+          />
         </div>
       </Card>
     </div>

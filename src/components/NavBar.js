@@ -28,7 +28,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom custom-navbar">
       <div className="container">
-        <Link to="/" className="navbar-brand">
+        <Link to="/">
           <img
             src={Logo}
             alt="UWork logo"

@@ -9,6 +9,10 @@ body {
   font-family: 'Karla', sans-serif;
 }
 
+textarea {
+  resize: none;
+}
+
 .custom-navbar {
   position: absolute;
   top: 0;
@@ -21,11 +25,6 @@ body {
 
 .list-format {
   list-style-type: none;
-}
-
-.navbar-brand {
-  padding: 0;
-  margin: 0;
 }
 
 .home-input {
@@ -66,6 +65,8 @@ body {
   border-bottom-style: solid;
 }
 
+/*========= Styles for react-images-upload =========*/
+
 .fileContainer .chooseFileButton:hover {
   background: #61b5de !important;
   border-color: #58b1dc !important;
@@ -84,6 +85,35 @@ body {
   width: 20px !important;
   height: 20px !important;
 }
+
+/*========= Styles for react-select =========*/
+
+.react-select__control:focus {
+  border-color: #a2d4ec;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(69 168 216 / 25%);
+}
+
+/*========= Styles for react-datepicker =========*/
+
+.react-datepicker__input-container {
+  width: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: $primary;
+}
+
+.react-datepicker__close-icon::after {
+  background-color: $primary !important;
+}
+
+/*========= Keyframes =========*/
 
 @keyframes fade {
   from {
