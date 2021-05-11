@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
+import CustomButton from '../../components/form-controls/CustomButton';
 import Select from 'react-select';
 import autosize from 'autosize';
 import ImageUploader from 'react-images-upload';
@@ -15,37 +16,37 @@ import tasks from '../../utils/tasksUtils';
 import { cities } from '../../utils/cities';
 
 const fieldNames = {
-  nombres: 'nombres',
-  apellidos: 'apellidos',
-  genero: 'genero',
+  name: 'surname',
+  surname: 'surname',
+  gender: 'gender',
   email: 'email',
-  cedula: 'cedula',
+  personalId: 'personalId',
   password: 'password',
-  confirmpass: 'confirmpass',
-  ciudad: 'ciudad',
-  direccion: 'direccion',
-  fechaNacimiento: 'fechaNacimiento',
-  celular: 'celular',
-  medioTransporte: 'medioTransporte',
+  confirm: 'confirm',
+  city: 'city',
+  address: 'address',
+  dateOfBirth: 'dateOfBirth',
+  phoneNumber: 'phoneNumber',
+  transport: 'transport',
   aboutMe: 'aboutMe',
-  foto: 'foto',
-  habilidad: 'habilidad'
+  photo: 'photo',
+  skills: 'skills'
 };
 
-const genero = [
+const genders = [
   { value: 'M', label: 'Masculino' },
   { value: 'F', label: 'Femenino' },
   { value: 'O', label: 'Otro' }
 ];
 
-const transporte = [
+const transports = [
   { value: 'Público', label: 'Público' },
   { value: 'Bicicleta', label: 'Bicicleta' },
   { value: 'Moto', label: 'Moto' },
   { value: 'Carro', label: 'Carro' }
 ];
 
-const identificacion = [
+const personalIds = [
   { value: 'CC', label: 'Cédula de Ciudadanía' },
   { value: 'CE', label: 'Cédula de Extranjería' },
   { value: 'PA', label: 'Pasaporte' },
@@ -53,6 +54,8 @@ const identificacion = [
 ];
 
 const schema = yup.object().shape({
+  [fieldNames.name]: yup.string().required('campo requerido'),
+  [fieldNames.surname]: yup.string().required('campo requerido'),
   [fieldNames.email]: yup
     .string()
     .email('correo inválido')
@@ -61,13 +64,28 @@ const schema = yup.object().shape({
     .string()
     .required('campo requerido')
     .min(6, 'mínimo 6 caracteres'),
-  [fieldNames.celular]: yup
+  [fieldNames.confirm]: yup
     .string()
-    .matches(/^\d+$/)
-    .test('len', 'celular de 10 dígitos', (val) => val.length === 10)
-    .required('Celular 10 dígitos')
-    .max(10, '10 dígitos')
-    .min(10, '10 dígitos')
+    .required('campo requerido')
+    .min(6, 'mínimo 6 caracteres')
+    .oneOf([yup.ref(fieldNames.password)], 'las contraseñas deben coincidir'),
+  [fieldNames.personalId]: yup
+    .number()
+    .required('campo requerido')
+    .typeError('debe ser un número')
+    .positive('debe ser un número positivo')
+    .integer('debe ser un número entero'),
+  [fieldNames.phoneNumber]: yup
+    .number()
+    .required('campo requerido')
+    .typeError('debe ser un número')
+    .positive('debe ser un número positivo')
+    .integer('debe ser un número entero')
+    .test(
+      'len',
+      'el celular debe ser de 10 dígitos',
+      (val) => val.length === 10
+    )
 });
 
 const customSelectStyles = {
@@ -106,9 +124,10 @@ const Worker = () => {
   const authUi = useSelector((state) => state.authUi);
   const auth = useSelector((state) => state.auth);
 
-  const onSubmit = ({ email, password }) => {
+  const onSubmit = (data) => {
     if (!authUi.loading) {
-      //dispatch(startLoginWithEmailPassword(email, password));
+      // dispatch(startLoginWithEmailPassword(email, password));
+      console.log(data);
     }
   };
 
@@ -127,43 +146,47 @@ const Worker = () => {
       className="mx-auto container"
     >
       <h2>Ser un Worker</h2>
-      <FormProvider {...methods}>
-        <Card>
+
+      <Card>
+        <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
             {!auth.uid && (
               <>
+                <CustomInput name={fieldNames.name} placeholder="Nombres" />
                 <CustomInput
-                  name={fieldNames.nombres}
-                  label="Nombres"
-                  placeholder="Nombres"
+                  name={fieldNames.surname}
+                  placeholder="Apellidos"
                 />
                 <CustomInput
-                  name={fieldNames.apellidos}
-                  label="Apellidos"
-                  placeholder="Apellidos"
+                  name={fieldNames.email}
+                  placeholder="Ingresa tu correo"
+                />
+
+                <CustomInput
+                  name={fieldNames.password}
+                  type="password"
+                  placeholder="Ingrese contraseña"
+                />
+                <CustomInput
+                  name={fieldNames.confirm}
+                  type="password"
+                  placeholder="Confirma tu contraseña"
                 />
               </>
             )}
+
             <div>
               <Select
-                options={genero}
+                options={genders}
                 isSearchable={false}
                 placeholder="Género"
                 styles={customSelectStyles}
               />
             </div>
 
-            {!auth.uid && (
-              <CustomInput
-                name={fieldNames.email}
-                label="Correo"
-                placeholder="Ingresa tu correo"
-              />
-            )}
-
             <div>
               <Select
-                options={identificacion}
+                options={personalIds}
                 isSearchable={false}
                 placeholder="Tipo de identificación"
                 styles={customSelectStyles}
@@ -171,27 +194,9 @@ const Worker = () => {
             </div>
 
             <CustomInput
-              name={fieldNames.cedula}
-              label="Cédula"
+              name={fieldNames.personalId}
               placeholder="Número de identificación"
             />
-
-            {!auth.uid && (
-              <>
-                <CustomInput
-                  name={fieldNames.password}
-                  label="Contraseña"
-                  type="password"
-                  placeholder="Ingrese contraseña"
-                />
-                <CustomInput
-                  name={fieldNames.confirmpass}
-                  label="Confirmar contraseña"
-                  type="password"
-                  placeholder="Confirme contraseña"
-                />
-              </>
-            )}
 
             <div>
               <Select
@@ -202,8 +207,7 @@ const Worker = () => {
             </div>
 
             <CustomInput
-              name={fieldNames.direccion}
-              label="Direccion"
+              name={fieldNames.address}
               placeholder="Dirección del servicio"
             />
 
@@ -223,14 +227,13 @@ const Worker = () => {
             </div>
 
             <CustomInput
-              name={fieldNames.celular}
-              label="Número celular"
+              name={fieldNames.phoneNumber}
               placeholder="Ingresa celular"
             />
 
             <div>
               <Select
-                options={transporte}
+                options={transports}
                 isSearchable={false}
                 placeholder="Medio de transporte"
                 styles={customSelectStyles}
@@ -241,14 +244,19 @@ const Worker = () => {
               <textarea
                 name={fieldNames.aboutMe}
                 ref={aboutMe}
-                label="Acerca de mi"
                 placeholder="Acerca de mi"
                 className="form-control"
               ></textarea>
             </div>
+            <CustomButton
+              className="btn btn-primary text-white w-100"
+              type="submit"
+            >
+              Guardar
+            </CustomButton>
           </form>
-        </Card>
-      </FormProvider>
+        </FormProvider>
+      </Card>
 
       <Card>
         <h5>Foto de Perfil</h5>

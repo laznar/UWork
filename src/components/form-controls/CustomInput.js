@@ -12,6 +12,7 @@ const CustomInput = ({ name, placeholder, type = 'text' }) => {
       <div className="d-flex flex-column">
         <input
           // autoComplete="off"
+
           type={type}
           className={clsx('form-control', errors[name] && 'is-invalid')}
           id={name}
