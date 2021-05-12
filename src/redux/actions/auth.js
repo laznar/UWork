@@ -71,6 +71,41 @@ export const startRegisterWithEmailPassword = (
   };
 };
 
+export const startRegisterAsWorker = (data, isWorker) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const { email, password, name, surname } = data;
+      // Firebase register
+      const registerResult = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      const { user } = registerResult;
+      toast.success('Registro exitoso!');
+      // Update user's displayName
+      await user.updateProfile({
+        displayName: name + ' ' + surname
+      });
+
+      // Save user in Firestore db
+      const userRef = db.collection('users').doc(user.uid);
+      await userRef.set({ data, isWorker });
+
+      login(
+        user.uid,
+        user.email,
+        name,
+        surname,
+        user.displayName,
+        user.photoURL
+      );
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
 export const startGoogleLogin = () => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));

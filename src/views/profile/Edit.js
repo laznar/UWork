@@ -60,8 +60,9 @@ const Edit = () => {
   const onDrop = (picture) => {
     setPictures([...pictures, picture]);
   };
+
   return (
-    <div>
+    <div style={{ maxWidth: 550 }} className="mx-auto">
       <FormProvider {...methods}>
         <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">

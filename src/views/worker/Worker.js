@@ -198,10 +198,13 @@ const Worker = () => {
                 className="form-control"
                 selected={startDate}
                 isClearable
+                peekNextMonth
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
                 onChange={(date) => {
                   setStartDate(date);
                 }}
-                showYearDropdown
                 scrollableYearDropdown
                 locale="es"
               />
@@ -237,10 +240,41 @@ const Worker = () => {
                 )}
               />
             </div>
+            <div>
+              <Select
+                styles={customSelectStyles}
+                options={tasks}
+                isMulti
+                placeholder="Añadir habilidades"
+              />
+            </div>
 
             <div>
               <CustomTextarea name={fieldNames.aboutMe} />
             </div>
+            <h5>Foto de Perfil</h5>
+            <ImageUploader
+              withIcon={false}
+              onChange={onDrop}
+              imgExtension={[
+                '.jpg',
+                '.gif',
+                '.png',
+                '.heic',
+                'tiff',
+                '.tif',
+                'jpeg',
+                '.svg'
+              ]}
+              label="Archivo máximo de 2,5 MB"
+              maxFileSize={2621440}
+              withPreview={true}
+              singleImage={true}
+              buttonText="Seleccionar foto"
+              fileSizeError={'debe ser menor a 2,5MB'}
+              fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
+              buttonStyles={{ backgroundColor: '#45a8d8' }}
+            />
             <CustomButton
               className="btn btn-primary text-white w-100"
               type="submit"
@@ -249,44 +283,6 @@ const Worker = () => {
             </CustomButton>
           </form>
         </FormProvider>
-      </Card>
-
-      <Card>
-        <h5>Foto de Perfil</h5>
-        <ImageUploader
-          withIcon={false}
-          onChange={onDrop}
-          imgExtension={[
-            '.jpg',
-            '.gif',
-            '.png',
-            '.heic',
-            'tiff',
-            '.tif',
-            'jpeg',
-            '.svg'
-          ]}
-          label="Archivo máximo de 2,5 MB"
-          maxFileSize={2621440}
-          withPreview={true}
-          singleImage={true}
-          buttonText="Seleccionar foto"
-          fileSizeError={'debe ser menor a 2,5MB'}
-          fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
-          buttonStyles={{ backgroundColor: '#45a8d8' }}
-        />
-      </Card>
-
-      <Card>
-        <div>
-          <h5>Registra habilidades</h5>
-          <Select
-            styles={customSelectStyles}
-            options={tasks}
-            isMulti
-            placeholder="Añadir habilidades"
-          />
-        </div>
       </Card>
     </div>
   );
