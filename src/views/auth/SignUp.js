@@ -81,18 +81,23 @@ const SignUp = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <CustomInput name={fieldNames.name} placeholder="Nombre" />
+
           <CustomInput name={fieldNames.surname} placeholder="Apellidos" />
+
           <CustomInput name={fieldNames.email} placeholder="Correo" />
+
           <CustomInput
             name={fieldNames.password}
             type="password"
             placeholder="Ingresa tu contraseña"
           />
+
           <CustomInput
             name={fieldNames.confirm}
             type="password"
             placeholder="Confirma la contraseña"
           />
+
           <CustomButton
             loading={authUi.loading}
             type="submit"

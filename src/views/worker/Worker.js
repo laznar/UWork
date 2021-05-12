@@ -78,56 +78,31 @@ const Worker = () => {
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
             {!auth.uid && (
               <>
-                <div>
-                  <CustomInput name={fieldNames.name} placeholder="Nombres" />
-                </div>
+                <CustomInput name={fieldNames.name} placeholder="Nombres" />
 
-                <div>
-                  <CustomInput
-                    name={fieldNames.surname}
-                    placeholder="Apellidos"
-                  />
-                </div>
+                <CustomInput
+                  name={fieldNames.surname}
+                  placeholder="Apellidos"
+                />
 
-                <div>
-                  <CustomInput
-                    name={fieldNames.email}
-                    placeholder="Ingresa tu correo"
-                  />
-                </div>
+                <CustomInput
+                  name={fieldNames.email}
+                  placeholder="Ingresa tu correo"
+                />
 
-                <div>
-                  <CustomInput
-                    name={fieldNames.password}
-                    type="password"
-                    placeholder="Ingrese contraseña"
-                  />
-                </div>
+                <CustomInput
+                  name={fieldNames.password}
+                  type="password"
+                  placeholder="Ingrese contraseña"
+                />
 
-                <div>
-                  <CustomInput
-                    name={fieldNames.confirm}
-                    type="password"
-                    placeholder="Confirma tu contraseña"
-                  />
-                </div>
+                <CustomInput
+                  name={fieldNames.confirm}
+                  type="password"
+                  placeholder="Confirma tu contraseña"
+                />
               </>
             )}
-
-            {/* <div>
-              <Controller
-                name={fieldNames.gender}
-                render={({ field, formState: { errors } }) => (
-                  <CustomSelect
-                    {...field}
-                    options={genders}
-                    error={errors[fieldNames.gender]}
-                    isSearchable={false}
-                    placeholder="Género"
-                  />
-                )}
-              />
-            </div> */}
 
             <div>
               <Controller
@@ -181,12 +156,10 @@ const Worker = () => {
               />
             </div>
 
-            <div>
-              <CustomInput
-                name={fieldNames.personalId}
-                placeholder="Número de identificación"
-              />
-            </div>
+            <CustomInput
+              name={fieldNames.personalId}
+              placeholder="Número de identificación"
+            />
 
             <div>
               <Controller
@@ -214,12 +187,10 @@ const Worker = () => {
               />
             </div>
 
-            <div>
-              <CustomInput
-                name={fieldNames.address}
-                placeholder="Dirección del servicio"
-              />
-            </div>
+            <CustomInput
+              name={fieldNames.address}
+              placeholder="Dirección del servicio"
+            />
 
             <div>
               <DatePicker
@@ -236,12 +207,10 @@ const Worker = () => {
               />
             </div>
 
-            <div>
-              <CustomInput
-                name={fieldNames.phoneNumber}
-                placeholder="Ingresa celular"
-              />
-            </div>
+            <CustomInput
+              name={fieldNames.phoneNumber}
+              placeholder="Ingresa celular"
+            />
 
             <div>
               <Controller

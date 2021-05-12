@@ -8,7 +8,7 @@ const CustomInput = ({ name, type = 'text', ...rest }) => {
   } = useFormContext();
 
   return (
-    <>
+    <div>
       <input
         type={type}
         className={clsx('form-control', errors[name] && 'is-invalid')}
@@ -20,7 +20,7 @@ const CustomInput = ({ name, type = 'text', ...rest }) => {
       {errors[name] && (
         <span className="text-danger small">{errors[name].message}</span>
       )}
-    </>
+    </div>
   );
 };
 
