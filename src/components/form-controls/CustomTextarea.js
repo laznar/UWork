@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import clsx from 'clsx';
 
-const CustomInput = ({ name, type = 'text', ...rest }) => {
+const CustomTextarea = ({ name, placeholder, type = 'text', ...rest }) => {
   const {
     register,
     formState: { errors }
@@ -9,14 +9,13 @@ const CustomInput = ({ name, type = 'text', ...rest }) => {
 
   return (
     <>
-      <input
-        type={type}
+      <textarea
+        name={name}
+        placeholder="Acerca de mi"
         className={clsx('form-control', errors[name] && 'is-invalid')}
-        id={name}
         {...register(name)}
         {...rest}
       />
-
       {errors[name] && (
         <span className="text-danger small">{errors[name].message}</span>
       )}
@@ -24,4 +23,4 @@ const CustomInput = ({ name, type = 'text', ...rest }) => {
   );
 };
 
-export default CustomInput;
+export default CustomTextarea;

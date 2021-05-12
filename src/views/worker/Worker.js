@@ -1,7 +1,6 @@
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import Card from '../../components/cards/Card';
 import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
@@ -14,101 +13,31 @@ import es from 'date-fns/locale/es';
 import 'react-datepicker/dist/react-datepicker.css';
 import tasks from '../../utils/tasksUtils';
 import { cities } from '../../utils/cities';
-
-const fieldNames = {
-  name: 'surname',
-  surname: 'surname',
-  gender: 'gender',
-  email: 'email',
-  personalId: 'personalId',
-  password: 'password',
-  confirm: 'confirm',
-  city: 'city',
-  address: 'address',
-  dateOfBirth: 'dateOfBirth',
-  phoneNumber: 'phoneNumber',
-  transport: 'transport',
-  aboutMe: 'aboutMe',
-  photo: 'photo',
-  skills: 'skills'
-};
-
-const genders = [
-  { value: 'M', label: 'Masculino' },
-  { value: 'F', label: 'Femenino' },
-  { value: 'O', label: 'Otro' }
-];
-
-const transports = [
-  { value: 'Público', label: 'Público' },
-  { value: 'Bicicleta', label: 'Bicicleta' },
-  { value: 'Moto', label: 'Moto' },
-  { value: 'Carro', label: 'Carro' }
-];
-
-const personalIds = [
-  { value: 'CC', label: 'Cédula de Ciudadanía' },
-  { value: 'CE', label: 'Cédula de Extranjería' },
-  { value: 'PA', label: 'Pasaporte' },
-  { value: 'TI', label: 'Tarjeta de Identidad' }
-];
-
-const schema = yup.object().shape({
-  [fieldNames.name]: yup.string().required('campo requerido'),
-  [fieldNames.surname]: yup.string().required('campo requerido'),
-  [fieldNames.email]: yup
-    .string()
-    .email('correo inválido')
-    .required('campo requerido'),
-  [fieldNames.password]: yup
-    .string()
-    .required('campo requerido')
-    .min(6, 'mínimo 6 caracteres'),
-  [fieldNames.confirm]: yup
-    .string()
-    .required('campo requerido')
-    .min(6, 'mínimo 6 caracteres')
-    .oneOf([yup.ref(fieldNames.password)], 'las contraseñas deben coincidir'),
-  [fieldNames.personalId]: yup
-    .number()
-    .required('campo requerido')
-    .typeError('debe ser un número')
-    .positive('debe ser un número positivo')
-    .integer('debe ser un número entero'),
-  [fieldNames.phoneNumber]: yup
-    .number()
-    .required('campo requerido')
-    .typeError('debe ser un número')
-    .positive('debe ser un número positivo')
-    .integer('debe ser un número entero')
-    .test(
-      'len',
-      'el celular debe ser de 10 dígitos',
-      (val) => val.length === 10
-    )
-});
-
-const customSelectStyles = {
-  option: (provided, state) => ({
-    ...provided
-  }),
-  control: (provided, state) => ({
-    ...provided,
-    boxShadow: state.isFocused ? '0 0 0 0.25rem rgb(69 168 216 / 25%)' : 'none',
-    borderColor: state.isFocused ? '#a2d4ec' : '#ced4da',
-
-    '&:hover': {
-      borderColor: undefined
-    }
-  })
-};
+import CustomTextarea from '../../components/form-controls/CustomTextarea';
+import {
+  customSelectStyles,
+  customErrorSelectStyles
+} from '../../utils/selectStyles';
+import {
+  workerRegisterFieldNames,
+  workerUpdateFieldNames
+} from '../../utils/fieldNames';
+import { workerRegisterSchema, workerUpdateSchema } from '../../utils/schemas';
+import { genders, personalIds, transports } from '../../utils/enums';
 
 const Worker = () => {
   const [pictures, setPictures] = useState([]);
   const [startDate, setStartDate] = useState(null);
 
+  const authUi = useSelector((state) => state.authUi);
+  const auth = useSelector((state) => state.auth);
+
+  const fieldNames = auth.uid
+    ? workerUpdateFieldNames
+    : workerRegisterFieldNames;
+
   const methods = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(auth.uid ? workerUpdateSchema : workerRegisterSchema)
   });
 
   const aboutMe = useRef(null);
@@ -120,9 +49,6 @@ const Worker = () => {
   useEffect(() => {
     registerLocale('es', es);
   }, []);
-
-  const authUi = useSelector((state) => state.authUi);
-  const auth = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
@@ -152,64 +78,148 @@ const Worker = () => {
           <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
             {!auth.uid && (
               <>
-                <CustomInput name={fieldNames.name} placeholder="Nombres" />
-                <CustomInput
-                  name={fieldNames.surname}
-                  placeholder="Apellidos"
-                />
-                <CustomInput
-                  name={fieldNames.email}
-                  placeholder="Ingresa tu correo"
-                />
+                <div>
+                  <CustomInput name={fieldNames.name} placeholder="Nombres" />
+                </div>
 
-                <CustomInput
-                  name={fieldNames.password}
-                  type="password"
-                  placeholder="Ingrese contraseña"
-                />
-                <CustomInput
-                  name={fieldNames.confirm}
-                  type="password"
-                  placeholder="Confirma tu contraseña"
-                />
+                <div>
+                  <CustomInput
+                    name={fieldNames.surname}
+                    placeholder="Apellidos"
+                  />
+                </div>
+
+                <div>
+                  <CustomInput
+                    name={fieldNames.email}
+                    placeholder="Ingresa tu correo"
+                  />
+                </div>
+
+                <div>
+                  <CustomInput
+                    name={fieldNames.password}
+                    type="password"
+                    placeholder="Ingrese contraseña"
+                  />
+                </div>
+
+                <div>
+                  <CustomInput
+                    name={fieldNames.confirm}
+                    type="password"
+                    placeholder="Confirma tu contraseña"
+                  />
+                </div>
               </>
             )}
 
+            {/* <div>
+              <Controller
+                name={fieldNames.gender}
+                render={({ field, formState: { errors } }) => (
+                  <CustomSelect
+                    {...field}
+                    options={genders}
+                    error={errors[fieldNames.gender]}
+                    isSearchable={false}
+                    placeholder="Género"
+                  />
+                )}
+              />
+            </div> */}
+
             <div>
-              <Select
-                options={genders}
-                isSearchable={false}
-                placeholder="Género"
-                styles={customSelectStyles}
+              <Controller
+                name={fieldNames.gender}
+                render={({ field, formState: { errors } }) => (
+                  <>
+                    <Select
+                      {...field}
+                      options={genders}
+                      isSearchable={false}
+                      placeholder="Género"
+                      styles={
+                        errors[fieldNames.gender]
+                          ? customErrorSelectStyles
+                          : customSelectStyles
+                      }
+                    />
+                    {errors[fieldNames.gender] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.gender].message}
+                      </span>
+                    )}
+                  </>
+                )}
               />
             </div>
 
             <div>
-              <Select
-                options={personalIds}
-                isSearchable={false}
-                placeholder="Tipo de identificación"
-                styles={customSelectStyles}
+              <Controller
+                name={fieldNames.typeOfId}
+                render={({ field, formState: { errors } }) => (
+                  <>
+                    <Select
+                      {...field}
+                      options={personalIds}
+                      isSearchable={false}
+                      placeholder="Tipo de identificación"
+                      styles={
+                        errors[fieldNames.typeOfId]
+                          ? customErrorSelectStyles
+                          : customSelectStyles
+                      }
+                    />
+                    {errors[fieldNames.typeOfId] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.typeOfId].message}
+                      </span>
+                    )}
+                  </>
+                )}
               />
             </div>
-
-            <CustomInput
-              name={fieldNames.personalId}
-              placeholder="Número de identificación"
-            />
 
             <div>
-              <Select
-                options={cities}
-                placeholder="Seleccione ciudad"
-                styles={customSelectStyles}
+              <CustomInput
+                name={fieldNames.personalId}
+                placeholder="Número de identificación"
               />
             </div>
 
-            <CustomInput
-              name={fieldNames.address}
-              placeholder="Dirección del servicio"
-            />
+            <div>
+              <Controller
+                name={fieldNames.city}
+                render={({ field, formState: { errors } }) => (
+                  <>
+                    <Select
+                      {...field}
+                      options={cities}
+                      isSearchable={false}
+                      placeholder="Ciudad"
+                      styles={
+                        errors[fieldNames.city]
+                          ? customErrorSelectStyles
+                          : customSelectStyles
+                      }
+                    />
+                    {errors[fieldNames.city] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.city].message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+
+            <div>
+              <CustomInput
+                name={fieldNames.address}
+                placeholder="Dirección del servicio"
+              />
+            </div>
 
             <div>
               <DatePicker
@@ -226,27 +236,41 @@ const Worker = () => {
               />
             </div>
 
-            <CustomInput
-              name={fieldNames.phoneNumber}
-              placeholder="Ingresa celular"
-            />
-
             <div>
-              <Select
-                options={transports}
-                isSearchable={false}
-                placeholder="Medio de transporte"
-                styles={customSelectStyles}
+              <CustomInput
+                name={fieldNames.phoneNumber}
+                placeholder="Ingresa celular"
               />
             </div>
 
             <div>
-              <textarea
-                name={fieldNames.aboutMe}
-                ref={aboutMe}
-                placeholder="Acerca de mi"
-                className="form-control"
-              ></textarea>
+              <Controller
+                name={fieldNames.transport}
+                render={({ field, formState: { errors } }) => (
+                  <>
+                    <Select
+                      {...field}
+                      options={transports}
+                      isSearchable={false}
+                      placeholder="Medio de transporte"
+                      styles={
+                        errors[fieldNames.transport]
+                          ? customErrorSelectStyles
+                          : customSelectStyles
+                      }
+                    />
+                    {errors[fieldNames.transport] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.transport].message}
+                      </span>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+
+            <div>
+              <CustomTextarea name={fieldNames.aboutMe} />
             </div>
             <CustomButton
               className="btn btn-primary text-white w-100"
