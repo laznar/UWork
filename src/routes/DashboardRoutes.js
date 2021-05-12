@@ -3,6 +3,7 @@ import Oportunidades from '../views/dashboard/Oportunidades';
 import Mensajes from '../views/dashboard/Mensajes';
 import Servicios from '../views/dashboard/Servicios';
 import Proyectos from '../views/dashboard/Proyectos';
+import Dashboard from '../views/dashboard/Dashboard';
 
 const DashboardRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const DashboardRoutes = () => {
           <Route exact path="/dashboard/mis-servicios" component={Servicios} />
           <Route exact path="/dashboard/mensajes" component={Mensajes} />
           <Route exact path="/dashboard/proyectos" component={Proyectos} />
+          <Route exact path="/dashboard" component={Dashboard} />
           <Redirect to="/dashboard" />
         </Switch>
       </div>

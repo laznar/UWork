@@ -1,7 +1,7 @@
 const Dashboard = () => {
   return (
-    <div className="container mt-5 pt-4">
-      <h1>Imágenes</h1>
+    <div className="container mt-5 pt-4 mx-auto" style={{ maxWidth: 600 }}>
+      <h1>Dashboard</h1>
     </div>
   );
 };

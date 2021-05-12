@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 
-import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
+import {
+  startRegisterAsWorker,
+  startGoogleLogin
+} from '../../redux/actions/auth';
 
 import google from '../../assets/img/google.svg';
-import { startGoogleLogin } from '../../redux/actions/auth';
 
 const fieldNames = {
   name: 'name',
@@ -46,9 +48,10 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const authUi = useSelector((state) => state.authUi);
 
-  const onSubmit = ({ email, password, name, surname }) => {
+  const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startRegisterWithEmailPassword(email, password, name, surname));
+      dispatch(startRegisterAsWorker(data, false));
+      // dispatch(startRegisterWithEmailPassword(email, password, name, surname));
     }
   };
 
@@ -81,23 +84,18 @@ const SignUp = () => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <CustomInput name={fieldNames.name} placeholder="Nombre" />
-
           <CustomInput name={fieldNames.surname} placeholder="Apellidos" />
-
           <CustomInput name={fieldNames.email} placeholder="Correo" />
-
           <CustomInput
             name={fieldNames.password}
             type="password"
             placeholder="Ingresa tu contraseña"
           />
-
           <CustomInput
             name={fieldNames.confirm}
             type="password"
             placeholder="Confirma la contraseña"
           />
-
           <CustomButton
             loading={authUi.loading}
             type="submit"

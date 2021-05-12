@@ -2,6 +2,7 @@ import Card from '../../components/cards/Card';
 import tasks from '../../utils/tasksUtils';
 import Select from 'react-select';
 import ServCard from '../../components/cards/ServCard';
+import CustomButton from '../../components/form-controls/CustomButton';
 
 const customSelectStyles = {
   option: (provided, state) => ({
@@ -43,6 +44,12 @@ const Servicios = () => {
             placeholder="Añadir habilidades"
           />
         </div>
+        <CustomButton
+          className="btn btn-primary text-white w-100 mt-4"
+          type="submit"
+        >
+          Guardar
+        </CustomButton>
       </Card>
       {servicios.map((servicio) => {
         return <ServCard {...servicio} />;

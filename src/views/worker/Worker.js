@@ -2,7 +2,7 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Card from '../../components/cards/Card';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 import Select from 'react-select';
@@ -24,6 +24,7 @@ import {
 } from '../../utils/fieldNames';
 import { workerRegisterSchema, workerUpdateSchema } from '../../utils/schemas';
 import { genders, personalIds, transports } from '../../utils/enums';
+import { startRegisterAsWorker } from '../../redux/actions/auth';
 
 const Worker = () => {
   const [pictures, setPictures] = useState([]);
@@ -31,6 +32,8 @@ const Worker = () => {
 
   const authUi = useSelector((state) => state.authUi);
   const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
 
   const fieldNames = auth.uid
     ? workerUpdateFieldNames
@@ -52,6 +55,7 @@ const Worker = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
+      dispatch(startRegisterAsWorker(data, true));
       // dispatch(startLoginWithEmailPassword(email, password));
       console.log(data);
     }
@@ -169,7 +173,7 @@ const Worker = () => {
                     <Select
                       {...field}
                       options={cities}
-                      isSearchable={false}
+                      isSearchable={true}
                       placeholder="Ciudad"
                       styles={
                         errors[fieldNames.city]

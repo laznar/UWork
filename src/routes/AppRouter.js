@@ -83,6 +83,7 @@ const AppRouter = () => {
             isAuthenticated={isAuthenticated}
             component={ProfileRoutes}
           />
+
           <Route path="/worker" exact component={Worker} />
 
           <Route exact path="/" component={Home} />

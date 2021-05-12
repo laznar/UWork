@@ -46,7 +46,6 @@ export const startRegisterWithEmailPassword = (
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const { user } = registerResult;
-      toast.success('Registro exitoso!');
       // Update user's displayName
       await user.updateProfile({
         displayName: name + ' ' + surname
@@ -55,6 +54,8 @@ export const startRegisterWithEmailPassword = (
       // Save user in Firestore db
       const userRef = db.collection('users').doc(user.uid);
       await userRef.set({ name, surname, email, isWorker: false });
+
+      toast.success('Registro exitoso!');
 
       login(
         user.uid,
@@ -81,15 +82,25 @@ export const startRegisterAsWorker = (data, isWorker) => {
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const { user } = registerResult;
-      toast.success('Registro exitoso!');
       // Update user's displayName
       await user.updateProfile({
         displayName: name + ' ' + surname
       });
 
+      delete data.password;
+      delete data.confirm;
+      if (data.city && data.gender && data.transport && data.typeOfId) {
+        data.city = data.city.value;
+        data.gender = data.gender.value;
+        data.transport = data.transport.value;
+        data.typeOfId = data.typeOfId.value;
+      }
+
       // Save user in Firestore db
       const userRef = db.collection('users').doc(user.uid);
-      await userRef.set({ data, isWorker });
+      await userRef.set({ ...data, isWorker });
+
+      toast.success('Registro exitoso!');
 
       login(
         user.uid,
