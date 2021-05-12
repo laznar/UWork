@@ -14,7 +14,6 @@ const ProfileRoutes = () => {
           <Route exact path="/profile/password" component={Password} />
           <Route exact path="/profile/edit" component={Edit} />
           <Route exact path="/profile" component={Profile} />
-
           <Redirect to="/profile" />
         </Switch>
       </div>

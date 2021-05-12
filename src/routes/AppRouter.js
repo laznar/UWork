@@ -20,6 +20,7 @@ import Footer from '../views/home/Footer';
 import DashboardRoutes from './DashboardRoutes';
 import ProfileRoutes from './ProfileRoutes';
 import Worker from '../views/worker/Worker';
+import Reviews from '../views/profile/Reviews';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ const AppRouter = () => {
           />
 
           <Route path="/worker" exact component={Worker} />
+          <Route path="/reviews" exact component={Reviews} />
 
           <Route exact path="/" component={Home} />
 
