@@ -2,12 +2,17 @@ import { useState, useEffect, useRef } from 'react';
 import TaskList from './TaskList';
 import tasks from '../../utils/tasksUtils';
 import { normalizeString } from '../../utils/misc';
+import { useHistory } from 'react-router-dom';
 
 const TaskSearch = () => {
   const [focused, setFocused] = useState(false);
   const [text, setText] = useState('');
   const [results, setResults] = useState([]);
   const ref = useRef(null);
+  const history = useHistory();
+  const handleSearch = () => {
+    history.push('/resultados');
+  };
 
   useEffect(() => {
     if (!text) {
@@ -47,8 +52,10 @@ const TaskSearch = () => {
         className="form-control form-control-lg fs-6 home-input border flex-grow-1 rounded-0 rounded-start"
         placeholder={!text ? 'Necesito ayuda con ...' : ''}
       />
-
-      <button className="btn btn-primary text-white rounded-0 rounded-end">
+      <button
+        className="btn btn-primary text-white rounded-0 rounded-end"
+        onClick={handleSearch}
+      >
         Buscar
       </button>
       {focused && (

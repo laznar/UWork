@@ -21,6 +21,7 @@ import DashboardRoutes from './DashboardRoutes';
 import ProfileRoutes from './ProfileRoutes';
 import Worker from '../views/worker/Worker';
 import Reviews from '../views/profile/Reviews';
+import Resultados from '../views/results/Resultados';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -88,6 +89,7 @@ const AppRouter = () => {
           <Route path="/worker" exact component={Worker} />
           <Route path="/reviews" exact component={Reviews} />
 
+          <Route path="/resultados" exact component={Resultados} />
           <Route exact path="/" component={Home} />
 
           <Redirect to="/" />
