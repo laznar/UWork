@@ -53,6 +53,11 @@ const ProfileMenu = ({ photoURL, displayName }) => {
           </Link>
         </li>
         <li>
+          <Link className="dropdown-item" to="/payment-gateway">
+            Pagos
+          </Link>
+        </li>
+        <li>
           <button className="dropdown-item" onClick={handleLogout}>
             Cerrar sesión
           </button>

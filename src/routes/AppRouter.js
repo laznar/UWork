@@ -22,6 +22,7 @@ import ProfileRoutes from './ProfileRoutes';
 import Worker from '../views/worker/Worker';
 import Reviews from '../views/profile/Reviews';
 import Resultados from '../views/results/Resultados';
+import Pagos from '../views/payments/Pagos';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ const AppRouter = () => {
 
           <Route path="/resultados" exact component={Resultados} />
           <Route exact path="/" component={Home} />
+          <Route path="/payment-gateway" exact component={Pagos} />
 
           <Redirect to="/" />
         </Switch>
