@@ -72,6 +72,59 @@ export const startRegisterWithEmailPassword = (
   };
 };
 
+export const startUpdateUserInfo = (data, uid) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const {
+        name,
+        surname
+        /*email,
+        gender,
+        typeOfId,
+        personalId,
+        city,
+        address,
+        dateOfBirth,
+        phoneNumber,
+        transport,
+        skills,
+        aboutMe,
+        photoUrl*/
+      } = data;
+      const user = firebase.auth().currentUser;
+      uid = user.uid;
+
+      delete data.password;
+      delete data.confirm;
+      if (data.city && data.gender && data.transport && data.typeOfId) {
+        data.city = data.city.value;
+        data.gender = data.gender.value;
+        data.transport = data.transport.value;
+        data.typeOfId = data.typeOfId.value;
+      }
+
+      // Save user in Firestore db
+      const userRef = db.collection('users').doc(uid);
+      await userRef.set({ ...data });
+
+      toast.success('Registro exitoso!');
+
+      login(
+        user.uid,
+        user.email,
+        name,
+        surname,
+        user.displayName,
+        user.photoURL
+      );
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
 export const startRegisterAsWorker = (data, isWorker) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));

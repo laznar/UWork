@@ -19,7 +19,7 @@ import {
   customErrorSelectStyles
 } from '../../utils/selectStyles';
 import { genders, personalIds, transports } from '../../utils/enums';
-import { startRegisterAsWorker } from '../../redux/actions/auth';
+import { startUpdateUserInfo } from '../../redux/actions/auth';
 import { workerRegisterSchema, workerUpdateSchema } from '../../utils/schemas';
 
 const Edit = () => {
@@ -45,7 +45,7 @@ const Edit = () => {
     transport: 'transport',
     skills: 'skills',
     aboutMe: 'aboutMe',
-    photo: 'photo'
+    photoUrl: 'photoUrl'
   };
 
   const methods = useForm({
@@ -64,7 +64,7 @@ const Edit = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startRegisterAsWorker(data, true));
+      dispatch(startUpdateUserInfo(data));
       // dispatch(startLoginWithEmailPassword(email, password));
       console.log(data);
     }
