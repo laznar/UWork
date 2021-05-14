@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import TaskList from './TaskList';
-import tasks from '../../utils/tasksUtils';
+import tasks from '../../utils/tasks';
 import { normalizeString } from '../../utils/misc';
 import { useHistory } from 'react-router-dom';
 

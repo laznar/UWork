@@ -1,17 +1,19 @@
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Card from '../../components/cards/Card';
+import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
-import CustomInput from '../../components/form-controls/CustomInput';
-import CustomButton from '../../components/form-controls/CustomButton';
 import Select from 'react-select';
 import autosize from 'autosize';
-import ImageUploader from 'react-images-upload';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
 import 'react-datepicker/dist/react-datepicker.css';
-import tasks from '../../utils/tasksUtils';
+import ImageUploader from 'react-images-upload';
+
+import Card from '../../components/cards/Card';
+import CustomInput from '../../components/form-controls/CustomInput';
+import CustomButton from '../../components/form-controls/CustomButton';
+import tasks from '../../utils/tasks';
 import { cities } from '../../utils/cities';
 import CustomTextarea from '../../components/form-controls/CustomTextarea';
 import {
@@ -28,7 +30,6 @@ import { startRegisterAsWorker } from '../../redux/actions/auth';
 
 const Worker = () => {
   const [pictures, setPictures] = useState([]);
-  const [startDate, setStartDate] = useState(null);
 
   const authUi = useSelector((state) => state.authUi);
   const auth = useSelector((state) => state.auth);
@@ -68,7 +69,7 @@ const Worker = () => {
   return (
     <div
       style={{
-        paddingTop: 100,
+        paddingTop: 30,
         paddingBottom: 100,
         maxWidth: 550,
         width: '90%'
@@ -110,12 +111,9 @@ const Worker = () => {
 
             <div>
               <Controller
-                name={fieldNames.gender}
-                render={({ field, formState: { errors } }) => (
+                render={({ field: { onChange }, formState: { errors } }) => (
                   <>
                     <Select
-                      {...field}
-                      options={genders}
                       isSearchable={false}
                       placeholder="Género"
                       styles={
@@ -123,6 +121,12 @@ const Worker = () => {
                           ? customErrorSelectStyles
                           : customSelectStyles
                       }
+                      getOptionValue={(option) => option.value}
+                      options={genders}
+                      onChange={(e) => {
+                        // onChange's arg will send value into hook form
+                        onChange(e.value);
+                      }}
                     />
                     {errors[fieldNames.gender] && (
                       <span className="text-danger small">
@@ -131,17 +135,16 @@ const Worker = () => {
                     )}
                   </>
                 )}
+                name={fieldNames.gender}
+                control={methods.control}
               />
             </div>
 
             <div>
               <Controller
-                name={fieldNames.typeOfId}
-                render={({ field, formState: { errors } }) => (
+                render={({ field: { onChange }, formState: { errors } }) => (
                   <>
                     <Select
-                      {...field}
-                      options={personalIds}
                       isSearchable={false}
                       placeholder="Tipo de identificación"
                       styles={
@@ -149,6 +152,11 @@ const Worker = () => {
                           ? customErrorSelectStyles
                           : customSelectStyles
                       }
+                      getOptionValue={(option) => option.value}
+                      options={personalIds}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
                     />
                     {errors[fieldNames.typeOfId] && (
                       <span className="text-danger small">
@@ -157,6 +165,8 @@ const Worker = () => {
                     )}
                   </>
                 )}
+                name={fieldNames.typeOfId}
+                control={methods.control}
               />
             </div>
 
@@ -167,19 +177,20 @@ const Worker = () => {
 
             <div>
               <Controller
-                name={fieldNames.city}
-                render={({ field, formState: { errors } }) => (
+                render={({ field: { onChange }, formState: { errors } }) => (
                   <>
                     <Select
-                      {...field}
-                      options={cities}
-                      isSearchable={true}
                       placeholder="Ciudad"
                       styles={
                         errors[fieldNames.city]
                           ? customErrorSelectStyles
                           : customSelectStyles
                       }
+                      getOptionValue={(option) => option.value}
+                      options={cities}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
                     />
                     {errors[fieldNames.city] && (
                       <span className="text-danger small">
@@ -188,6 +199,8 @@ const Worker = () => {
                     )}
                   </>
                 )}
+                name={fieldNames.city}
+                control={methods.control}
               />
             </div>
 
@@ -197,20 +210,35 @@ const Worker = () => {
             />
 
             <div>
-              <DatePicker
-                placeholderText="Fecha de nacimiento"
-                className="form-control"
-                selected={startDate}
-                isClearable
-                peekNextMonth
-                showMonthDropdown
-                showYearDropdown
-                dropdownMode="select"
-                onChange={(date) => {
-                  setStartDate(date);
-                }}
-                scrollableYearDropdown
-                locale="es"
+              <Controller
+                render={({ field, formState: { errors } }) => (
+                  <>
+                    <DatePicker
+                      {...field}
+                      placeholderText="Fecha de nacimiento"
+                      className={clsx(
+                        'form-control',
+                        errors[fieldNames.dateOfBirth] && 'is-invalid'
+                      )}
+                      isClearable
+                      selected={field.value}
+                      peekNextMonth
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                      scrollableYearDropdown
+                      locale="es"
+                      control={methods.control}
+                    />
+                    {errors[fieldNames.dateOfBirth] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.dateOfBirth].message}
+                      </span>
+                    )}
+                  </>
+                )}
+                name={fieldNames.dateOfBirth}
+                control={methods.control}
               />
             </div>
 
@@ -221,12 +249,9 @@ const Worker = () => {
 
             <div>
               <Controller
-                name={fieldNames.transport}
-                render={({ field, formState: { errors } }) => (
+                render={({ field: { onChange }, formState: { errors } }) => (
                   <>
                     <Select
-                      {...field}
-                      options={transports}
                       isSearchable={false}
                       placeholder="Medio de transporte"
                       styles={
@@ -234,6 +259,11 @@ const Worker = () => {
                           ? customErrorSelectStyles
                           : customSelectStyles
                       }
+                      getOptionValue={(option) => option.value}
+                      options={transports}
+                      onChange={(e) => {
+                        onChange(e.value);
+                      }}
                     />
                     {errors[fieldNames.transport] && (
                       <span className="text-danger small">
@@ -242,8 +272,11 @@ const Worker = () => {
                     )}
                   </>
                 )}
+                name={fieldNames.transport}
+                control={methods.control}
               />
             </div>
+
             <div>
               <Select
                 styles={customSelectStyles}
@@ -256,20 +289,12 @@ const Worker = () => {
             <div>
               <CustomTextarea name={fieldNames.aboutMe} />
             </div>
+
             <h5>Foto de Perfil</h5>
             <ImageUploader
               withIcon={false}
               onChange={onDrop}
-              imgExtension={[
-                '.jpg',
-                '.gif',
-                '.png',
-                '.heic',
-                'tiff',
-                '.tif',
-                'jpeg',
-                '.svg'
-              ]}
+              imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
               label="Archivo máximo de 2,5 MB"
               maxFileSize={2621440}
               withPreview={true}

@@ -1,5 +1,5 @@
 import Card from '../../components/cards/Card';
-import tasks from '../../utils/tasksUtils';
+import tasks from '../../utils/tasks';
 import Select from 'react-select';
 import ServCard from '../../components/cards/ServCard';
 import CustomButton from '../../components/form-controls/CustomButton';

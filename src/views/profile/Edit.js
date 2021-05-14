@@ -11,7 +11,7 @@ import ImageUploader from 'react-images-upload';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
 import 'react-datepicker/dist/react-datepicker.css';
-import tasks from '../../utils/tasksUtils';
+import tasks from '../../utils/tasks';
 import { cities } from '../../utils/cities';
 import CustomTextarea from '../../components/form-controls/CustomTextarea';
 import {

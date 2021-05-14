@@ -142,12 +142,6 @@ export const startRegisterAsWorker = (data, isWorker) => {
 
       delete data.password;
       delete data.confirm;
-      if (data.city && data.gender && data.transport && data.typeOfId) {
-        data.city = data.city.value;
-        data.gender = data.gender.value;
-        data.transport = data.transport.value;
-        data.typeOfId = data.typeOfId.value;
-      }
 
       // Save user in Firestore db
       const userRef = db.collection('users').doc(user.uid);

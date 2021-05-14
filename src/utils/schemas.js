@@ -20,32 +20,18 @@ const workerRegisterSchema = yup.object().shape({
       [yup.ref(workerRegisterFieldNames.password)],
       'las contraseñas deben coincidir'
     ),
-  [workerRegisterFieldNames.gender]: yup
-    .object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required()
-    })
-    .required('campo requerido'),
-  [workerRegisterFieldNames.typeOfId]: yup
-    .object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required()
-    })
-    .required('campo requerido'),
+  [workerRegisterFieldNames.gender]: yup.string().required('campo requerido'),
+  [workerRegisterFieldNames.typeOfId]: yup.string().required('campo requerido'),
   [workerRegisterFieldNames.personalId]: yup
     .string()
     .required('campo requerido')
     .matches(/^[0-9]+$/, 'debe ser un número'),
-  [workerRegisterFieldNames.city]: yup
-    .object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required()
-    })
-    .required('campo requerido'),
+  [workerRegisterFieldNames.city]: yup.string().required('campo requerido'),
   [workerRegisterFieldNames.address]: yup.string().required('campo requerido'),
+  [workerRegisterFieldNames.dateOfBirth]: yup
+    .date()
+    .required('campo requerido')
+    .nullable(),
   [workerRegisterFieldNames.phoneNumber]: yup
     .string()
     .required('campo requerido')
@@ -57,11 +43,7 @@ const workerRegisterSchema = yup.object().shape({
     ),
 
   [workerRegisterFieldNames.transport]: yup
-    .object()
-    .shape({
-      label: yup.string().required(),
-      value: yup.string().required()
-    })
+    .string()
     .required('campo requerido'),
   [workerRegisterFieldNames.aboutMe]: yup.string().required('campo requerido')
 });
