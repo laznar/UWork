@@ -17,8 +17,6 @@ const Profile = () => {
 
   return (
     <div className="fade-anim">
-      <h1>Perfil</h1>
-
       <div className="d-flex flex-md-row flex-column flex-grow-1">
         <div
           style={{ minWidth: 290 }}

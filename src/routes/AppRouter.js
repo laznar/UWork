@@ -86,14 +86,11 @@ const AppRouter = () => {
             isAuthenticated={isAuthenticated}
             component={ProfileRoutes}
           />
-
           <Route path="/worker" exact component={Worker} />
-          <Route path="/reviews" exact component={Reviews} />
-
-          <Route path="/resultados" exact component={Resultados} />
+          <PrivateRoute path="/reviews" exact component={Reviews} />
+          <PrivateRoute path="/resultados" exact component={Resultados} />
+          <PrivateRoute path="/payment-gateway" exact component={Pagos} />
           <Route exact path="/" component={Home} />
-          <Route path="/payment-gateway" exact component={Pagos} />
-
           <Redirect to="/" />
         </Switch>
       </div>

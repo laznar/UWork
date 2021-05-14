@@ -6,10 +6,7 @@ import Edit from '../views/profile/Edit';
 const ProfileRoutes = () => {
   return (
     <div>
-      <div
-        className="container"
-        style={{ paddingTop: 100, paddingBottom: 100 }}
-      >
+      <div className="container" style={{ paddingTop: 50, paddingBottom: 100 }}>
         <Switch>
           <Route exact path="/profile/password" component={Password} />
           <Route exact path="/profile/edit" component={Edit} />

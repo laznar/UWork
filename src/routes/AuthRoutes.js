@@ -6,10 +6,7 @@ import ResetPassword from '../views/auth/ResetPassword';
 const AuthRoutes = () => {
   return (
     <div>
-      <div
-        className="container"
-        style={{ paddingTop: 150, paddingBottom: 150 }}
-      >
+      <div className="container" style={{ paddingTop: 50, paddingBottom: 100 }}>
         <div
           style={{ maxWidth: 400 }}
           className="mx-auto border rounded-3 p-4 shadow-sm bg-white"

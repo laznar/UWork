@@ -10,7 +10,7 @@ const images = [image1, image2, image3, image4];
 const currentImage = images[Math.floor(Math.random() * images.length)];
 
 const CustomMain = styled.main`
-  height: 100vh;
+  height: calc(100vh - 85px);
   min-height: 568px;
   background-image: url(${currentImage});
   background-position: 80% bottom;

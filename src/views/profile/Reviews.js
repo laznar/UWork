@@ -34,8 +34,11 @@ const averageScore = () => {
 
 const Reviews = () => {
   return (
-    <div className="container mt-5 pt-4 mx-auto" style={{ maxWidth: 600 }}>
-      <h3 className="mt-3">Mis Reviews</h3>
+    <div
+      className="container mx-auto"
+      style={{ paddingTop: 30, maxWidth: 600 }}
+    >
+      <h3>Mis Reviews</h3>
       <GlobalRating value={averageScore()} />
       <h3 className="mt-0">Comentarios</h3>
       {reviews.map((review) => {

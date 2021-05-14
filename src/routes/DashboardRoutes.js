@@ -8,10 +8,7 @@ import Dashboard from '../views/dashboard/Dashboard';
 const DashboardRoutes = () => {
   return (
     <div>
-      <div
-        className="container"
-        style={{ paddingTop: 100, paddingBottom: 100 }}
-      >
+      <div className="container" style={{ paddingTop: 30, paddingBottom: 100 }}>
         <Switch>
           <Route
             exact
