@@ -147,6 +147,24 @@ export const startSendPasswordResetEmail = (email, reset) => {
   };
 };
 
+export const startAccountDeletion = () => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const user = firebase.auth().currentUser;
+      const userRef = db.collection('users').doc(user.uid);
+      await userRef.delete();
+      await user.delete();
+      dispatch(logout());
+      toast.dismiss();
+      toast.success('Cuenta borrada');
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
 export const startPasswordUpdate = (email, password, newPassword, reset) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
