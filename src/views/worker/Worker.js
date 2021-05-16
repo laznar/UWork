@@ -277,11 +277,33 @@ const Worker = () => {
             </div>
 
             <div>
-              <Select
-                styles={customSelectStyles}
-                options={tasks}
-                isMulti
-                placeholder="Añadir habilidades"
+              <Controller
+                render={({ field: { onChange }, formState: { errors } }) => (
+                  <>
+                    <Select
+                      placeholder="Añadir habilidades"
+                      isMulti
+                      styles={
+                        errors[fieldNames.skills]
+                          ? customErrorSelectStyles
+                          : customSelectStyles
+                      }
+                      getOptionValue={(option) => option.value}
+                      options={tasks}
+                      onChange={(e) => {
+                        console.log(e.map((op) => op.value));
+                        onChange(e.map((op) => op.value));
+                      }}
+                    />
+                    {errors[fieldNames.skills] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.skills].message}
+                      </span>
+                    )}
+                  </>
+                )}
+                name={fieldNames.skills}
+                control={methods.control}
               />
             </div>
 
@@ -289,20 +311,27 @@ const Worker = () => {
               <CustomTextarea name={fieldNames.aboutMe} />
             </div>
 
-            <h5>Foto de Perfil</h5>
-            <ImageUploader
-              withIcon={false}
-              onChange={onDrop}
-              imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
-              label="Archivo máximo de 2,5 MB"
-              maxFileSize={2621440}
-              withPreview={true}
-              singleImage={true}
-              buttonText="Seleccionar foto"
-              fileSizeError={'debe ser menor a 2,5MB'}
-              fileContainerStyle={{ padding: 0, margin: 0, boxShadow: 'none' }}
-              buttonStyles={{ backgroundColor: '#45a8d8' }}
-            />
+            <div>
+              <h5 className="mb-0">Foto de Perfil</h5>
+              <ImageUploader
+                withIcon={false}
+                onChange={onDrop}
+                imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
+                label="Archivo máximo de 2,5 MB"
+                maxFileSize={2621440}
+                withPreview={true}
+                singleImage={true}
+                fileTypeError="Tipo de archivo inválido"
+                buttonText="Seleccionar foto"
+                fileSizeError={'debe ser menor a 2,5MB'}
+                fileContainerStyle={{
+                  padding: 0,
+                  margin: 0,
+                  boxShadow: 'none'
+                }}
+                buttonStyles={{ backgroundColor: '#45a8d8' }}
+              />
+            </div>
             <CustomButton
               className="btn btn-primary text-white w-100"
               type="submit"

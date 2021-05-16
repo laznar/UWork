@@ -158,17 +158,12 @@ export const startAccountDeletion = () => {
       await user.delete();
       dispatch(logout());
       Swal.fire({
-        title: 'Eliminado!',
+        title: 'Cuenta eliminada',
         text: 'Su cuenta ha sido eliminada exitosamente',
         confirmButtonColor: '#45a8d8',
         icon: 'success'
       });
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se pudo eliminar la cuenta'
-      });
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));

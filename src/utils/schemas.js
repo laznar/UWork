@@ -41,9 +41,15 @@ const workerRegisterSchema = yup.object().shape({
       'el celular debe ser de 10 dígitos',
       (val) => val.length === 10
     ),
-
   [workerRegisterFieldNames.transport]: yup
     .string()
+    .required('campo requerido'),
+  [workerRegisterFieldNames.skills]: yup
+    .array()
+    .test({
+      message: 'Debes escoger al menos una habilidad',
+      test: (arr) => arr?.length >= 1
+    })
     .required('campo requerido'),
   [workerRegisterFieldNames.aboutMe]: yup.string().required('campo requerido')
 });
