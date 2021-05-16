@@ -25,7 +25,7 @@ const Profile = () => {
           <ProfilePhoto
             height={124}
             width={124}
-            displayName={auth.name}
+            displayName={auth.fullName}
             photoURL={auth.photoURL}
             className="mb-3"
           />

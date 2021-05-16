@@ -10,7 +10,7 @@ import AuthRoutes from './AuthRoutes';
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../redux/actions/auth';
+import { login, setUserData } from '../redux/actions/auth';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { firebase, db } from '../firebase';
@@ -34,19 +34,15 @@ const AppRouter = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       try {
         if (user?.uid && !authUi.loading) {
+          // Reference to user document
           const userRef = db.collection('users').doc(user.uid);
+          // Get data
           const doc = await userRef.get();
 
           dispatch(
-            login(
-              user.uid,
-              user.email,
-              doc.data().name,
-              doc.data().surname,
-              user.displayName,
-              user.photoURL
-            )
+            login(user.uid, user.email, user.displayName, user.photoURL)
           );
+          dispatch(setUserData(doc.data()));
           setIsAuthenticated(true);
         } else if (!authUi.loading) {
           setIsAuthenticated(false);

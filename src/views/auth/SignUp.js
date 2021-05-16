@@ -8,7 +8,7 @@ import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 
 import {
-  startRegisterAsWorker,
+  startRegisterWithEmailPassword,
   startGoogleLogin
 } from '../../redux/actions/auth';
 
@@ -50,8 +50,7 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startRegisterAsWorker(data, false));
-      // dispatch(startRegisterWithEmailPassword(email, password, name, surname));
+      dispatch(startRegisterWithEmailPassword(data));
     }
   };
 

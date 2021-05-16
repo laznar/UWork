@@ -2,7 +2,7 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Card from '../../components/cards/Card';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 import Select from 'react-select';
@@ -19,7 +19,6 @@ import {
   customErrorSelectStyles
 } from '../../utils/selectStyles';
 import { genders, personalIds, transports } from '../../utils/enums';
-import { startUpdateUserInfo } from '../../redux/actions/auth';
 import { workerRegisterSchema, workerUpdateSchema } from '../../utils/schemas';
 
 const Edit = () => {
@@ -28,8 +27,6 @@ const Edit = () => {
 
   const authUi = useSelector((state) => state.authUi);
   const auth = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
 
   const fieldNames = {
     name: 'name',
@@ -64,7 +61,6 @@ const Edit = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startUpdateUserInfo(data));
       // dispatch(startLoginWithEmailPassword(email, password));
       console.log(data);
     }

@@ -26,7 +26,7 @@ import {
 } from '../../utils/fieldNames';
 import { workerRegisterSchema, workerUpdateSchema } from '../../utils/schemas';
 import { genders, personalIds, transports } from '../../utils/enums';
-import { startRegisterAsWorker } from '../../redux/actions/auth';
+import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 
 const Worker = () => {
   const [pictures, setPictures] = useState([]);
@@ -56,8 +56,7 @@ const Worker = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startRegisterAsWorker(data, true));
-      // dispatch(startLoginWithEmailPassword(email, password));
+      dispatch(startRegisterWithEmailPassword(data, true));
       console.log(data);
     }
   };

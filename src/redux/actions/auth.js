@@ -12,18 +12,7 @@ export const startLoginWithEmailPassword = (email, password) => {
         .signInWithEmailAndPassword(email, password);
       const { user } = loginResult;
 
-      const { name, surname } = await db.collection('users').get(user.uid);
-
-      dispatch(
-        login(
-          user.uid,
-          user.email,
-          name,
-          surname,
-          user.displayName,
-          user.photoURL
-        )
-      );
+      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
       toast.success('Inicio de sesión exitoso');
     } catch (error) {
       toast.error(renderError(error.code));
@@ -32,98 +21,37 @@ export const startLoginWithEmailPassword = (email, password) => {
   };
 };
 
-export const startRegisterWithEmailPassword = (
-  email,
-  password,
-  name,
-  surname
-) => {
+export const startRegisterWithEmailPassword = (data, isWorker = false) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
       // Firebase register
       const registerResult = await firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password);
+        .createUserWithEmailAndPassword(data.email, data.password);
       const { user } = registerResult;
       // Update user's displayName
       await user.updateProfile({
-        displayName: name + ' ' + surname
+        displayName: data.name + ' ' + data.surname
       });
-
-      // Save user in Firestore db
-      const userRef = db.collection('users').doc(user.uid);
-      await userRef.set({ name, surname, email, isWorker: false });
-
-      toast.success('Registro exitoso!');
-
-      login(
-        user.uid,
-        user.email,
-        name,
-        surname,
-        user.displayName,
-        user.photoURL
-      );
-    } catch (error) {
-      toast.error(renderError(error.code));
-    }
-    dispatch(authUiLoading(false));
-  };
-};
-
-export const startUpdateUserInfo = (data, uid) => {
-  return async (dispatch) => {
-    dispatch(authUiLoading(true));
-    try {
-      const {
-        name,
-        surname
-        /*email,
-        gender,
-        typeOfId,
-        personalId,
-        city,
-        address,
-        dateOfBirth,
-        phoneNumber,
-        transport,
-        skills,
-        aboutMe,
-        photoUrl*/
-      } = data;
-      const user = firebase.auth().currentUser;
-      uid = user.uid;
 
       delete data.password;
       delete data.confirm;
-      if (data.city && data.gender && data.transport && data.typeOfId) {
-        data.city = data.city.value;
-        data.gender = data.gender.value;
-        data.transport = data.transport.value;
-        data.typeOfId = data.typeOfId.value;
-      }
-
       // Save user in Firestore db
-      const userRef = db.collection('users').doc(uid);
-      await userRef.set({ ...data });
+      const userRef = db.collection('users').doc(user.uid);
+      await userRef.set({ ...data, isWorker });
 
       toast.success('Registro exitoso!');
 
-      login(
-        user.uid,
-        user.email,
-        name,
-        surname,
-        user.displayName,
-        user.photoURL
-      );
+      login(user.uid, user.email, user.displayName, user.photoURL);
     } catch (error) {
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));
   };
 };
+
+export const startUpdateUserInfo = (data, uid) => {};
 
 export const startRegisterAsWorker = (data, isWorker) => {
   return async (dispatch) => {
@@ -149,14 +77,7 @@ export const startRegisterAsWorker = (data, isWorker) => {
 
       toast.success('Registro exitoso!');
 
-      login(
-        user.uid,
-        user.email,
-        name,
-        surname,
-        user.displayName,
-        user.photoURL
-      );
+      login(user.uid, user.email, user.displayName, user.photoURL);
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -168,7 +89,7 @@ export const startGoogleLogin = () => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
-      // Google firebase sign in
+      // Google sign in with pop up
       const loginResult = await firebase
         .auth()
         .signInWithPopup(googleAuthProvider);
@@ -183,18 +104,7 @@ export const startGoogleLogin = () => {
         isWorker: false
       });
 
-      const { name, surname } = await db.collection('users').get(user.uid);
-
-      dispatch(
-        login(
-          user.uid,
-          user.email,
-          name,
-          surname,
-          user.displayName,
-          user.photoURL
-        )
-      );
+      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -202,13 +112,11 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const login = (uid, email, name, surname, fullName, photoURL) => ({
+export const login = (uid, email, fullName, photoURL) => ({
   type: types.login,
   payload: {
     uid,
     email,
-    name,
-    surname,
     fullName,
     photoURL
   }
@@ -262,6 +170,11 @@ export const startPasswordUpdate = (email, password, newPassword, reset) => {
     dispatch(authUiLoading(false));
   };
 };
+
+export const setUserData = (userData) => ({
+  type: types.setUserData,
+  payload: userData
+});
 
 export const logout = () => ({
   type: types.logout

@@ -9,7 +9,7 @@ import DashboardNav from './DashboardNav';
 const NavBar = () => {
   const location = useLocation();
 
-  const state = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     hideNavBar();
@@ -53,7 +53,7 @@ const NavBar = () => {
           className="collapse navbar-collapse"
           id="navbarNav"
         >
-          {state.uid && <DashboardNav />}
+          {auth.uid && <DashboardNav />}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item my-1 my-lg-0 mx-lg-2">
               <NavLink
@@ -66,7 +66,7 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            {!state.uid && (
+            {!auth.uid && (
               <li className="nav-item my-1 my-lg-0 mx-lg-2">
                 <NavLink
                   to="/auth/register"
@@ -78,7 +78,7 @@ const NavBar = () => {
               </li>
             )}
 
-            {!state.uid && (
+            {!auth.uid && (
               <li className="nav-item my-1 my-lg-0 mx-lg-2">
                 <NavLink
                   to="/auth/login"
@@ -91,18 +91,18 @@ const NavBar = () => {
             )}
 
             <li className="nav-item my-1 my-lg-0 mx-lg-2">
-              <NavLink to={!state.uid ? '/worker' : '/worker'}>
+              <NavLink to={!auth.uid ? '/worker' : '/worker'}>
                 <button className="btn btn-primary text-white">
                   Sé un Worker
                 </button>
               </NavLink>
             </li>
 
-            {state.uid && (
+            {auth.uid && (
               <li className="nav-item mx-lg-3">
                 <ProfileMenu
-                  photoURL={state.photoURL}
-                  displayName={state.name}
+                  photoURL={auth.photoURL}
+                  displayName={auth.fullName}
                 />
               </li>
             )}
