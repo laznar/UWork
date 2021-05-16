@@ -25,6 +25,7 @@ import Resultados from '../views/results/Resultados';
 import Pagos from '../views/payments/Pagos';
 
 const AppRouter = () => {
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const authUi = useSelector((state) => state.authUi);
   const [loading, setLoading] = useState(true);
@@ -88,12 +89,14 @@ const AppRouter = () => {
             isAuthenticated={isAuthenticated}
             component={Worker}
           />
-          <PrivateRoute
-            path="/reviews"
-            exact
-            isAuthenticated={isAuthenticated}
-            component={Reviews}
-          />
+          {auth?.userData?.isWorker && (
+            <PrivateRoute
+              path="/reviews"
+              exact
+              isAuthenticated={isAuthenticated}
+              component={Reviews}
+            />
+          )}
           <PrivateRoute
             path="/resultados"
             exact

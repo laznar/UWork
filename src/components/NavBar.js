@@ -90,13 +90,15 @@ const NavBar = () => {
               </li>
             )}
 
-            <li className="nav-item my-1 my-lg-0 mx-lg-2">
-              <NavLink to={!auth.uid ? '/worker' : '/worker'}>
-                <button className="btn btn-primary text-white">
-                  Sé un Worker
-                </button>
-              </NavLink>
-            </li>
+            {!auth?.userData?.isWorker && (
+              <li className="nav-item my-1 my-lg-0 mx-lg-2">
+                <NavLink to={!auth.uid ? '/worker' : '/worker'}>
+                  <button className="btn btn-primary text-white">
+                    Sé un Worker
+                  </button>
+                </NavLink>
+              </li>
+            )}
 
             {auth.uid && (
               <li className="nav-item mx-lg-3">

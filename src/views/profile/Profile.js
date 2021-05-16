@@ -1,18 +1,15 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ChevronRightIcon } from '@heroicons/react/outline';
 import { Link, useHistory } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 import ProfilePhoto from '../../components/ProfilePhoto';
 import { startLogout, startAccountDeletion } from '../../redux/actions/auth';
-import CustomButton from '../../components/form-controls/CustomButton';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const [toastId, setToastId] = useState(null);
   const auth = useSelector((state) => state.auth);
-  const authUi = useSelector((state) => state.authUi);
 
   const history = useHistory();
 
@@ -21,33 +18,21 @@ const Profile = () => {
     history.push('/');
   };
 
-  const handleDeleteClick = () => {
-    if (!authUi.loading) {
-      dispatch(startAccountDeletion());
-    }
-  };
-
   const handleDeleteOptionClick = () => {
-    if (toastId) {
-      toast.dismiss(toastId);
-    }
-    setToastId(
-      toast(
-        <div className="d-flex align-items-center">
-          ¿Deseas borrar tu cuenta?
-          <CustomButton
-            onClick={handleDeleteClick}
-            className="ms-2 btn btn-danger btn-sm"
-            loading={authUi.loading}
-          >
-            Borrar
-          </CustomButton>
-        </div>,
-        {
-          icon: '⚠️'
-        }
-      )
-    );
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Recuerda: no podrás recuperar la cuenta después',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#45a8d8',
+      cancelButtonColor: '#d84545',
+      confirmButtonText: 'Borrar cuenta',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(startAccountDeletion());
+      }
+    });
   };
 
   return (
@@ -64,7 +49,7 @@ const Profile = () => {
             photoURL={auth.photoURL}
             className="mb-3"
           />
-          <strong>{auth.name}</strong>
+          <strong>{auth.fullName}</strong>
           <span className="text-muted">{auth.email}</span>
         </div>
 

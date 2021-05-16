@@ -2,6 +2,7 @@ import { firebase, googleAuthProvider, db } from '../../firebase';
 import { types } from '../types/types';
 import toast from 'react-hot-toast';
 import { renderError } from '../../utils/misc';
+import Swal from 'sweetalert2';
 
 export const startLoginWithEmailPassword = (email, password) => {
   return async (dispatch) => {
@@ -156,9 +157,18 @@ export const startAccountDeletion = () => {
       await userRef.delete();
       await user.delete();
       dispatch(logout());
-      toast.dismiss();
-      toast.success('Cuenta borrada');
+      Swal.fire({
+        title: 'Eliminado!',
+        text: 'Su cuenta ha sido eliminada exitosamente',
+        confirmButtonColor: '#45a8d8',
+        icon: 'success'
+      });
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo eliminar la cuenta'
+      });
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));

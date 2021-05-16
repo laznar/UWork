@@ -1,11 +1,12 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLogout } from '../redux/actions/auth';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import ProfilePhoto from './ProfilePhoto';
 import { renderName } from '../utils/misc';
 
 const ProfileMenu = ({ photoURL, displayName }) => {
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -47,11 +48,13 @@ const ProfileMenu = ({ photoURL, displayName }) => {
             Dashboard
           </Link>
         </li>
-        <li>
-          <Link className="dropdown-item" to="/reviews">
-            Reviews
-          </Link>
-        </li>
+        {auth?.userData?.isWorker && (
+          <li>
+            <Link className="dropdown-item" to="/reviews">
+              Reviews
+            </Link>
+          </li>
+        )}
         <li>
           <Link className="dropdown-item" to="/payment-gateway">
             Pagos

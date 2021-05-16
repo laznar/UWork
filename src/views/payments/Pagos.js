@@ -28,7 +28,7 @@ let pagos = [
 const Pagos = () => {
   return (
     <div
-      style={{ maxWidth: 600, paddingTop: 100 }}
+      style={{ maxWidth: 600, paddingTop: 30 }}
       className="mx-auto container"
     >
       <h2 className="mb-4">Pagos</h2>
