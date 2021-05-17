@@ -111,12 +111,9 @@ const NavBar = () => {
               </li>
             )}
 
-            {auth.uid && (
+            {auth.uid && auth.userData.name && (
               <li className="nav-item mx-lg-3">
-                <ProfileMenu
-                  photoURL={auth.photoURL}
-                  displayName={auth.fullName}
-                />
+                <ProfileMenu photoURL={auth.photoURL} />
               </li>
             )}
           </ul>

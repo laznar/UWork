@@ -22,13 +22,7 @@ const schema = yup.object().shape({
     .required('campo requerido')
 });
 
-const PhotoStep = ({
-  setStep,
-  setFormData,
-  formData,
-  updateFormData,
-  uploadData
-}) => {
+const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {

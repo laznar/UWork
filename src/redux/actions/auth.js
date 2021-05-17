@@ -3,6 +3,7 @@ import { types } from '../types/types';
 import toast from 'react-hot-toast';
 import { renderError } from '../../utils/misc';
 import Swal from 'sweetalert2';
+import { uploadPhoto } from '../../helpers/uploadPhoto';
 
 export const startLoginWithEmailPassword = (email, password) => {
   return async (dispatch) => {
@@ -180,7 +181,10 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
       const user = firebase.auth().currentUser;
       const userRef = db.collection('users').doc(user.uid);
       if (data.photo) {
-        data.photo = JSON.stringify(data.photo);
+        const photoURL = await uploadPhoto(data.photo[0]);
+        await user.updateProfile({ photoURL });
+
+        data.photo = photoURL;
       }
       await userRef.update({ ...data, pendingWorker, isWorker });
       dispatch(setUserData({ ...data, pendingWorker, isWorker }));
@@ -190,6 +194,7 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
         confirmButtonColor: '#45a8d8'
       });
     } catch (error) {
+      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));

@@ -3,7 +3,8 @@ import { renderInitials } from '../utils/misc';
 
 const ProfilePhoto = ({
   photoURL,
-  displayName,
+  name,
+  surname,
   className,
   width,
   height,
@@ -12,7 +13,8 @@ const ProfilePhoto = ({
   return (
     <div
       className={clsx(
-        'd-inline-block overflow-hidden border border-2 rounded-circle d-flex align-items-center justify-content-center profile-photo',
+        'd-inline-block overflow-hidden rounded-circle',
+        !photoURL && 'border',
         className
       )}
       style={{ width: width, height: height }}
@@ -25,7 +27,12 @@ const ProfilePhoto = ({
           alt="Profile pic"
         />
       ) : (
-        <strong>{renderInitials(displayName)}</strong>
+        <div className="d-flex align-items-center justify-content-center profile-photo h-100">
+          <strong>
+            {renderInitials(name)}
+            {renderInitials(surname)}
+          </strong>
+        </div>
       )}
     </div>
   );

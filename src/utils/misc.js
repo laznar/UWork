@@ -36,6 +36,6 @@ export const renderInitials = (name) => {
     ? name
         .split(' ')
         .map((word) => word.slice(0, 1))
-        .join('')
+        .join('')[0]
     : null;
 };

@@ -51,8 +51,8 @@ const Servicios = () => {
           Guardar
         </CustomButton>
       </Card>
-      {servicios.map((servicio) => {
-        return <ServCard {...servicio} />;
+      {servicios.map((servicio, idx) => {
+        return <ServCard key={idx} {...servicio} />;
       })}
     </div>
   );

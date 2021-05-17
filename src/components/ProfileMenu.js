@@ -5,7 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/outline';
 import ProfilePhoto from './ProfilePhoto';
 import { renderName } from '../utils/misc';
 
-const ProfileMenu = ({ photoURL, displayName }) => {
+const ProfileMenu = ({ photoURL }) => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -26,10 +26,11 @@ const ProfileMenu = ({ photoURL, displayName }) => {
           width={40}
           height={40}
           photoURL={photoURL}
-          displayName={displayName}
+          name={auth.userData.name}
+          surname={auth.userData.surname}
         />
 
-        <span className="mx-1">{renderName(displayName)}</span>
+        <span className="mx-1">{renderName(auth.userData.name)}</span>
 
         <ChevronDownIcon width={20} height={20} />
       </button>
