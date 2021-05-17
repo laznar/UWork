@@ -320,7 +320,6 @@ const Worker = () => {
                     <ImageUploader
                       withIcon={false}
                       onChange={(value) => {
-                        console.log(value);
                         onChange(value);
                       }}
                       imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}

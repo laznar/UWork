@@ -1,8 +1,9 @@
-import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Select from 'react-select';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import clsx from 'clsx';
 
 import {
   customSelectStyles,
@@ -10,9 +11,6 @@ import {
 } from '../../utils/selectStyles';
 import { transports } from '../../utils/enums';
 import tasks from '../../utils/tasks';
-
-import CustomInput from '../../components/form-controls/CustomInput';
-import CustomTextarea from '../../components/form-controls/CustomTextarea';
 
 const fieldNames = {
   phoneNumber: 'phoneNumber',
@@ -51,10 +49,10 @@ const ServicesDataStep = ({
   const methods = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      [fieldNames.phoneNumber]: formData[fieldNames.phoneNumber],
+      [fieldNames.phoneNumber]: formData[fieldNames.phoneNumber] || '',
       [fieldNames.transport]: formData[fieldNames.transport],
       [fieldNames.skills]: formData[fieldNames.skills],
-      [fieldNames.aboutMe]: formData[fieldNames.aboutMe]
+      [fieldNames.aboutMe]: formData[fieldNames.aboutMe] || ''
     }
   });
 
@@ -74,99 +72,116 @@ const ServicesDataStep = ({
       </span>
       <h4 className="mb-3">Datos de servicio</h4>
 
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <CustomInput
+      <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
+        <div>
+          <Controller
             name={fieldNames.phoneNumber}
-            placeholder="Ingresa celular"
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <input
+                  placeholder="Ingresa celular"
+                  defaultValue={value}
+                  className={clsx('form-control', error && 'is-invalid')}
+                  onChange={(e) => {
+                    onChange(e.target.value);
+                    updateFormData(fieldNames.phoneNumber, e.target.value);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </>
+            )}
           />
+        </div>
 
-          <div>
-            <Controller
-              name={fieldNames.transport}
-              control={methods.control}
-              render={({
-                field: { onChange, value },
-                formState: { errors }
-              }) => (
-                <>
-                  <Select
-                    defaultValue={transports.find(
-                      (transport) => transport.value === value
-                    )}
-                    isSearchable={false}
-                    placeholder="Medio de transporte"
-                    styles={
-                      errors[fieldNames.transport]
-                        ? customErrorSelectStyles
-                        : customSelectStyles
-                    }
-                    getOptionValue={(option) => option.value}
-                    options={transports}
-                    onChange={(e) => {
-                      onChange(e.value);
-                      updateFormData(fieldNames.transport, e.value);
-                    }}
-                  />
-                  {errors[fieldNames.transport] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.transport].message}
-                    </span>
+        <div>
+          <Controller
+            name={fieldNames.transport}
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <Select
+                  defaultValue={transports.find(
+                    (transport) => transport.value === value
                   )}
-                </>
-              )}
-            />
-          </div>
+                  isSearchable={false}
+                  placeholder="Medio de transporte"
+                  styles={error ? customErrorSelectStyles : customSelectStyles}
+                  getOptionValue={(option) => option.value}
+                  options={transports}
+                  onChange={(e) => {
+                    onChange(e.value);
+                    updateFormData(fieldNames.transport, e.value);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </>
+            )}
+          />
+        </div>
 
-          <div>
-            <Controller
-              render={({
-                field: { onChange, value },
-                formState: { errors }
-              }) => (
-                <>
-                  <Select
-                    defaultValue={value?.map((task) =>
-                      tasks.find((t) => t.value === task)
-                    )}
-                    placeholder="Añadir habilidades"
-                    isMulti
-                    styles={
-                      errors[fieldNames.skills]
-                        ? customErrorSelectStyles
-                        : customSelectStyles
-                    }
-                    getOptionValue={(option) => option.value}
-                    options={tasks}
-                    onChange={(e) => {
-                      const values = e.map((op) => op.value);
-                      onChange(values);
-                      updateFormData(fieldNames.skills, values);
-                    }}
-                  />
-                  {errors[fieldNames.skills] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.skills].message}
-                    </span>
+        <div>
+          <Controller
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <Select
+                  defaultValue={value?.map((task) =>
+                    tasks.find((t) => t.value === task)
                   )}
-                </>
-              )}
-              name={fieldNames.skills}
-              control={methods.control}
-            />
-          </div>
+                  placeholder="Añadir habilidades"
+                  isMulti
+                  styles={error ? customErrorSelectStyles : customSelectStyles}
+                  getOptionValue={(option) => option.value}
+                  options={tasks}
+                  onChange={(e) => {
+                    const values = e.map((op) => op.value);
+                    onChange(values);
+                    updateFormData(fieldNames.skills, values);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </>
+            )}
+            name={fieldNames.skills}
+            control={methods.control}
+          />
+        </div>
 
-          <div>
-            <CustomTextarea name={fieldNames.aboutMe} />
-          </div>
+        <div>
+          <Controller
+            name={fieldNames.aboutMe}
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <>
+                <textarea
+                  defaultValue={value}
+                  placeholder="Acerca de ti"
+                  onChange={(e) => {
+                    onChange(e.target.value);
+                    updateFormData(fieldNames.aboutMe, e.target.value);
+                  }}
+                  className={clsx('form-control', error && 'is-invalid')}
+                ></textarea>
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </>
+            )}
+          />
+        </div>
 
-          <div>
-            <button type="submit" className="btn btn-primary text-white w-100">
-              Siguiente
-            </button>
-          </div>
-        </form>
-      </FormProvider>
+        <div>
+          <button type="submit" className="btn btn-primary text-white w-100">
+            Siguiente
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

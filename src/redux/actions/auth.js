@@ -190,7 +190,6 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
         confirmButtonColor: '#45a8d8'
       });
     } catch (error) {
-      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));

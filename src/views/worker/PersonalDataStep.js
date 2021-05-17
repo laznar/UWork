@@ -73,9 +73,11 @@ const PersonalDataStep = ({
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <div>
             <Controller
+              name={fieldNames.gender}
+              control={methods.control}
               render={({
                 field: { onChange, value },
-                formState: { errors }
+                fieldState: { error }
               }) => (
                 <>
                   <Select
@@ -86,9 +88,7 @@ const PersonalDataStep = ({
                     isSearchable={false}
                     placeholder="Género"
                     styles={
-                      errors[fieldNames.gender]
-                        ? customErrorSelectStyles
-                        : customSelectStyles
+                      error ? customErrorSelectStyles : customSelectStyles
                     }
                     getOptionValue={(option) => option.value}
                     options={genders}
@@ -98,23 +98,21 @@ const PersonalDataStep = ({
                       onChange(e.value);
                     }}
                   />
-                  {errors[fieldNames.gender] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.gender].message}
-                    </span>
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
                   )}
                 </>
               )}
-              name={fieldNames.gender}
-              control={methods.control}
             />
           </div>
 
           <div>
             <Controller
+              name={fieldNames.typeOfId}
+              control={methods.control}
               render={({
                 field: { onChange, value },
-                formState: { errors }
+                fieldState: { error }
               }) => (
                 <>
                   <Select
@@ -122,9 +120,7 @@ const PersonalDataStep = ({
                     isSearchable={false}
                     placeholder="Tipo de identificación"
                     styles={
-                      errors[fieldNames.typeOfId]
-                        ? customErrorSelectStyles
-                        : customSelectStyles
+                      error ? customErrorSelectStyles : customSelectStyles
                     }
                     getOptionValue={(option) => option.value}
                     options={personalIds}
@@ -133,15 +129,11 @@ const PersonalDataStep = ({
                       updateFormData(fieldNames.typeOfId, e.value);
                     }}
                   />
-                  {errors[fieldNames.typeOfId] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.typeOfId].message}
-                    </span>
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
                   )}
                 </>
               )}
-              name={fieldNames.typeOfId}
-              control={methods.control}
             />
           </div>
 
@@ -154,16 +146,14 @@ const PersonalDataStep = ({
             <Controller
               render={({
                 field: { onChange, value },
-                formState: { errors }
+                fieldState: { error }
               }) => (
                 <>
                   <Select
                     defaultValue={cities.find((city) => city.value === value)}
                     placeholder="Ciudad"
                     styles={
-                      errors[fieldNames.city]
-                        ? customErrorSelectStyles
-                        : customSelectStyles
+                      error ? customErrorSelectStyles : customSelectStyles
                     }
                     getOptionValue={(option) => option.value}
                     options={cities}
@@ -172,10 +162,8 @@ const PersonalDataStep = ({
                       updateFormData(fieldNames.city, e.value);
                     }}
                   />
-                  {errors[fieldNames.city] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.city].message}
-                    </span>
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
                   )}
                 </>
               )}
@@ -191,15 +179,14 @@ const PersonalDataStep = ({
 
           <div>
             <Controller
-              render={({ field, formState: { errors } }) => (
+              name={fieldNames.dateOfBirth}
+              control={methods.control}
+              render={({ field, fieldState: { error } }) => (
                 <>
                   <DatePicker
                     {...field}
                     placeholderText="Fecha de nacimiento"
-                    className={clsx(
-                      'form-control',
-                      errors[fieldNames.dateOfBirth] && 'is-invalid'
-                    )}
+                    className={clsx('form-control', error && 'is-invalid')}
                     isClearable
                     selected={field.value}
                     peekNextMonth
@@ -210,15 +197,11 @@ const PersonalDataStep = ({
                     locale="es"
                     control={methods.control}
                   />
-                  {errors[fieldNames.dateOfBirth] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.dateOfBirth].message}
-                    </span>
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
                   )}
                 </>
               )}
-              name={fieldNames.dateOfBirth}
-              control={methods.control}
             />
           </div>
 
