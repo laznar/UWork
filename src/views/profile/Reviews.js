@@ -41,8 +41,9 @@ const Reviews = () => {
       <h3>Mis Reviews</h3>
       <GlobalRating value={averageScore()} />
       <h3 className="mt-0">Comentarios</h3>
-      {reviews.map((review) => {
-        return <RevCard {...review} />;
+      {/* Maybe this key should change */}
+      {reviews.map((review, idx) => {
+        return <RevCard {...review} key={idx} />;
       })}
     </div>
   );

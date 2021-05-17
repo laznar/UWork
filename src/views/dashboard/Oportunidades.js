@@ -26,8 +26,8 @@ const Oportunidades = () => {
   return (
     <div style={{ maxWidth: 600 }} className="mx-auto">
       <h2 className="mb-4">Oportunidades</h2>
-      {oportunidades.map((oportunidad) => {
-        return <OpCard {...oportunidad} />;
+      {oportunidades.map((oportunidad, idx) => {
+        return <OpCard {...oportunidad} key={idx} />;
       })}
     </div>
   );

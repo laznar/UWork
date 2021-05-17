@@ -23,6 +23,7 @@ import Worker from '../views/worker/Worker';
 import Reviews from '../views/profile/Reviews';
 import Resultados from '../views/results/Resultados';
 import Pagos from '../views/payments/Pagos';
+import MultiStepForm from '../views/worker/MultiStepForm';
 
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
@@ -73,6 +74,14 @@ const AppRouter = () => {
             isAuthenticated={isAuthenticated}
             component={AuthRoutes}
           />
+          {!auth?.userData?.isWorker && (
+            <PrivateRoute
+              path="/complete"
+              isAuthenticated={isAuthenticated}
+              exact
+              component={MultiStepForm}
+            />
+          )}
           <PrivateRoute
             path="/dashboard"
             isAuthenticated={isAuthenticated}
@@ -89,6 +98,7 @@ const AppRouter = () => {
             isAuthenticated={isAuthenticated}
             component={Worker}
           />
+
           {auth?.userData?.isWorker && (
             <PrivateRoute
               path="/reviews"

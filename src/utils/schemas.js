@@ -51,7 +51,14 @@ const workerRegisterSchema = yup.object().shape({
       test: (arr) => arr?.length >= 1
     })
     .required('campo requerido'),
-  [workerRegisterFieldNames.aboutMe]: yup.string().required('campo requerido')
+  [workerRegisterFieldNames.aboutMe]: yup.string().required('campo requerido'),
+  [workerRegisterFieldNames.photo]: yup
+    .array()
+    .test({
+      message: 'Debes seleccionar una foto de perfil',
+      test: (arr) => arr?.length >= 1
+    })
+    .required('campo requerido')
 });
 
 const workerUpdateSchema = yup.object().shape({

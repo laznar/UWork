@@ -17,8 +17,8 @@ const Proyectos = () => {
   return (
     <div style={{ maxWidth: 600 }} className="mx-auto">
       <h2 className="mb-4">Proyectos</h2>
-      {proyectos.map((proyecto) => {
-        return <ProCard {...proyecto} />;
+      {proyectos.map((proyecto, idx) => {
+        return <ProCard key={idx} {...proyecto} />;
       })}
     </div>
   );

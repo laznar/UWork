@@ -40,7 +40,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref(fieldNames.password)], 'las contraseñas deben coincidir')
 });
 
-const SignUp = () => {
+const SignUp = ({ location }) => {
   const methods = useForm({
     resolver: yupResolver(schema)
   });
@@ -50,7 +50,8 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startRegisterWithEmailPassword(data));
+      const pendingWorker = location.state?.worker;
+      dispatch(startRegisterWithEmailPassword(data, pendingWorker));
     }
   };
 
@@ -62,6 +63,11 @@ const SignUp = () => {
 
   return (
     <div className="fade-anim">
+      {location.state?.worker && (
+        <div className="alert alert-primary fade-anim" role="alert">
+          Es necesario que crees una cuenta primero
+        </div>
+      )}
       <h2 className="mb-3">Crear cuenta</h2>
 
       <button

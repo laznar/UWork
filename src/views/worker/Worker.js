@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { useRef, useLayoutEffect, useEffect } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
@@ -29,8 +29,6 @@ import { genders, personalIds, transports } from '../../utils/enums';
 import { startRegisterWithEmailPassword } from '../../redux/actions/auth';
 
 const Worker = () => {
-  const [pictures, setPictures] = useState([]);
-
   const authUi = useSelector((state) => state.authUi);
   const auth = useSelector((state) => state.auth);
 
@@ -59,10 +57,6 @@ const Worker = () => {
       dispatch(startRegisterWithEmailPassword(data, true));
       console.log(data);
     }
-  };
-
-  const onDrop = (picture) => {
-    setPictures([...pictures, picture]);
   };
 
   return (
@@ -313,23 +307,41 @@ const Worker = () => {
 
             <div>
               <h5 className="mb-0">Foto de Perfil</h5>
-              <ImageUploader
-                withIcon={false}
-                onChange={onDrop}
-                imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
-                label="Archivo máximo de 2,5 MB"
-                maxFileSize={2621440}
-                withPreview={true}
-                singleImage={true}
-                fileTypeError="Tipo de archivo inválido"
-                buttonText="Seleccionar foto"
-                fileSizeError={'debe ser menor a 2,5MB'}
-                fileContainerStyle={{
-                  padding: 0,
-                  margin: 0,
-                  boxShadow: 'none'
-                }}
-                buttonStyles={{ backgroundColor: '#45a8d8' }}
+
+              <Controller
+                render={({ field: { onChange }, formState: { errors } }) => (
+                  <>
+                    {errors[fieldNames.photo] && (
+                      <span className="text-danger small">
+                        {errors[fieldNames.photo].message}
+                      </span>
+                    )}
+
+                    <ImageUploader
+                      withIcon={false}
+                      onChange={(value) => {
+                        console.log(value);
+                        onChange(value);
+                      }}
+                      imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
+                      label="Archivo máximo de 2,5 MB"
+                      maxFileSize={2621440}
+                      withPreview={true}
+                      singleImage={true}
+                      fileTypeError="Tipo de archivo inválido"
+                      buttonText="Seleccionar foto"
+                      fileSizeError={'debe ser menor a 2,5MB'}
+                      fileContainerStyle={{
+                        padding: 0,
+                        margin: 0,
+                        boxShadow: 'none'
+                      }}
+                      buttonStyles={{ backgroundColor: '#45a8d8' }}
+                    />
+                  </>
+                )}
+                name={fieldNames.photo}
+                control={methods.control}
               />
             </div>
             <CustomButton

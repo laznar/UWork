@@ -92,7 +92,18 @@ const NavBar = () => {
 
             {!auth?.userData?.isWorker && (
               <li className="nav-item my-1 my-lg-0 mx-lg-2">
-                <NavLink to={!auth.uid ? '/worker' : '/worker'}>
+                <NavLink
+                  to={
+                    !auth.uid
+                      ? {
+                          pathname: '/auth/register',
+                          state: { worker: true }
+                        }
+                      : !auth?.userData?.isWorker
+                      ? '/complete'
+                      : '/'
+                  }
+                >
                   <button className="btn btn-primary text-white">
                     Sé un Worker
                   </button>

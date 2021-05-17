@@ -22,7 +22,11 @@ export const startLoginWithEmailPassword = (email, password) => {
   };
 };
 
-export const startRegisterWithEmailPassword = (data, isWorker = false) => {
+export const startRegisterWithEmailPassword = (
+  data,
+  pendingWorker = false,
+  isWorker = false
+) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
@@ -40,7 +44,7 @@ export const startRegisterWithEmailPassword = (data, isWorker = false) => {
       delete data.confirm;
       // Save user in Firestore db
       const userRef = db.collection('users').doc(user.uid);
-      await userRef.set({ ...data, isWorker });
+      await userRef.set({ ...data, pendingWorker, isWorker });
 
       toast.success('Registro exitoso!');
 
@@ -101,8 +105,7 @@ export const startGoogleLogin = () => {
 
       await userRef.set({
         name: user.displayName,
-        email: user.email,
-        isWorker: false
+        email: user.email
       });
 
       dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
@@ -164,6 +167,30 @@ export const startAccountDeletion = () => {
         icon: 'success'
       });
     } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
+export const startUpdateUserData = (data, pendingWorker, isWorker) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const user = firebase.auth().currentUser;
+      const userRef = db.collection('users').doc(user.uid);
+      if (data.photo) {
+        data.photo = JSON.stringify(data.photo);
+      }
+      await userRef.update({ ...data, pendingWorker, isWorker });
+      dispatch(setUserData({ ...data, pendingWorker, isWorker }));
+      Swal.fire({
+        title: 'Perfil completo',
+        text: 'Ahora eres un worker',
+        confirmButtonColor: '#45a8d8'
+      });
+    } catch (error) {
+      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));
