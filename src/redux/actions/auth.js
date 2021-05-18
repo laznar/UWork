@@ -13,8 +13,17 @@ export const startLoginWithEmailPassword = (email, password) => {
         .auth()
         .signInWithEmailAndPassword(email, password);
       const { user } = loginResult;
+      console.log(loginResult);
 
-      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
+      dispatch(
+        login(
+          user.uid,
+          user.email,
+          user.displayName,
+          user.photoURL,
+          user.providerData[0].providerId
+        )
+      );
       toast.success('Inicio de sesión exitoso');
     } catch (error) {
       toast.error(renderError(error.code));
@@ -49,7 +58,13 @@ export const startRegisterWithEmailPassword = (
 
       toast.success('Registro exitoso!');
 
-      login(user.uid, user.email, user.displayName, user.photoURL);
+      login(
+        user.uid,
+        user.email,
+        user.displayName,
+        user.photoURL,
+        user.providerData[0].providerId
+      );
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -83,7 +98,13 @@ export const startRegisterAsWorker = (data, isWorker) => {
 
       toast.success('Registro exitoso!');
 
-      login(user.uid, user.email, user.displayName, user.photoURL);
+      login(
+        user.uid,
+        user.email,
+        user.displayName,
+        user.photoURL,
+        user.providerData[0].providerId
+      );
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -109,7 +130,15 @@ export const startGoogleLogin = () => {
         email: user.email
       });
 
-      dispatch(login(user.uid, user.email, user.displayName, user.photoURL));
+      dispatch(
+        login(
+          user.uid,
+          user.email,
+          user.displayName,
+          user.photoURL,
+          user.providerData[0].providerId
+        )
+      );
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -117,13 +146,14 @@ export const startGoogleLogin = () => {
   };
 };
 
-export const login = (uid, email, fullName, photoURL) => ({
+export const login = (uid, email, fullName, photoURL, providerId) => ({
   type: types.login,
   payload: {
     uid,
     email,
     fullName,
-    photoURL
+    photoURL,
+    providerId
   }
 });
 

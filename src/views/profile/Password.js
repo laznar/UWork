@@ -55,39 +55,46 @@ const Password = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
-      <h3>Cambiar contraseña</h3>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <CustomInput
-            type="password"
-            name={fieldNames.currentPassword}
-            label="Contraseña"
-            placeholder="Ingresa tu contraseña actual"
-          />
+      <h3 className="mb-3">Cambiar contraseña</h3>
+      {auth.providerId === 'google.com' ? (
+        <div className="alert alert-primary mb-0" role="alert">
+          Para cambiar tu contraseña de Google, haz click{' '}
+          <a href="https://myaccount.google.com/signinoptions/password">aquí</a>
+        </div>
+      ) : (
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
+            <CustomInput
+              type="password"
+              name={fieldNames.currentPassword}
+              label="Contraseña"
+              placeholder="Ingresa tu contraseña actual"
+            />
 
-          <CustomInput
-            type="password"
-            name={fieldNames.newPassword}
-            label="Nueva contraseña"
-            placeholder="Mínimo 6 dígitos"
-          />
+            <CustomInput
+              type="password"
+              name={fieldNames.newPassword}
+              label="Nueva contraseña"
+              placeholder="Mínimo 6 dígitos"
+            />
 
-          <CustomInput
-            type="password"
-            name={fieldNames.confirmNewPassword}
-            label="Confirma nueva contraseña"
-            placeholder="Mínimo 6 dígitos"
-          />
+            <CustomInput
+              type="password"
+              name={fieldNames.confirmNewPassword}
+              label="Confirma nueva contraseña"
+              placeholder="Mínimo 6 dígitos"
+            />
 
-          <CustomButton
-            loading={authUi.loading}
-            type="submit"
-            className="btn btn-primary text-white w-100"
-          >
-            Cambiar contraseña
-          </CustomButton>
-        </form>
-      </FormProvider>
+            <CustomButton
+              loading={authUi.loading}
+              type="submit"
+              className="btn btn-primary text-white w-100"
+            >
+              Cambiar contraseña
+            </CustomButton>
+          </form>
+        </FormProvider>
+      )}
     </div>
   );
 };

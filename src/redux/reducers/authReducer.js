@@ -8,7 +8,8 @@ export const authReducer = (state = { userData: {} }, action) => {
         uid: action.payload.uid,
         email: action.payload.email,
         fullName: action.payload.fullName,
-        photoURL: action.payload.photoURL
+        photoURL: action.payload.photoURL,
+        providerId: action.payload.providerId
       };
     case types.setUserData:
       return { ...state, userData: { ...state.userData, ...action.payload } };

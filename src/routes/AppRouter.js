@@ -36,13 +36,20 @@ const AppRouter = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       try {
         if (user?.uid && !authUi.loading) {
+          console.log(user);
           // Reference to user document
           const userRef = db.collection('users').doc(user.uid);
           // Get data
           const doc = await userRef.get();
 
           dispatch(
-            login(user.uid, user.email, user.displayName, user.photoURL)
+            login(
+              user.uid,
+              user.email,
+              user.displayName,
+              user.photoURL,
+              user.providerData[0].providerId
+            )
           );
           dispatch(setUserData(doc.data()));
           setIsAuthenticated(true);
