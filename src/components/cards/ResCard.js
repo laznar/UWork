@@ -76,7 +76,7 @@ const ResCard = ({
         </ul>
       </div>
       <div className="d-md-none">
-        <button className="btn border-primary w-100 btn-primary text-white">
+        <button className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom">
           Consultar
         </button>
       </div>

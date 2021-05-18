@@ -107,10 +107,10 @@ const AppRouter = () => {
               component={Reviews}
             />
           )}
-          <PrivateRoute
+          <Route
             path="/resultados"
             exact
-            isAuthenticated={isAuthenticated}
+            // isAuthenticated={isAuthenticated}
             component={Resultados}
           />
           <PrivateRoute

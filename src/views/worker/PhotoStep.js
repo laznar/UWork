@@ -23,8 +23,10 @@ const schema = yup.object().shape({
 });
 
 const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
+  const auth = useSelector((state) => state.auth);
+
   const methods = useForm({
-    resolver: yupResolver(schema),
+    resolver: auth.photoURL ? undefined : yupResolver(schema),
     defaultValues: {
       [fieldNames.photo]: formData[fieldNames.photo]
     }

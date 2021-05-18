@@ -185,6 +185,8 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
         await user.updateProfile({ photoURL });
 
         data.photo = photoURL;
+      } else {
+        delete data.photo;
       }
       await userRef.update({ ...data, pendingWorker, isWorker });
       dispatch(setUserData({ ...data, pendingWorker, isWorker }));

@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import ResCard from '../../components/cards/ResCard';
+import useQuery from '../../hooks/useQuery';
+import tasks from '../../utils/tasks';
 
 let resultados = [
   {
@@ -23,15 +26,28 @@ let resultados = [
   }
 ];
 
-const Resultados = () => {
+const Resultados = ({ history }) => {
+  const query = useQuery();
+  const term = query.get('termino');
+
+  useEffect(() => {
+    if (term) {
+      if (!tasks.find((task) => task.value === term)) {
+        history.replace('/');
+      }
+    } else {
+      history.replace('/');
+    }
+  }, [term, history]);
+
   return (
     <div
-      style={{ maxWidth: 600, paddingTop: 100 }}
+      style={{ maxWidth: 600, paddingTop: 30, paddingBottom: 100 }}
       className="mx-auto container"
     >
-      <h2 className="mb-4">Resultado de Servicios</h2>
-      {resultados.map((resultado) => {
-        return <ResCard {...resultado} />;
+      <h2 className="mb-4">{query.get('termino')}</h2>
+      {resultados.map((resultado, idx) => {
+        return <ResCard key={idx} {...resultado} />;
       })}
     </div>
   );

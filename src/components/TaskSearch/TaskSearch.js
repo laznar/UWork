@@ -11,7 +11,9 @@ const TaskSearch = () => {
   const ref = useRef(null);
   const history = useHistory();
   const handleSearch = () => {
-    history.push('/resultados');
+    if (results.length > 0 && text) {
+      history.push(`/resultados?termino=${results[0].value}`);
+    }
   };
 
   useEffect(() => {
