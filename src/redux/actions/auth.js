@@ -122,23 +122,36 @@ export const startGoogleLogin = () => {
         .signInWithPopup(googleAuthProvider);
 
       const { user } = loginResult;
-      // Save user in Firestore db
+      // User reference in db
       const userRef = db.collection('users').doc(user.uid);
-
-      await userRef.set({
-        name: user.displayName,
-        email: user.email
-      });
+      // Get user data from db
+      const userSnap = await userRef.get();
+      let userData;
+      // Use existing user data
+      if (userSnap.exists) {
+        userData = userSnap.data();
+      } else {
+        // If there is no user data then it is a new user
+        userData = user;
+        // Store default user data for new user
+        await userRef.set({
+          name: userData.displayName,
+          surname: '',
+          photoURL: userData.photoURL,
+          email: userData.email
+        });
+      }
 
       dispatch(
         login(
-          user.uid,
-          user.email,
-          user.displayName,
-          user.photoURL,
+          userData.uid,
+          userData.email,
+          userData.displayName,
+          userData.photoURL,
           user.providerData[0].providerId
         )
       );
+      toast.success('Inicio de sesión exitoso');
     } catch (error) {
       toast.error(renderError(error.code));
     }
@@ -198,6 +211,7 @@ export const startAccountDeletion = () => {
         icon: 'success'
       });
     } catch (error) {
+      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));
@@ -210,13 +224,13 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
     try {
       const user = firebase.auth().currentUser;
       const userRef = db.collection('users').doc(user.uid);
-      if (data.photo) {
-        const photoURL = await uploadPhoto(data.photo[0]);
+      if (data.photoURL) {
+        const photoURL = await uploadPhoto(data.photoURL[0]);
         await user.updateProfile({ photoURL });
 
-        data.photo = photoURL;
+        data.photoURL = photoURL;
       } else {
-        delete data.photo;
+        delete data.photoURL;
       }
       await userRef.update({ ...data, pendingWorker, isWorker });
       dispatch(setUserData({ ...data, pendingWorker, isWorker }));

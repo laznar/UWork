@@ -1,54 +1,54 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import ResCard from '../../components/cards/ResCard';
 import useQuery from '../../hooks/useQuery';
 import tasks from '../../utils/tasks';
-
-let resultados = [
-  {
-    name: 'Jesús',
-    surname: 'Santiago',
-    value: 4.5,
-    precio: 50000,
-    ciudad: 'Baranoa',
-    skill: 'Plomería',
-    descripcion:
-      'Reparo fugas, limpio y destapo desagües, inspecciono tuberías.'
-  },
-  {
-    name: 'Gerardo',
-    surname: 'Ramirez',
-    value: 3,
-    precio: 80000,
-    ciudad: 'Valledupar',
-    skill: 'Electricidad',
-    descripcion:
-      'Se realizan instalaciones y mantenimiento de instalaciones eléctricas y ensamble de tableros de potencia'
-  }
-];
+import { useDispatch } from 'react-redux';
+import { startSearchResults } from '../../redux/actions/results';
 
 const Resultados = ({ history }) => {
   const query = useQuery();
   const term = query.get('termino');
+  const dispatch = useDispatch();
+  const results = useSelector((state) => state.results);
 
   useEffect(() => {
     if (term) {
       if (!tasks.find((task) => task.value === term)) {
         history.replace('/');
+      } else {
+        dispatch(startSearchResults(term));
       }
     } else {
       history.replace('/');
     }
-  }, [term, history]);
+  }, [term, history, dispatch]);
 
   return (
     <div
       style={{ maxWidth: 600, paddingTop: 30, paddingBottom: 100 }}
       className="mx-auto container"
     >
-      <h2 className="mb-4">{query.get('termino')}</h2>
-      {resultados.map((resultado, idx) => {
-        return <ResCard key={idx} {...resultado} />;
-      })}
+      {results.loading ? (
+        <div className="d-flex">
+          <div
+            className="spinner-border mx-auto text-primary"
+            style={{ width: 50, height: 50 }}
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : results.results.length > 0 ? (
+        <>
+          <h2 className="mb-3">{query.get('termino')}</h2>
+          {results.results.map((result, idx) => {
+            return <ResCard key={idx} {...result} />;
+          })}
+        </>
+      ) : (
+        <h3>No se encontraron resultados</h3>
+      )}
     </div>
   );
 };

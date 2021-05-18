@@ -16,14 +16,15 @@ const iconsConfig = {
 const ResCard = ({
   name,
   surname,
-  value,
-  precio,
-  ciudad,
-  skill,
-  descripcion
+  value = 5,
+  precio = 100,
+  city,
+  skills,
+  aboutMe,
+  photoURL = 'https://picsum.photos/200/200'
 }) => {
   const scoreReview = {
-    size: 30,
+    size: 25,
     value,
     edit: false,
     color: ' #D3D3D3',
@@ -37,10 +38,23 @@ const ResCard = ({
         className="px-4 py-3 border-bottom d-flex justify-content-between align-items-center"
         style={{ color: '#6c757d' }}
       >
-        <strong>{name + ' ' + surname.charAt(0) + '.'}</strong>
         <div className="d-flex align-items-center">
-          <span className="fs-5 me-2">{value}</span>
-          <ReactStars {...scoreReview} />
+          <img
+            src={photoURL}
+            height={80}
+            width={80}
+            alt=""
+            className="rounded-circle border me-2"
+          />
+          <div>
+            <strong>{`${name} ${
+              surname ? `${surname.charAt(0)}.` : ''
+            }`}</strong>
+            <div className="d-flex align-items-center">
+              <span className="fs-5 me-2">{value}</span>
+              <ReactStars {...scoreReview} />
+            </div>
+          </div>
         </div>
         <div className="d-none d-md-inline-block text-center">
           <button className="btn btn-primary text-white border-primary ms-2">
@@ -49,8 +63,8 @@ const ResCard = ({
         </div>
       </div>
 
-      <div className="px-4 py-3">
-        <ul className="list-unstyled">
+      <div className="p-4 pt-3">
+        <ul className="list-unstyled m-0">
           <li>
             <CurrencyDollarIcon {...iconsConfig} />
             <NumberFormat
@@ -63,15 +77,15 @@ const ResCard = ({
           </li>
           <li>
             <OfficeBuildingIcon {...iconsConfig} />
-            {ciudad}
+            {city}
           </li>
           <li>
             <LightBulbIcon {...iconsConfig} />
-            {skill}
+            {skills.map((skill) => skill).join(', ')}
           </li>
           <li>
             <PencilIcon {...iconsConfig} />
-            {descripcion}
+            {aboutMe}
           </li>
         </ul>
       </div>

@@ -36,7 +36,6 @@ const AppRouter = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       try {
         if (user?.uid && !authUi.loading) {
-          console.log(user);
           // Reference to user document
           const userRef = db.collection('users').doc(user.uid);
           // Get data

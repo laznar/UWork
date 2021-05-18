@@ -30,7 +30,7 @@ const ProfileMenu = ({ photoURL }) => {
           surname={auth.userData.surname}
         />
 
-        <span className="mx-1">{renderName(auth.userData.name)}</span>
+        <span className="mx-2">{renderName(auth.userData.name)}</span>
 
         <ChevronDownIcon width={20} height={20} />
       </button>

@@ -9,11 +9,11 @@ import CustomButton from '../../components/form-controls/CustomButton';
 import { startUpdateUserData } from '../../redux/actions/auth';
 
 const fieldNames = {
-  photo: 'photo'
+  photoURL: 'photoURL'
 };
 
 const schema = yup.object().shape({
-  [fieldNames.photo]: yup
+  [fieldNames.photoURL]: yup
     .array()
     .test({
       message: 'Debes seleccionar una foto de perfil',
@@ -28,7 +28,7 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
   const methods = useForm({
     resolver: auth.photoURL ? undefined : yupResolver(schema),
     defaultValues: {
-      [fieldNames.photo]: formData[fieldNames.photo]
+      [fieldNames.photoURL]: formData[fieldNames.photoURL]
     }
   });
 
@@ -57,13 +57,16 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
           <div>
             <Controller
-              name={fieldNames.photo}
+              name={fieldNames.photoURL}
               control={methods.control}
-              render={({ field: { onChange }, formState: { errors } }) => (
+              render={({
+                field: { onChange, value },
+                formState: { errors }
+              }) => (
                 <>
-                  {errors[fieldNames.photo] && (
+                  {errors[fieldNames.photoURL] && (
                     <span className="text-danger small">
-                      {errors[fieldNames.photo].message}
+                      {errors[fieldNames.photoURL].message}
                     </span>
                   )}
 
@@ -71,7 +74,7 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
                     withIcon={false}
                     onChange={(value) => {
                       onChange(value);
-                      updateFormData(fieldNames.photo, value);
+                      updateFormData(fieldNames.photoURL, value);
                     }}
                     imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
                     label="Archivo máximo de 2,5 MB"
