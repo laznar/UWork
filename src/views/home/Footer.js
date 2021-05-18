@@ -1,7 +1,9 @@
 import Logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const location = useLocation();
   return (
     <div className="border-top">
       <div className="container">
@@ -15,46 +17,49 @@ const Footer = () => {
               <h5>Features</h5>
               <ul className="list-unstyled text-small">
                 <li className="mb-1">
-                  <Link className="link-secondary text-decoration-none">
+                  <Link
+                    to={location.pathname}
+                    className="link-secondary text-decoration-none"
+                  >
                     Cool Stuff
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Random Feature
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Team Feature
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Stuff for Developers
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Another one
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Last time
                   </Link>
@@ -66,32 +71,32 @@ const Footer = () => {
               <ul className="list-unstyled text-small">
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Resource
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Resource name
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Another Resource
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Final Resource
                   </Link>
@@ -103,32 +108,32 @@ const Footer = () => {
               <ul className="list-unstyled text-small">
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Team
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Locations
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Privacy
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
+                    to={location.pathname}
                     className="link-secondary text-decoration-none"
-                    href="#"
                   >
                     Terms
                   </Link>

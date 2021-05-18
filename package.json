@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "autosize": "^4.0.2",
     "axios": "^0.21.1",
-    "bootstrap": "^5.0.0",
+    "bootstrap": "^5.0.1",
     "cloudinary-react": "^1.7.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.21.3",

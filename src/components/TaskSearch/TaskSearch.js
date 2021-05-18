@@ -12,7 +12,7 @@ const TaskSearch = () => {
   const history = useHistory();
   const handleSearch = () => {
     if (results.length > 0 && text) {
-      history.push(`/resultados?termino=${results[0].value}`);
+      history.push(`/resultados?servicio=${results[0].value}`);
     }
   };
 

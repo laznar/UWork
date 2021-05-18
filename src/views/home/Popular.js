@@ -4,6 +4,7 @@ import gardening from '../../assets/img/services/gardening.jpg';
 import plumbing from '../../assets/img/services/plumbing.jpg';
 import electric from '../../assets/img/services/electric.jpg';
 import repair from '../../assets/img/services/repair.jpg';
+import PopularCard from './PopularCard';
 
 const services = [
   { name: 'Limpieza', image: cleaning },
@@ -22,19 +23,7 @@ export const Popular = () => {
 
         <div className="row g-3">
           {services.map((service) => (
-            <figure key={service.name} className="col-sm-6 col-lg-4">
-              <img
-                className="w-100 rounded shadow object-position-center object-fit-cover"
-                height={200}
-                src={service.image}
-                alt={service.name}
-              />
-              <figcaption className="mt-3">
-                <h5>
-                  <strong>{service.name}</strong>
-                </h5>
-              </figcaption>
-            </figure>
+            <PopularCard {...service} key={service.name} />
           ))}
         </div>
       </div>

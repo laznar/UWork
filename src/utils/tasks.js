@@ -5,6 +5,7 @@ const tasks = [
   { label: 'Electricidad', value: 'Electricidad', popular: true },
   { label: 'Mensajería', value: 'Mensajería', popular: true },
   { label: 'Jardinería', value: 'Jardinería', popular: true },
+  { label: 'Reparaciones', value: 'Reparaciones' },
   { label: 'Carpintería', value: 'Carpintería' },
   {
     label: 'Mantenimiento de electrodomésticos',
@@ -28,7 +29,7 @@ const tasks = [
   { label: 'Construcción', value: 'Construcción' },
   { label: 'Servicio de pintura', value: 'Servicio de pintura' },
   { label: 'Control de plagas', value: 'Control de plagas' },
-  // BIenestar:
+  // Bienestar:
   { label: 'Entrenador personal', value: 'Entrenador personal' },
   { label: 'Terapia de masajes', value: 'Terapia de masajes' },
   { label: 'Coaching', value: 'Coaching' },

@@ -4,11 +4,15 @@ import ResCard from '../../components/cards/ResCard';
 import useQuery from '../../hooks/useQuery';
 import tasks from '../../utils/tasks';
 import { useDispatch } from 'react-redux';
-import { startSearchResults } from '../../redux/actions/results';
+import {
+  setResults,
+  setResultsLoading,
+  startSearchResults
+} from '../../redux/actions/results';
 
 const Resultados = ({ history }) => {
   const query = useQuery();
-  const term = query.get('termino');
+  const term = query.get('servicio');
   const dispatch = useDispatch();
   const results = useSelector((state) => state.results);
 
@@ -22,6 +26,11 @@ const Resultados = ({ history }) => {
     } else {
       history.replace('/');
     }
+
+    return () => {
+      dispatch(setResults([]));
+      dispatch(setResultsLoading(true));
+    };
   }, [term, history, dispatch]);
 
   return (
@@ -41,7 +50,7 @@ const Resultados = ({ history }) => {
         </div>
       ) : results.results.length > 0 ? (
         <>
-          <h2 className="mb-3">{query.get('termino')}</h2>
+          <h2 className="mb-3">{query.get('servicio')}</h2>
           {results.results.map((result, idx) => {
             return <ResCard key={idx} {...result} />;
           })}
