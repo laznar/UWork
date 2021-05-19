@@ -44,7 +44,7 @@ const ResCard = ({
             height={80}
             width={80}
             alt=""
-            className="rounded-circle border me-2"
+            className="rounded-circle border me-2 object-fit-cover object-position-center"
           />
           <div>
             <strong>{`${name} ${

@@ -13,18 +13,18 @@ const DashboardRoutes = () => {
       <div className="container" style={{ paddingTop: 30, paddingBottom: 100 }}>
         <Switch>
           {auth?.userData?.isWorker && (
-            <>
-              <Route
-                exact
-                path="/dashboard/oportunidades"
-                component={Oportunidades}
-              />
-              <Route
-                exact
-                path="/dashboard/mis-servicios"
-                component={Servicios}
-              />
-            </>
+            <Route
+              exact
+              path="/dashboard/oportunidades"
+              component={Oportunidades}
+            />
+          )}
+          {auth?.userData?.isWorker && (
+            <Route
+              exact
+              path="/dashboard/mis-servicios"
+              component={Servicios}
+            />
           )}
           <Route exact path="/dashboard/mensajes" component={Mensajes} />
           <Route exact path="/dashboard/proyectos" component={Proyectos} />

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 const DashboardNav = () => {
   const auth = useSelector((state) => state.auth);
   return (
-    <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+    <ul className="navbar-nav ms-auto d-flex align-items-center">
       {auth?.userData?.isWorker && (
         <>
           <li className="nav-item my-1 my-lg-0 mx-lg-2">

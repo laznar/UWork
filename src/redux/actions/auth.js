@@ -72,47 +72,9 @@ export const startRegisterWithEmailPassword = (
   };
 };
 
-export const startUpdateUserInfo = (data, uid) => {};
+export const startEditUserInfo = (data) => {};
 
-export const startRegisterAsWorker = (data, isWorker) => {
-  return async (dispatch) => {
-    dispatch(authUiLoading(true));
-    try {
-      const { email, password, name, surname } = data;
-      // Firebase register
-      const registerResult = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      const { user } = registerResult;
-      // Update user's displayName
-      await user.updateProfile({
-        displayName: name + ' ' + surname
-      });
-
-      delete data.password;
-      delete data.confirm;
-
-      // Save user in Firestore db
-      const userRef = db.collection('users').doc(user.uid);
-      await userRef.set({ ...data, isWorker });
-
-      toast.success('Registro exitoso!');
-
-      login(
-        user.uid,
-        user.email,
-        user.displayName,
-        user.photoURL,
-        user.providerData[0].providerId
-      );
-    } catch (error) {
-      toast.error(renderError(error.code));
-    }
-    dispatch(authUiLoading(false));
-  };
-};
-
-export const startGoogleLogin = () => {
+export const startGoogleLogin = (pendingWorker = false) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
@@ -138,7 +100,9 @@ export const startGoogleLogin = () => {
           name: userData.displayName,
           surname: '',
           photoURL: userData.photoURL,
-          email: userData.email
+          email: userData.email,
+          worker: false,
+          pendingWorker
         });
       }
 

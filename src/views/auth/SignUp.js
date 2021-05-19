@@ -47,17 +47,17 @@ const SignUp = ({ location }) => {
 
   const dispatch = useDispatch();
   const authUi = useSelector((state) => state.authUi);
+  const pendingWorker = location.state?.worker;
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      const pendingWorker = location.state?.worker;
       dispatch(startRegisterWithEmailPassword(data, pendingWorker));
     }
   };
 
   const handleGoogleLogIn = () => {
     if (!authUi.loading) {
-      dispatch(startGoogleLogin());
+      dispatch(startGoogleLogin(pendingWorker));
     }
   };
 
