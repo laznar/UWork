@@ -8,8 +8,7 @@ import _ from 'lodash';
 import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 import { startEditUserInfo } from '../../redux/actions/auth';
-import { ChevronLeftIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import BackLink from '../../components/BackLink';
 
 const fieldNames = {
   name: 'name',
@@ -62,7 +61,7 @@ const NameSurname = () => {
         }
       });
 
-      dispatch(startEditUserInfo(newData, auth.uid));
+      dispatch(startEditUserInfo(newData));
     }
   };
   return (
@@ -70,13 +69,7 @@ const NameSurname = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
-      <Link
-        to="/perfil"
-        className="link-primary cursor-pointer d-inline-flex align-items-center mb-1"
-      >
-        <ChevronLeftIcon width={20} height={20} />
-        Atrás
-      </Link>
+      <BackLink to="/perfil">Atrás</BackLink>
       <h4 className="mb-3">Nombre y apellidos</h4>
 
       <FormProvider {...methods}>

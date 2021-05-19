@@ -3,10 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploader from 'react-images-upload';
-import { ChevronLeftIcon } from '@heroicons/react/outline';
 
 import CustomButton from '../../components/form-controls/CustomButton';
 import { startUpdateUserData } from '../../redux/actions/auth';
+import BackButton from '../../components/BackButton';
 
 const fieldNames = {
   photoURL: 'photoURL'
@@ -44,13 +44,8 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
 
   return (
     <div className="fade-anim">
-      <span
-        onClick={() => setStep((step) => step - 1)}
-        className="link-primary cursor-pointer d-inline-flex align-items-center mb-1"
-      >
-        <ChevronLeftIcon width={20} height={20} />
-        Atrás
-      </span>
+      <BackButton onClick={() => setStep((step) => step - 1)}>Atrás</BackButton>
+
       <h4 className="mb-0">Foto de Perfil</h4>
 
       <FormProvider {...methods}>

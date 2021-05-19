@@ -8,7 +8,10 @@ const firebaseErrors = {
   auth: {
     emailAlreadyInUse: 'auth/email-already-in-use',
     userNotFound: 'auth/user-not-found',
-    wrongPassword: 'auth/wrong-password'
+    wrongPassword: 'auth/wrong-password',
+    networkRequestFailed: 'auth/network-request-failed',
+    popupClosedByUser: 'auth/popup-closed-by-user',
+    userMismatch: 'auth/user-mismatch'
   }
 };
 
@@ -20,8 +23,12 @@ export const renderError = (code) => {
       return 'Esta cuenta no existe';
     case firebaseErrors.auth.wrongPassword:
       return 'Contraseña incorrecta';
-    case 'auth/network-request-failed':
+    case firebaseErrors.auth.networkRequestFailed:
       return 'Error de red';
+    case firebaseErrors.auth.popupClosedByUser:
+      return 'Autenticación no finalizada';
+    case firebaseErrors.auth.userMismatch:
+      return 'Debes seleccionar la cuenta correcta';
     default:
       return 'Ocurrió un error';
   }

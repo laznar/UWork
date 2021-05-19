@@ -13,7 +13,6 @@ export const startLoginWithEmailPassword = (email, password) => {
         .auth()
         .signInWithEmailAndPassword(email, password);
       const { user } = loginResult;
-      console.log(loginResult);
 
       dispatch(
         login(
@@ -166,23 +165,38 @@ export const startSendPasswordResetEmail = (email, reset) => {
   };
 };
 
-export const startAccountDeletion = () => {
-  return async (dispatch) => {
+export const startAccountDeletion = (password) => {
+  return async (dispatch, getState) => {
     dispatch(authUiLoading(true));
     try {
       const user = firebase.auth().currentUser;
+      const state = getState();
       const userRef = db.collection('users').doc(user.uid);
-      await userRef.delete();
-      await user.delete();
+      // TODO: Check if it's safe to delete a user when its uid is used in different collections
+      if (state.auth.providerId === 'google.com') {
+        await user.reauthenticateWithPopup(googleAuthProvider);
+        await userRef.delete();
+        await user.delete();
+      } else {
+        const credential = firebase.auth.EmailAuthProvider.credential(
+          user.email,
+          password
+        );
+        await firebase
+          .auth()
+          .currentUser.reauthenticateWithCredential(credential);
+        await userRef.delete();
+        await user.delete();
+      }
+
       dispatch(logout());
       Swal.fire({
         title: 'Cuenta eliminada',
-        text: 'Su cuenta ha sido eliminada exitosamente',
+        text: 'Tu cuenta ha sido eliminada exitosamente',
         confirmButtonColor: '#45a8d8',
         icon: 'success'
       });
     } catch (error) {
-      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));
@@ -211,7 +225,6 @@ export const startUpdateUserData = (data, pendingWorker, isWorker) => {
         confirmButtonColor: '#45a8d8'
       });
     } catch (error) {
-      console.log(error);
       toast.error(renderError(error.code));
     }
     dispatch(authUiLoading(false));

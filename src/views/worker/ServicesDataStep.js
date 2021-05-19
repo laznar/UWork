@@ -2,7 +2,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Select from 'react-select';
-import { ChevronLeftIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 
 import {
@@ -11,6 +10,7 @@ import {
 } from '../../utils/selectStyles';
 import { transports } from '../../utils/enums';
 import tasks from '../../utils/tasks';
+import BackButton from '../../components/BackButton';
 
 const fieldNames = {
   phoneNumber: 'phoneNumber',
@@ -63,13 +63,8 @@ const ServicesDataStep = ({
 
   return (
     <div className="fade-anim">
-      <span
-        onClick={() => setStep((step) => step - 1)}
-        className="link-primary cursor-pointer d-inline-flex align-items-center mb-1"
-      >
-        <ChevronLeftIcon width={20} height={20} />
-        Atrás
-      </span>
+      <BackButton onClick={() => setStep((step) => step - 1)}>Atrás</BackButton>
+
       <h4 className="mb-3">Datos de servicio</h4>
 
       <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">

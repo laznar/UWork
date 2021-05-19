@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CustomInput from '../../components/form-controls/CustomInput';
 import CustomButton from '../../components/form-controls/CustomButton';
 import { startPasswordUpdate } from '../../redux/actions/auth';
+import BackLink from '../../components/BackLink';
 
 const fieldNames = {
   currentPassword: 'currentPassword',
@@ -55,6 +56,7 @@ const Password = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
+      <BackLink to="/perfil">Atrás</BackLink>
       <h3 className="mb-3">Cambiar contraseña</h3>
       {auth.providerId === 'google.com' ? (
         <div className="alert alert-primary mb-0" role="alert">
