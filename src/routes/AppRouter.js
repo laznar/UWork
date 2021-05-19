@@ -19,7 +19,6 @@ import AppLoading from '../components/AppLoading';
 import Footer from '../views/home/Footer';
 import DashboardRoutes from './DashboardRoutes';
 import ProfileRoutes from './ProfileRoutes';
-import Worker from '../views/worker/Worker';
 import Reviews from '../views/profile/Reviews';
 import Resultados from '../views/results/Resultados';
 import Pagos from '../views/payments/Pagos';
@@ -94,15 +93,9 @@ const AppRouter = () => {
             component={DashboardRoutes}
           />
           <PrivateRoute
-            path="/profile"
+            path="/perfil"
             isAuthenticated={isAuthenticated}
             component={ProfileRoutes}
-          />
-          <Route
-            path="/worker"
-            exact
-            isAuthenticated={isAuthenticated}
-            component={Worker}
           />
 
           {auth?.userData?.isWorker && (

@@ -8,10 +8,10 @@ const ProfileRoutes = () => {
     <div>
       <div className="container" style={{ paddingTop: 50, paddingBottom: 100 }}>
         <Switch>
-          <Route exact path="/profile/password" component={Password} />
-          <Route exact path="/profile/edit" component={Edit} />
-          <Route exact path="/profile" component={Profile} />
-          <Redirect to="/profile" />
+          <Route exact path="/perfil/clave" component={Password} />
+          <Route exact path="/perfil/editar" component={Edit} />
+          <Route exact path="/perfil" component={Profile} />
+          <Redirect to="/perfil" />
         </Switch>
       </div>
     </div>

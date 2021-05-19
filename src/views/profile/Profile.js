@@ -58,13 +58,13 @@ const Profile = () => {
           <div className="list-group shadow-sm mb-3">
             <Link
               className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-              to="/profile/edit"
+              to="/perfil/editar"
             >
               Editar información <ChevronRightIcon width={20} height={20} />
             </Link>
             {
               <Link
-                to="/profile/password"
+                to="/perfil/clave"
                 className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
               >
                 Cambiar contraseña <ChevronRightIcon width={20} height={20} />

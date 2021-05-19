@@ -40,7 +40,7 @@ const ProfileMenu = ({ photoURL }) => {
         aria-labelledby="dropdown"
       >
         <li>
-          <Link className="dropdown-item" to="/profile">
+          <Link className="dropdown-item" to="/perfil">
             Perfil
           </Link>
         </li>

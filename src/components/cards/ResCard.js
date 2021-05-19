@@ -58,7 +58,7 @@ const ResCard = ({
         </div>
         <div className="d-none d-md-inline-block text-center">
           <button className="btn btn-primary text-white border-primary ms-2">
-            Consultar
+            Ofertar
           </button>
         </div>
       </div>
@@ -91,7 +91,7 @@ const ResCard = ({
       </div>
       <div className="d-md-none">
         <button className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom">
-          Consultar
+          Ofertar
         </button>
       </div>
     </div>

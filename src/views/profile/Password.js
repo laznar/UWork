@@ -59,7 +59,13 @@ const Password = () => {
       {auth.providerId === 'google.com' ? (
         <div className="alert alert-primary mb-0" role="alert">
           Para cambiar tu contraseña de Google, haz click{' '}
-          <a href="https://myaccount.google.com/signinoptions/password">aquí</a>
+          <a
+            href="https://myaccount.google.com/signinoptions/password"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            aquí
+          </a>
         </div>
       ) : (
         <FormProvider {...methods}>

@@ -31,7 +31,7 @@ const OpCard = ({
         <div className="d-none d-md-inline-block">
           <button className="btn btn-light border me-2">Rechazar</button>
           <button className="btn btn-primary text-white border-primary ms-2">
-            Aplicar
+            Aceptar
           </button>
         </div>
       </div>
@@ -67,7 +67,7 @@ const OpCard = ({
       <div className="row gx-0 d-md-none">
         <button className="btn col-6 rounded-0 border">Rechazar</button>
         <button className="btn col-6 rounded-0 text-primary border-primary">
-          Aplicar
+          Aceptar
         </button>
       </div>
     </div>
