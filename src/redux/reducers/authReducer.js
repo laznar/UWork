@@ -7,7 +7,6 @@ export const authReducer = (state = { userData: {} }, action) => {
         ...state,
         uid: action.payload.uid,
         email: action.payload.email,
-        fullName: action.payload.fullName,
         photoURL: action.payload.photoURL,
         providerId: action.payload.providerId
       };

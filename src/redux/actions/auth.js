@@ -19,7 +19,6 @@ export const startLoginWithEmailPassword = (email, password) => {
         login(
           user.uid,
           user.email,
-          user.displayName,
           user.photoURL,
           user.providerData[0].providerId
         )
@@ -45,10 +44,6 @@ export const startRegisterWithEmailPassword = (
         .auth()
         .createUserWithEmailAndPassword(data.email, data.password);
       const { user } = registerResult;
-      // Update user's displayName
-      await user.updateProfile({
-        displayName: data.name + ' ' + data.surname
-      });
 
       delete data.password;
       delete data.confirm;
@@ -61,7 +56,6 @@ export const startRegisterWithEmailPassword = (
       login(
         user.uid,
         user.email,
-        user.displayName,
         user.photoURL,
         user.providerData[0].providerId
       );
@@ -72,7 +66,22 @@ export const startRegisterWithEmailPassword = (
   };
 };
 
-export const startEditUserInfo = (data) => {};
+export const startEditUserInfo = (data) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const user = firebase.auth().currentUser;
+      const userRef = db.collection('users').doc(user.uid);
+
+      await userRef.update(data);
+      dispatch(setUserData(data));
+      toast.success('Información actualizada');
+    } catch (error) {
+      toast.error(renderError(error.code));
+    }
+    dispatch(authUiLoading(false));
+  };
+};
 
 export const startGoogleLogin = (pendingWorker = false) => {
   return async (dispatch) => {
@@ -110,7 +119,6 @@ export const startGoogleLogin = (pendingWorker = false) => {
         login(
           userData.uid,
           userData.email,
-          userData.displayName,
           userData.photoURL,
           user.providerData[0].providerId
         )
@@ -123,12 +131,11 @@ export const startGoogleLogin = (pendingWorker = false) => {
   };
 };
 
-export const login = (uid, email, fullName, photoURL, providerId) => ({
+export const login = (uid, email, photoURL, providerId) => ({
   type: types.login,
   payload: {
     uid,
     email,
-    fullName,
     photoURL,
     providerId
   }

@@ -44,7 +44,6 @@ const AppRouter = () => {
             login(
               user.uid,
               user.email,
-              user.displayName,
               user.photoURL,
               user.providerData[0].providerId
             )

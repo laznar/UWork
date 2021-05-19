@@ -50,7 +50,7 @@ const Profile = () => {
             photoURL={auth.photoURL}
             className="mb-3"
           />
-          <strong>{auth.fullName}</strong>
+          <strong>{`${auth.userData.name} ${auth.userData.surname}`}</strong>
           <span className="text-muted">{auth.email}</span>
         </div>
 
@@ -58,9 +58,10 @@ const Profile = () => {
           <div className="list-group shadow-sm mb-3">
             <Link
               className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-              to="/perfil/editar"
+              to="/perfil/nombre-apellidos"
             >
-              Editar información <ChevronRightIcon width={20} height={20} />
+              Editar nombre y apellido
+              <ChevronRightIcon width={20} height={20} />
             </Link>
             {
               <Link

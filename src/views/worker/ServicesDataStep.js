@@ -65,7 +65,7 @@ const ServicesDataStep = ({
     <div className="fade-anim">
       <span
         onClick={() => setStep((step) => step - 1)}
-        className="link-primary cursor-pointer d-flex align-items-center mb-1"
+        className="link-primary cursor-pointer d-inline-flex align-items-center mb-1"
       >
         <ChevronLeftIcon width={20} height={20} />
         Atrás
