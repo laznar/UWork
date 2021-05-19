@@ -22,7 +22,7 @@ const Profile = () => {
       <div className="d-flex flex-md-row flex-column flex-grow-1">
         <div
           style={{ minWidth: 290 }}
-          className="border rounded shadow-sm p-4 bg-white d-flex flex-column align-items-center"
+          className="border rounded shadow-sm p-4 bg-white d-flex flex-column align-items-center justify-content-center"
         >
           <ProfilePhoto
             height={124}
@@ -54,6 +54,16 @@ const Profile = () => {
               Editar correo
               <ChevronRightIcon width={20} height={20} />
             </Link>
+
+            {auth.userData.isWorker && (
+              <Link
+                className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                to="/perfil/personal"
+              >
+                Editar información personal
+                <ChevronRightIcon width={20} height={20} />
+              </Link>
+            )}
 
             <Link
               to="/perfil/clave"

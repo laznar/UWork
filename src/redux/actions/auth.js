@@ -223,13 +223,13 @@ export const startAccountDeletion = (password) => {
   };
 };
 
-export const startUpdateUserData = (data, pendingWorker, isWorker) => {
+export const startCompleteUserData = (data, pendingWorker, isWorker) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
       const user = firebase.auth().currentUser;
       const userRef = db.collection('users').doc(user.uid);
-      if (data.photoURL) {
+      if (data.photoURL[0]) {
         const photoURL = await uploadPhoto(data.photoURL[0]);
         await user.updateProfile({ photoURL });
 

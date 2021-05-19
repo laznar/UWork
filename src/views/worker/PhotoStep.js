@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ImageUploader from 'react-images-upload';
 
 import CustomButton from '../../components/form-controls/CustomButton';
-import { startUpdateUserData } from '../../redux/actions/auth';
+import { startCompleteUserData } from '../../redux/actions/auth';
 import BackButton from '../../components/BackButton';
 
 const fieldNames = {
@@ -37,7 +37,7 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      dispatch(startUpdateUserData({ ...formData, ...data }, false, true));
+      dispatch(startCompleteUserData({ ...formData, ...data }, false, true));
       setFormData({ ...formData, ...data });
     }
   };
