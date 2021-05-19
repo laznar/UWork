@@ -48,6 +48,14 @@ const Profile = () => {
             </Link>
 
             <Link
+              className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              to="/perfil/correo"
+            >
+              Editar correo
+              <ChevronRightIcon width={20} height={20} />
+            </Link>
+
+            <Link
               to="/perfil/clave"
               className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
             >

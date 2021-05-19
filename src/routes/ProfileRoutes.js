@@ -3,6 +3,7 @@ import Profile from '../views/profile/Profile';
 import Password from '../views/profile/Password';
 import NameSurname from '../views/profile/NameSurname';
 import DeleteAccount from '../views/profile/DeleteAccount';
+import EditEmail from '../views/profile/EditEmail';
 
 const ProfileRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const ProfileRoutes = () => {
             component={NameSurname}
           />
           <Route exact path="/perfil/borrar" component={DeleteAccount} />
+          <Route exact path="/perfil/correo" component={EditEmail} />
           <Route exact path="/perfil/clave" component={Password} />
           <Route exact path="/perfil" component={Profile} />
           <Redirect to="/perfil" />

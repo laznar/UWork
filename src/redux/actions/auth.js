@@ -66,12 +66,32 @@ export const startRegisterWithEmailPassword = (
 };
 
 export const startEditUserInfo = (data) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(authUiLoading(true));
     try {
       const user = firebase.auth().currentUser;
       const userRef = db.collection('users').doc(user.uid);
 
+      // Update email
+      if (data.email) {
+        // Email users
+        // TODO: Change email of Google users
+        if (getState().auth.providerId !== 'google.com') {
+          const credential = firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            data.password
+          );
+          await firebase
+            .auth()
+            .currentUser.reauthenticateWithCredential(credential);
+
+          await user.updateEmail(data.email);
+        }
+      }
+      // Avoid storing password in db
+      if (data.password) {
+        delete data.password;
+      }
       await userRef.update(data);
       dispatch(setUserData(data));
       toast.success('Información actualizada');
