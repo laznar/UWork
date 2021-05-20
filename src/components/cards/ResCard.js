@@ -1,5 +1,6 @@
 import ReactStars from 'react-rating-stars-component';
 import NumberFormat from 'react-number-format';
+import { useSelector } from 'react-redux';
 import {
   CurrencyDollarIcon,
   OfficeBuildingIcon,
@@ -32,6 +33,8 @@ const ResCard = ({
     isHalf: true
   };
 
+  const auth = useSelector((state) => state.auth);
+
   return (
     <div className="border rounded shadow-sm bg-white mb-3">
       <div
@@ -57,9 +60,15 @@ const ResCard = ({
           </div>
         </div>
         <div className="d-none d-md-inline-block text-center">
-          <button className="btn btn-primary text-white border-primary ms-2">
-            Ofertar
-          </button>
+          {auth.uid && (
+            <button
+              className="btn btn-primary text-white border-primary ms-2"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              Ofertar
+            </button>
+          )}
         </div>
       </div>
 
@@ -90,9 +99,15 @@ const ResCard = ({
         </ul>
       </div>
       <div className="d-md-none">
-        <button className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom">
-          Ofertar
-        </button>
+        {auth.uid && (
+          <button
+            className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            Ofertar
+          </button>
+        )}
       </div>
     </div>
   );
