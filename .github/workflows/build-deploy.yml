@@ -16,7 +16,11 @@ jobs:
   build-deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    # Environment variables
+    env:
+      REACT_APP_CLOUDINARY_UPLOAD_ENDPOINT: ${{secrets.REACT_APP_CLOUDINARY_UPLOAD_ENDPOINT }}
+      REACT_APP_CLOUDINARY_UPLOAD_PROFILE_PICS: ${{secrets.REACT_APP_CLOUDINARY_UPLOAD_PROFILE_PICS}}
+      REACT_APP_CLOUDINARY_UPLOAD_SERVICES_PICS: ${{ secrets.REACT_APP_CLOUDINARY_UPLOAD_SERVICES_PICS}}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -35,7 +39,7 @@ jobs:
       - name: Deploy to uwork.surge.sh
         uses: dswistowski/surge-sh-action@v1
         with:
-          domain: "https://uwork.surge.sh"
-          project: "build"
+          domain: 'https://uwork.surge.sh'
+          project: 'build'
           login: ${{ secrets.surge_login }}
           token: ${{ secrets.surge_token }}
