@@ -64,6 +64,14 @@ textarea {
   border-bottom-style: solid;
 }
 
+.custom-badge {
+  transition: background-color 200ms ease;
+  background-color: transparentize($color: $primary, $amount: 0.9);
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
 /*========= Styles for react-images-upload =========*/
 
 .chooseFileButton {

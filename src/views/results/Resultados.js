@@ -35,13 +35,18 @@ const Resultados = ({ history }) => {
 
   return (
     <div
-      style={{ maxWidth: 600, paddingTop: 30, paddingBottom: 100 }}
+      style={{
+        maxWidth: 600,
+        minHeight: 500,
+        paddingTop: 30,
+        paddingBottom: 100
+      }}
       className="mx-auto container"
     >
       {results.loading ? (
         <div className="d-flex">
           <div
-            className="spinner-border mx-auto text-primary"
+            className="spinner-border mx-auto mt-5 text-primary"
             style={{ width: 50, height: 50 }}
             role="status"
           >

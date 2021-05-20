@@ -7,6 +7,7 @@ import {
   PencilIcon,
   LightBulbIcon
 } from '@heroicons/react/outline';
+import { Link } from 'react-router-dom';
 
 const iconsConfig = {
   width: 20,
@@ -90,7 +91,16 @@ const ResCard = ({
           </li>
           <li>
             <LightBulbIcon {...iconsConfig} />
-            {skills.map((skill) => skill).join(', ')}
+
+            {skills.map((skill) => (
+              <Link
+                key={skill}
+                to={`/resultados?servicio=${skill}`}
+                className="badge rounded-pill border border me-1 mb-1 text-decoration-none text-primary custom-badge"
+              >
+                {skill}
+              </Link>
+            ))}
           </li>
           <li>
             <PencilIcon {...iconsConfig} />
