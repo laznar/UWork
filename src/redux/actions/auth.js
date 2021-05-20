@@ -65,7 +65,7 @@ export const startRegisterWithEmailPassword = (
   };
 };
 
-export const startEditUserInfo = (data) => {
+export const startEditUserInfo = (data, reset) => {
   return async (dispatch, getState) => {
     dispatch(authUiLoading(true));
     try {
@@ -87,6 +87,16 @@ export const startEditUserInfo = (data) => {
 
           await user.updateEmail(data.email);
         }
+      }
+
+      // Update photo
+      if (data.photoURL?.length) {
+        const photoURL = await uploadPhoto(data.photoURL[0]);
+        await user.updateProfile({ photoURL });
+        reset();
+        data.photoURL = photoURL;
+      } else {
+        delete data.photoURL;
       }
       // Avoid storing password in db
       if (data.password) {

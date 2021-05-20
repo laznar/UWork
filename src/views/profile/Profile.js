@@ -33,7 +33,10 @@ const Profile = () => {
             className="mb-3"
           />
           <strong>{`${auth.userData.name} ${auth.userData.surname}`}</strong>
-          <span className="text-muted">{auth.email}</span>
+          <span className="text-muted mb-2">{auth.email}</span>
+          <Link to="/perfil/foto" className="btn btn-primary text-white">
+            Cambiar foto
+          </Link>
         </div>
 
         <div className="ms-md-3 mt-3 mt-md-0 flex-grow-1">
@@ -73,6 +76,14 @@ const Profile = () => {
                 </Link>
               </>
             )}
+
+            <Link
+              className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              to="/perfil/foto"
+            >
+              Editar foto de perfil
+              <ChevronRightIcon width={20} height={20} />
+            </Link>
 
             <Link
               to="/perfil/clave"

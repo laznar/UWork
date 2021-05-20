@@ -69,7 +69,7 @@ const NameSurname = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
-      <BackLink to="/perfil">Atrás</BackLink>
+      <BackLink to="/perfil">Ir a perfil</BackLink>
       <h4 className="mb-3">Nombre y apellidos</h4>
 
       <FormProvider {...methods}>
@@ -84,7 +84,7 @@ const NameSurname = () => {
             type="submit"
             className="btn btn-primary text-white w-100"
           >
-            Guardar
+            Guardar cambios
           </CustomButton>
         </form>
       </FormProvider>

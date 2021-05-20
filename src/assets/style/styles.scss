@@ -66,6 +66,16 @@ textarea {
 
 /*========= Styles for react-images-upload =========*/
 
+.chooseFileButton {
+  background-color: $primary !important;
+}
+
+.fileContainer {
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
 .fileContainer .chooseFileButton:hover {
   background: #61b5de !important;
   border-color: #58b1dc !important;

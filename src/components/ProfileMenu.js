@@ -23,8 +23,8 @@ const ProfileMenu = ({ photoURL }) => {
         className="cursor-pointer p-1 btn d-flex align-items-center"
       >
         <ProfilePhoto
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           photoURL={photoURL}
           name={auth.userData.name}
           surname={auth.userData.surname}

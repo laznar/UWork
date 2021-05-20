@@ -78,7 +78,7 @@ const DeleteAccount = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
-      <BackLink to="/perfil">Atrás</BackLink>
+      <BackLink to="/perfil">Ir a perfil</BackLink>
       <h3 className="mb-3">Borrar cuenta</h3>
       {auth.providerId === 'google.com' ? (
         <p>

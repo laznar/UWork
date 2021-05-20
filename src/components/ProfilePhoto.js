@@ -13,7 +13,7 @@ const ProfilePhoto = ({
   return (
     <div
       className={clsx(
-        'd-inline-block overflow-hidden rounded-circle',
+        'd-inline-block overflow-hidden rounded-circle shadow',
         !photoURL && 'border',
         className
       )}

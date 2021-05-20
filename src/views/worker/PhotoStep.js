@@ -54,15 +54,10 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
             <Controller
               name={fieldNames.photoURL}
               control={methods.control}
-              render={({
-                field: { onChange, value },
-                formState: { errors }
-              }) => (
+              render={({ field: { onChange }, fieldState: { error } }) => (
                 <>
-                  {errors[fieldNames.photoURL] && (
-                    <span className="text-danger small">
-                      {errors[fieldNames.photoURL].message}
-                    </span>
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
                   )}
 
                   <ImageUploader
@@ -74,17 +69,11 @@ const PhotoStep = ({ setStep, setFormData, formData, updateFormData }) => {
                     imgExtension={['.jpg', '.gif', '.png', 'jpeg', '.svg']}
                     label="Archivo máximo de 2,5 MB"
                     maxFileSize={2621440}
-                    withPreview={true}
-                    singleImage={true}
+                    withPreview
+                    singleImage
                     fileTypeError="Tipo de archivo inválido"
                     buttonText="Seleccionar foto"
                     fileSizeError={'debe ser menor a 2,5MB'}
-                    fileContainerStyle={{
-                      padding: 0,
-                      margin: 0,
-                      boxShadow: 'none'
-                    }}
-                    buttonStyles={{ backgroundColor: '#45a8d8' }}
                   />
                 </>
               )}

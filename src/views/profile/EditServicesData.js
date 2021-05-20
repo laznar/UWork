@@ -96,7 +96,7 @@ const EditServicesData = () => {
       style={{ maxWidth: 500 }}
       className="mx-auto border fade-anim rounded-3 p-4 shadow-sm bg-white"
     >
-      <BackLink to="/perfil">Atrás</BackLink>
+      <BackLink to="/perfil">Ir a perfil</BackLink>
       <h4 className="mb-3">Información de servicio</h4>
 
       <FormProvider {...methods}>
@@ -223,7 +223,7 @@ const EditServicesData = () => {
             type="submit"
             className="btn btn-primary text-white w-100"
           >
-            Guardar
+            Guardar cambios
           </CustomButton>
         </form>
       </FormProvider>
