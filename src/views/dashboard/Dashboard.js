@@ -8,7 +8,7 @@ const Dashboard = ({ history }) => {
   useEffect(() => {
     if (auth.userData.pendingWorker) {
       Swal.fire({
-        title: 'Sé un worker',
+        title: 'Sé un Worker',
         text: 'Completa tu información para terminar tu registro como Worker',
         confirmButtonText: 'Completar información',
         showCancelButton: true,

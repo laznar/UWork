@@ -56,13 +56,22 @@ const Profile = () => {
             </Link>
 
             {auth.userData.isWorker && (
-              <Link
-                className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                to="/perfil/personal"
-              >
-                Editar información personal
-                <ChevronRightIcon width={20} height={20} />
-              </Link>
+              <>
+                <Link
+                  className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                  to="/perfil/personal"
+                >
+                  Editar información personal
+                  <ChevronRightIcon width={20} height={20} />
+                </Link>
+                <Link
+                  className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                  to="/perfil/servicio"
+                >
+                  Editar información de servicio
+                  <ChevronRightIcon width={20} height={20} />
+                </Link>
+              </>
             )}
 
             <Link

@@ -60,7 +60,7 @@ const MultiStepForm = () => {
       >
         <div className="mx-auto" style={{ maxWidth: 400 }}>
           <div className="alert alert-primary" role="alert">
-            Para ser un worker debes completar tu perfil
+            Para ser un Worker debes completar tu perfil
           </div>
           <div className="border rounded-3 p-4 shadow-sm bg-white">
             {renderStep()}

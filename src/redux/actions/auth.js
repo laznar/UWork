@@ -229,7 +229,7 @@ export const startCompleteUserData = (data, pendingWorker, isWorker) => {
     try {
       const user = firebase.auth().currentUser;
       const userRef = db.collection('users').doc(user.uid);
-      if (data.photoURL[0]) {
+      if (data.photoURL?.length) {
         const photoURL = await uploadPhoto(data.photoURL[0]);
         await user.updateProfile({ photoURL });
 
@@ -241,7 +241,8 @@ export const startCompleteUserData = (data, pendingWorker, isWorker) => {
       dispatch(setUserData({ ...data, pendingWorker, isWorker }));
       Swal.fire({
         title: 'Perfil completo',
-        text: 'Ahora eres un worker',
+        icon: 'success',
+        text: 'Ahora eres un Worker',
         confirmButtonColor: '#45a8d8'
       });
     } catch (error) {

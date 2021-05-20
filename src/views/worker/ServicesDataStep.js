@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Select from 'react-select';
 import clsx from 'clsx';
+import autosize from 'autosize';
 
 import {
   customSelectStyles,
@@ -55,6 +57,10 @@ const ServicesDataStep = ({
       [fieldNames.aboutMe]: formData[fieldNames.aboutMe] || ''
     }
   });
+
+  useEffect(() => {
+    autosize(document.getElementById('textarea'));
+  }, []);
 
   const onSubmit = (data) => {
     setStep((step) => step + 1);
@@ -156,6 +162,7 @@ const ServicesDataStep = ({
               <>
                 <textarea
                   defaultValue={value}
+                  id="textarea"
                   placeholder="Acerca de ti"
                   onChange={(e) => {
                     onChange(e.target.value);
