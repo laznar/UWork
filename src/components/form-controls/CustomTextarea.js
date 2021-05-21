@@ -14,7 +14,7 @@ const CustomTextarea = ({ name, placeholder, type = 'text', ...rest }) => {
   }, []);
 
   return (
-    <>
+    <div>
       <textarea
         name={name}
         id="textarea"
@@ -26,7 +26,7 @@ const CustomTextarea = ({ name, placeholder, type = 'text', ...rest }) => {
       {errors[name] && (
         <span className="text-danger small">{errors[name].message}</span>
       )}
-    </>
+    </div>
   );
 };
 

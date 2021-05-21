@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
 import NumberFormat from 'react-number-format';
+import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import {
   CurrencyDollarIcon,
@@ -9,10 +12,30 @@ import {
 } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 
+import Ofertar from '../Ofertar';
+
+Modal.setAppElement('#root');
+
 const iconsConfig = {
   width: 20,
   height: 20,
   className: 'text-secondary me-2'
+};
+
+const customStyles = {
+  overlay: { backgroundColor: 'rgba(0,0,0,0.3)' },
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 100000,
+    maxWidth: 400,
+    width: '90%'
+  }
 };
 
 const ResCard = ({
@@ -25,6 +48,8 @@ const ResCard = ({
   aboutMe,
   photoURL = 'https://picsum.photos/200/200'
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const scoreReview = {
     size: 25,
     value,
@@ -33,6 +58,21 @@ const ResCard = ({
     activeColor: '#45a8d8',
     isHalf: true
   };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  // To prevent scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+  }, [isOpen]);
 
   const auth = useSelector((state) => state.auth);
 
@@ -63,9 +103,8 @@ const ResCard = ({
         <div className="d-none d-md-inline-block text-center">
           {auth.uid && (
             <button
+              onClick={openModal}
               className="btn btn-primary text-white border-primary ms-2"
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
             >
               Ofertar
             </button>
@@ -110,15 +149,30 @@ const ResCard = ({
       </div>
       <div className="d-md-none">
         {auth.uid && (
-          <button
-            className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
-            Ofertar
-          </button>
+          <>
+            <button
+              onClick={() => {
+                setIsOpen(true);
+              }}
+              className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom"
+            >
+              Ofertar
+            </button>
+          </>
         )}
       </div>
+
+      <Modal
+        isOpen={isOpen}
+        // onAfterOpen={afterOpenModal}
+        closeTimeoutMS={300}
+        onRequestClose={closeModal}
+        style={customStyles}
+        shouldCloseOnEsc={false}
+        shouldCloseOnOverlayClick={false}
+      >
+        <Ofertar closeModal={closeModal} />
+      </Modal>
     </div>
   );
 };
