@@ -23,6 +23,7 @@ import Reviews from '../views/profile/Reviews';
 import Resultados from '../views/results/Resultados';
 import Pagos from '../views/payments/Pagos';
 import MultiStepForm from '../views/worker/MultiStepForm';
+import ScrollToTop from '../components/ScrollToTop';
 
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
@@ -69,6 +70,7 @@ const AppRouter = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Toaster />
       <NavBar />
       <div className="bg-light">

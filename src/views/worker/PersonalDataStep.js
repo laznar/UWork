@@ -69,140 +69,117 @@ const PersonalDataStep = ({
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="row g-3">
-          <div>
-            <Controller
-              name={fieldNames.gender}
-              control={methods.control}
-              render={({
-                field: { onChange, value },
-                fieldState: { error }
-              }) => (
-                <>
-                  <Select
-                    defaultValue={genders.find(
-                      (gender) => gender.value === value
-                    )}
-                    selected={value}
-                    isSearchable={false}
-                    placeholder="Género"
-                    styles={
-                      error ? customErrorSelectStyles : customSelectStyles
-                    }
-                    getOptionValue={(option) => option.value}
-                    options={genders}
-                    onChange={(e) => {
-                      // onChange's arg will send value into hook form
-                      updateFormData(fieldNames.gender, e.value);
-                      onChange(e.value);
-                    }}
-                  />
-                  {error && (
-                    <span className="text-danger small">{error.message}</span>
+          <Controller
+            name={fieldNames.gender}
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <Select
+                  defaultValue={genders.find(
+                    (gender) => gender.value === value
                   )}
-                </>
-              )}
-            />
-          </div>
+                  selected={value}
+                  isSearchable={false}
+                  placeholder="Género"
+                  styles={error ? customErrorSelectStyles : customSelectStyles}
+                  getOptionValue={(option) => option.value}
+                  options={genders}
+                  onChange={(e) => {
+                    // onChange's arg will send value into hook form
+                    updateFormData(fieldNames.gender, e.value);
+                    onChange(e.value);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </div>
+            )}
+          />
 
-          <div>
-            <Controller
-              name={fieldNames.typeOfId}
-              control={methods.control}
-              render={({
-                field: { onChange, value },
-                fieldState: { error }
-              }) => (
-                <>
-                  <Select
-                    defaultValue={personalIds.find((id) => id.value === value)}
-                    isSearchable={false}
-                    placeholder="Tipo de identificación"
-                    styles={
-                      error ? customErrorSelectStyles : customSelectStyles
-                    }
-                    getOptionValue={(option) => option.value}
-                    options={personalIds}
-                    onChange={(e) => {
-                      onChange(e.value);
-                      updateFormData(fieldNames.typeOfId, e.value);
-                    }}
-                  />
-                  {error && (
-                    <span className="text-danger small">{error.message}</span>
-                  )}
-                </>
-              )}
-            />
-          </div>
+          <Controller
+            name={fieldNames.typeOfId}
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <Select
+                  defaultValue={personalIds.find((id) => id.value === value)}
+                  isSearchable={false}
+                  placeholder="Tipo de identificación"
+                  styles={error ? customErrorSelectStyles : customSelectStyles}
+                  getOptionValue={(option) => option.value}
+                  options={personalIds}
+                  onChange={(e) => {
+                    onChange(e.value);
+                    updateFormData(fieldNames.typeOfId, e.value);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </div>
+            )}
+          />
 
           <CustomInput
             name={fieldNames.personalId}
             placeholder="Número de identificación"
           />
 
-          <div>
-            <Controller
-              render={({
-                field: { onChange, value },
-                fieldState: { error }
-              }) => (
-                <>
-                  <Select
-                    defaultValue={cities.find((city) => city.value === value)}
-                    placeholder="Ciudad"
-                    styles={
-                      error ? customErrorSelectStyles : customSelectStyles
-                    }
-                    getOptionValue={(option) => option.value}
-                    options={cities}
-                    onChange={(e) => {
-                      onChange(e.value);
-                      updateFormData(fieldNames.city, e.value);
-                    }}
-                  />
-                  {error && (
-                    <span className="text-danger small">{error.message}</span>
-                  )}
-                </>
-              )}
-              name={fieldNames.city}
-              control={methods.control}
-            />
-          </div>
+          <Controller
+            name={fieldNames.city}
+            control={methods.control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <div>
+                <Select
+                  defaultValue={cities.find((city) => city.value === value)}
+                  placeholder="Ciudad"
+                  styles={error ? customErrorSelectStyles : customSelectStyles}
+                  getOptionValue={(option) => option.value}
+                  options={cities}
+                  onChange={(e) => {
+                    onChange(e.value);
+                    updateFormData(fieldNames.city, e.value);
+                  }}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </div>
+            )}
+          />
 
           <CustomInput
             name={fieldNames.address}
             placeholder="Dirección del servicio"
           />
 
-          <div>
-            <Controller
-              name={fieldNames.dateOfBirth}
-              control={methods.control}
-              render={({ field, fieldState: { error } }) => (
-                <>
-                  <DatePicker
-                    {...field}
-                    dateFormat="dd/MM/yyyy"
-                    placeholderText="Fecha de nacimiento"
-                    className={clsx('form-control', error && 'is-invalid')}
-                    isClearable
-                    selected={field.value}
-                    peekNextMonth
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                    scrollableYearDropdown
-                    locale="es"
-                    control={methods.control}
-                  />
-                  {error && (
-                    <span className="text-danger small">{error.message}</span>
-                  )}
-                </>
-              )}
-            />
-          </div>
+          <Controller
+            name={fieldNames.dateOfBirth}
+            control={methods.control}
+            render={({ field, fieldState: { error } }) => (
+              <div>
+                <DatePicker
+                  {...field}
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText="Fecha de nacimiento"
+                  className={clsx('form-control', error && 'is-invalid')}
+                  isClearable
+                  selected={field.value}
+                  peekNextMonth
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode="select"
+                  scrollableYearDropdown
+                  locale="es"
+                  control={methods.control}
+                />
+                {error && (
+                  <span className="text-danger small">{error.message}</span>
+                )}
+              </div>
+            )}
+          />
 
           <div>
             <button className="btn btn-primary text-white w-100" type="submit">
