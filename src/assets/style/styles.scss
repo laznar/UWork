@@ -1,4 +1,8 @@
-$primary: #45a8d8;
+$blue-1: #2985b2;
+$blue-2: #45a8d8;
+$blue-3: #68c5f1;
+$blue-4: #88d9ff;
+$primary: $blue-2;
 $brown: #714601;
 $yellow: #fdf7e7;
 $gray: #383843;
@@ -123,24 +127,44 @@ textarea {
   }
 }
 
+.react-datepicker {
+  font-family: inherit !important;
+}
+
 .react-datepicker-wrapper {
   width: 100%;
 }
 
+.react-datepicker__triangle {
+  left: 2rem !important;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 1.1rem !important;
+  line-height: 1.1rem !important;
+}
+
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: $primary;
+  background-color: $primary !important;
 }
 
 .react-datepicker__close-icon::after {
   background-color: $primary !important;
 }
 
+.react-datepicker__year-select,
+.react-datepicker__month-select {
+  padding: 0;
+  border-radius: 0.2rem;
+}
+
 /*========= Styles for react-modal =========*/
 
 .ReactModal__Overlay {
   opacity: 0;
-  transition: opacity 300ms ease-in-out;
+  transition: opacity 250ms ease;
 }
 
 .ReactModal__Overlay--after-open {

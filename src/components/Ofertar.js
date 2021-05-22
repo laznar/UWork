@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,6 +8,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import OverlayScrollbars from 'overlayscrollbars';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import 'overlayscrollbars/css/OverlayScrollbars.css';
 
 import * as yup from 'yup';
 
@@ -51,117 +55,140 @@ const Ofertar = ({ closeModal }) => {
     console.log(data);
   };
 
+  useEffect(() => {
+    const instance = OverlayScrollbars(document.body);
+    instance.options('className', null);
+    return () => {
+      instance.options('className', 'os-theme-dark');
+    };
+  }, []);
+
   const methods = useForm({ resolver: yupResolver(schema) });
   return (
-    <div>
-      <div className="mb-3 d-flex justify-content-between align-items-center">
-        <h3 className="mb-0">Completar oferta</h3>
+    <div className="d-flex flex-column h-100">
+      <div
+        className="d-flex justify-content-between align-items-center position-sticky top-0 p-3 bg-white border-bottom"
+        style={{ zIndex: 2 }}
+      >
+        <h4 className="mb-0">Completar oferta</h4>
         <button onClick={closeModal} className="btn p-1">
           <XIcon width={20} height={20} />
         </button>
       </div>
       <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(onSubmit)}
-          className="row g-2 g-md-3"
-        >
-          <CustomInput name={fieldNames.title} placeholder="Ingrese título" />
-
-          <Controller
-            name={fieldNames.price}
-            control={methods.control}
-            render={({ field, fieldState: { error } }) => (
-              <div>
-                <NumberFormat
-                  {...field}
-                  isAllowed={withValueLimit}
-                  decimalSeparator={','}
-                  thousandSeparator="."
-                  autoComplete="off"
-                  allowNegative={false}
-                  decimalScale={0}
-                  prefix="$"
-                  onValueChange={({ floatValue }) => {
-                    field.onChange(floatValue);
-                    console.log(floatValue);
-                  }}
-                  className={clsx('form-control', error && 'is-invalid')}
-                  placeholder="Ingrese precio"
-                />
-
-                {error && (
-                  <span className="text-danger small">{error.message}</span>
-                )}
-              </div>
-            )}
-          />
-
-          <Controller
-            name={fieldNames.date}
-            control={methods.control}
-            render={({ field, fieldState: { error } }) => (
-              <div>
-                <DatePicker
-                  {...field}
-                  dateFormat="dd/MM/yyyy"
-                  placeholderText="Fecha del servicio"
-                  className={clsx('form-control', error && 'is-invalid')}
-                  isClearable
-                  selected={field.value}
-                  peekNextMonth
-                  showMonthDropdown
-                  showYearDropdown
-                  dropdownMode="select"
-                  scrollableYearDropdown
-                  locale="es"
-                  control={methods.control}
-                />
-                {error && (
-                  <span className="text-danger small">{error.message}</span>
-                )}
-              </div>
-            )}
-          />
-
-          <Controller
-            name={fieldNames.city}
-            control={methods.control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <div>
-                <Select
-                  defaultValue={cities.find((city) => city.value === value)}
-                  placeholder="Ciudad"
-                  styles={error ? customErrorSelectStyles : customSelectStyles}
-                  getOptionValue={(option) => option.value}
-                  options={cities}
-                  onChange={(e) => {
-                    onChange(e.value);
-                  }}
-                />
-                {error && (
-                  <span className="text-danger small">{error.message}</span>
-                )}
-              </div>
-            )}
-          />
-
-          <CustomInput
-            name={fieldNames.neighborhood}
-            placeholder="Ingrese barrio / localidad"
-          />
-
-          <CustomTextarea
-            name={fieldNames.description}
-            placeholder="Descripción"
-          />
-
-          <CustomButton
-            type="submit"
-            className="w-100 btn btn-primary text-white"
+        <OverlayScrollbarsComponent className="flex-grow-1">
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="row gx-0 gy-3 p-3"
           >
-            Crear oferta
-          </CustomButton>
-        </form>
+            <CustomInput name={fieldNames.title} placeholder="Ingrese título" />
+            <Controller
+              name={fieldNames.date}
+              control={methods.control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <DatePicker
+                    {...field}
+                    popperPlacement="bottom-start"
+                    popperModifiers={{
+                      flip: {
+                        behavior: ['bottom'] // don't allow it to flip to be above
+                      },
+                      preventOverflow: {
+                        enabled: false // tell it not to try to stay within the view (this prevents the popper from covering the element you clicked)
+                      },
+                      hide: {
+                        enabled: false // turn off since needs preventOverflow to be enabled
+                      }
+                    }}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText="Fecha del servicio"
+                    className={clsx('form-control', error && 'is-invalid')}
+                    isClearable
+                    selected={field.value}
+                    peekNextMonth
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
+                    scrollableYearDropdown
+                    locale="es"
+                    control={methods.control}
+                  />
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name={fieldNames.price}
+              control={methods.control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <NumberFormat
+                    {...field}
+                    isAllowed={withValueLimit}
+                    decimalSeparator={','}
+                    thousandSeparator="."
+                    autoComplete="off"
+                    allowNegative={false}
+                    decimalScale={0}
+                    prefix="$"
+                    onValueChange={({ floatValue }) => {
+                      field.onChange(floatValue);
+                      console.log(floatValue);
+                    }}
+                    className={clsx('form-control', error && 'is-invalid')}
+                    placeholder="Ingrese precio"
+                  />
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
+                  )}
+                </div>
+              )}
+            />
+            <Controller
+              name={fieldNames.city}
+              control={methods.control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error }
+              }) => (
+                <div>
+                  <Select
+                    defaultValue={cities.find((city) => city.value === value)}
+                    placeholder="Ciudad"
+                    styles={
+                      error ? customErrorSelectStyles : customSelectStyles
+                    }
+                    getOptionValue={(option) => option.value}
+                    options={cities}
+                    onChange={(e) => {
+                      onChange(e.value);
+                    }}
+                  />
+                  {error && (
+                    <span className="text-danger small">{error.message}</span>
+                  )}
+                </div>
+              )}
+            />
+            <CustomInput
+              name={fieldNames.neighborhood}
+              placeholder="Ingrese barrio / localidad"
+            />
+            <CustomTextarea
+              name={fieldNames.description}
+              placeholder="Descripción"
+            />
+            <CustomButton
+              type="submit"
+              className="w-100 btn btn-primary text-white position-sticky bottom-0"
+            >
+              Crear oferta
+            </CustomButton>
+          </form>
+        </OverlayScrollbarsComponent>
       </FormProvider>
     </div>
   );

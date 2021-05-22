@@ -11,6 +11,7 @@ import {
   LightBulbIcon
 } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 import Ofertar from '../Ofertar';
 
@@ -20,22 +21,6 @@ const iconsConfig = {
   width: 20,
   height: 20,
   className: 'text-secondary me-2'
-};
-
-const customStyles = {
-  overlay: { backgroundColor: 'rgba(0,0,0,0.3)' },
-
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 100000,
-    maxWidth: 400,
-    width: '90%'
-  }
 };
 
 const ResCard = ({
@@ -49,6 +34,26 @@ const ResCard = ({
   photoURL = 'https://picsum.photos/200/200'
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const smallScreen = useMediaQuery({ query: '(max-width: 700px)' });
+
+  const customStyles = {
+    overlay: { backgroundColor: 'rgba(0,0,0,0.3)' },
+
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      padding: 0,
+      transform: 'translate(-50%, -50%)',
+      maxWidth: !smallScreen && 500,
+      width: smallScreen && '100%',
+      height: smallScreen && '100%',
+      maxHeight: '100%',
+      overflow: 'auto'
+    }
+  };
 
   const scoreReview = {
     size: 25,
@@ -71,6 +76,8 @@ const ResCard = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
   }, [isOpen]);
 
@@ -165,7 +172,7 @@ const ResCard = ({
       <Modal
         isOpen={isOpen}
         // onAfterOpen={afterOpenModal}
-        closeTimeoutMS={300}
+        closeTimeoutMS={250}
         onRequestClose={closeModal}
         style={customStyles}
         shouldCloseOnEsc={false}
