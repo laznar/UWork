@@ -23,8 +23,10 @@ const Dashboard = ({ history }) => {
     }
   }, [auth.userData.pendingWorker, history]);
   return (
-    <div className="container mx-auto" style={{ maxWidth: 600 }}>
-      <h1>Dashboard</h1>
+    <div className="container custom-container">
+      <div className="container mx-auto" style={{ maxWidth: 600 }}>
+        <h1>Dashboard</h1>
+      </div>
     </div>
   );
 };

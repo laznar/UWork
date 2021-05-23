@@ -1,4 +1,4 @@
-import OpCard from '../../components/cards/OpCard';
+import OpCard from '../components/cards/OpCard';
 
 let oportunidades = [
   {
@@ -24,11 +24,13 @@ let oportunidades = [
 ];
 const Oportunidades = () => {
   return (
-    <div style={{ maxWidth: 600 }} className="mx-auto">
-      <h2 className="mb-4">Oportunidades</h2>
-      {oportunidades.map((oportunidad, idx) => {
-        return <OpCard {...oportunidad} key={idx} />;
-      })}
+    <div className="container custom-container">
+      <div style={{ maxWidth: 600 }} className="mx-auto">
+        <h2 className="mb-4">Oportunidades</h2>
+        {oportunidades.map((oportunidad, idx) => {
+          return <OpCard {...oportunidad} key={idx} />;
+        })}
+      </div>
     </div>
   );
 };

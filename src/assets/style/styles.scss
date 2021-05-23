@@ -75,6 +75,11 @@ textarea {
   }
 }
 
+.custom-container {
+  min-height: calc(100vh - 85px);
+  padding: 30px 0;
+}
+
 /*========= Styles for react-images-upload =========*/
 
 .chooseFileButton {

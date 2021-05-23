@@ -1,4 +1,4 @@
-import MessCard from '../../components/cards/MessCard';
+import MessCard from '../components/cards/MessCard';
 
 let mensajes = [
   {
@@ -18,11 +18,13 @@ let mensajes = [
 
 const Mensajes = () => {
   return (
-    <div style={{ maxWidth: 600 }} className="mx-auto">
-      <h2 className="mb-4">Mensajes</h2>
-      {mensajes.map((mensaje, idx) => {
-        return <MessCard key={idx} {...mensaje} />;
-      })}
+    <div className="container custom-container">
+      <div style={{ maxWidth: 600 }} className="mx-auto">
+        <h2 className="mb-4">Mensajes</h2>
+        {mensajes.map((mensaje, idx) => {
+          return <MessCard key={idx} {...mensaje} />;
+        })}
+      </div>
     </div>
   );
 };

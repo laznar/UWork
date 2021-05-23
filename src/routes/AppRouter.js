@@ -17,13 +17,17 @@ import { firebase, db } from '../firebase';
 import Home from '../views/home/Home';
 import AppLoading from '../components/AppLoading';
 import Footer from '../views/home/Footer';
-import DashboardRoutes from './DashboardRoutes';
 import ProfileRoutes from './ProfileRoutes';
 import Reviews from '../views/profile/Reviews';
 import Resultados from '../views/results/Resultados';
 import Pagos from '../views/payments/Pagos';
 import MultiStepForm from '../views/worker/MultiStepForm';
 import ScrollToTop from '../components/ScrollToTop';
+import Oportunidades from '../views/Oportunidades';
+import Servicios from '../views/Servicios';
+import Dashboard from '../views/Dashboard';
+import Mensajes from '../views/Mensajes';
+import Proyectos from '../views/Proyectos';
 
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
@@ -76,45 +80,83 @@ const AppRouter = () => {
       <div className="bg-light">
         <Switch>
           <PublicRoute
-            path="/auth"
             isAuthenticated={isAuthenticated}
             component={AuthRoutes}
+            path="/auth"
           />
           {!auth?.userData?.isWorker && (
             <PrivateRoute
-              path="/complete"
               isAuthenticated={isAuthenticated}
-              exact
               component={MultiStepForm}
+              path="/complete"
+              exact
             />
           )}
+
+          {auth?.userData?.isWorker && (
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              component={Oportunidades}
+              path="/oportunidades"
+              exact
+            />
+          )}
+
+          {auth?.userData?.isWorker && (
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              component={Servicios}
+              path="/mis-servicios"
+              exact
+            />
+          )}
+
           <PrivateRoute
-            path="/dashboard"
             isAuthenticated={isAuthenticated}
-            component={DashboardRoutes}
+            component={Dashboard}
+            path="/dashboard"
+            exact
+          />
+
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            component={Mensajes}
+            path="/mensajes"
+            exact
           />
           <PrivateRoute
-            path="/perfil"
+            isAuthenticated={isAuthenticated}
+            component={Proyectos}
+            path="/proyectos"
+            exact
+          />
+
+          <PrivateRoute
             isAuthenticated={isAuthenticated}
             component={ProfileRoutes}
+            path="/perfil"
           />
 
           {auth?.userData?.isWorker && (
             <PrivateRoute
-              path="/reviews"
-              exact
               isAuthenticated={isAuthenticated}
               component={Reviews}
+              path="/reviews"
+              exact
             />
           )}
-          <Route path="/resultados" exact component={Resultados} />
+
+          <Route path="/resultados" component={Resultados} exact />
+
           <PrivateRoute
-            path="/payment-gateway"
-            exact
             isAuthenticated={isAuthenticated}
             component={Pagos}
+            path="/payment-gateway"
+            exact
           />
+
           <Route exact path="/" component={Home} />
+
           <Redirect to="/" />
         </Switch>
       </div>

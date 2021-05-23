@@ -10,7 +10,7 @@ const DashboardNav = () => {
           <li className="nav-item my-1 my-lg-0 mx-lg-2">
             <NavLink
               exact
-              to="/dashboard/oportunidades"
+              to="/oportunidades"
               className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
               activeClassName="active text-primary border-primary"
             >
@@ -19,7 +19,7 @@ const DashboardNav = () => {
           </li>
           <li className="nav-item my-1 my-lg-0 mx-lg-2">
             <NavLink
-              to="/dashboard/mis-servicios"
+              to="/mis-servicios"
               className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
               activeClassName="active text-primary border-primary"
             >
@@ -31,7 +31,7 @@ const DashboardNav = () => {
 
       <li className="nav-item my-1 my-lg-0 mx-lg-2">
         <NavLink
-          to="/dashboard/mensajes"
+          to="/mensajes"
           className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
           activeClassName="active text-primary border-primary"
         >
@@ -41,7 +41,7 @@ const DashboardNav = () => {
 
       <li className="nav-item my-1 my-lg-0 mx-lg-2">
         <NavLink
-          to="/dashboard/proyectos"
+          to="/proyectos"
           className="nav-link custom-navlink-border border-2 px-0 pb-0 pt-1"
           activeClassName="active text-primary border-primary"
         >
