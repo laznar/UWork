@@ -16,7 +16,7 @@ export const startCreateServiceRequest = (
       await collectionRef.add({
         customerUid,
         workerUid,
-        data,
+        ...data,
         completed: false
       });
       reset();

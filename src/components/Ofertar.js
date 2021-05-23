@@ -66,7 +66,6 @@ const Ofertar = ({ closeModal, workerUid }) => {
 
   const onSubmit = (data) => {
     if (!authUi.loading) {
-      console.log(data);
       dispatch(
         startCreateServiceRequest(data, workerUid, closeModal, methods.reset)
       );
@@ -139,10 +138,9 @@ const Ofertar = ({ closeModal, workerUid }) => {
             <Controller
               name={fieldNames.price}
               control={methods.control}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field: { onChange }, fieldState: { error } }) => (
                 <div>
                   <NumberFormat
-                    {...field}
                     isAllowed={withValueLimit}
                     decimalSeparator={','}
                     thousandSeparator="."
@@ -151,7 +149,7 @@ const Ofertar = ({ closeModal, workerUid }) => {
                     decimalScale={0}
                     prefix="$"
                     onValueChange={({ floatValue }) => {
-                      field.onChange(floatValue);
+                      onChange(floatValue);
                     }}
                     className={clsx('form-control', error && 'is-invalid')}
                     placeholder="Precio"
