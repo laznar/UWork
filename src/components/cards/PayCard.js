@@ -7,6 +7,8 @@ import {
   LightBulbIcon
 } from '@heroicons/react/outline';
 
+import { renderNameAndSurnameInitial } from '../../utils/misc';
+
 const iconsConfig = {
   width: 20,
   height: 20,
@@ -41,7 +43,7 @@ const PayCard = ({
         className="px-4 py-3 border-bottom d-flex justify-content-between align-items-center"
         style={{ color: '#6c757d' }}
       >
-        <strong>{name + ' ' + surname.charAt(0) + '.'}</strong>
+        <strong>{renderNameAndSurnameInitial(name, surname)}</strong>
         <div className="d-flex align-items-center">
           <span className="fs-5 me-2">{value}</span>
           <ReactStars {...scoreReview} />

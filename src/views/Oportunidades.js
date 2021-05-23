@@ -1,35 +1,48 @@
-import OpCard from '../components/cards/OpCard';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import OpportunityCard from '../components/cards/OpportunityCard';
+import {
+  setOpportunities,
+  setOpportunitiesLoading,
+  startSearchOpportunities
+} from '../redux/actions/opportunities';
 
-let oportunidades = [
-  {
-    titulo: 'Se necesita limpiar ventanas',
-    usuario: 'Aznar',
-    precio: '50.000',
-    fecha: '5/05/2021',
-    ciudad: 'Medellín',
-    barrio: 'Conquistadores',
-    skill: 'Limpieza',
-    descripcion: 'Necesito limpiar los ventanales'
-  },
-  {
-    titulo: 'Se necesita pasear perro a las 8 a. m.',
-    usuario: 'Jose',
-    precio: '20.000',
-    fecha: '6/05/2021',
-    ciudad: 'Barranquilla',
-    barrio: 'Villa Carolina',
-    skill: 'Pasear Mascota',
-    descripcion: 'Necesito pasear a mi perro durante las mañanas'
-  }
-];
 const Oportunidades = () => {
+  const dispatch = useDispatch();
+
+  const opportunities = useSelector((state) => state.opportunities);
+
+  useEffect(() => {
+    dispatch(startSearchOpportunities());
+    return () => {
+      dispatch(setOpportunities([]));
+      dispatch(setOpportunitiesLoading(true));
+    };
+  }, [dispatch]);
+
   return (
     <div className="container custom-container">
       <div style={{ maxWidth: 600 }} className="mx-auto">
-        <h2 className="mb-4">Oportunidades</h2>
-        {oportunidades.map((oportunidad, idx) => {
-          return <OpCard {...oportunidad} key={idx} />;
-        })}
+        {opportunities.loading ? (
+          <div className="d-flex">
+            <div
+              className="spinner-border mx-auto mt-5 text-primary"
+              style={{ width: 50, height: 50 }}
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : opportunities.results.length > 0 ? (
+          <>
+            <h2 className="mb-4">Oportunidades</h2>
+            {opportunities.results.map((opportunity, idx) => {
+              return <OpportunityCard {...opportunity} key={idx} />;
+            })}
+          </>
+        ) : (
+          <h3>No se encontraron oportunidades</h3>
+        )}
       </div>
     </div>
   );

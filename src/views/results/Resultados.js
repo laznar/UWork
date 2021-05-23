@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import ResCard from '../../components/cards/ResCard';
+import ResultCard from '../../components/cards/ResultCard';
 import useQuery from '../../hooks/useQuery';
 import tasks from '../../utils/tasks';
 import { useDispatch } from 'react-redux';
@@ -57,7 +57,7 @@ const Resultados = ({ history }) => {
         <>
           <h2 className="mb-3">{query.get('servicio')}</h2>
           {results.results.map((result, idx) => {
-            return <ResCard key={idx} {...result} />;
+            return <ResultCard key={idx} {...result} />;
           })}
         </>
       ) : (

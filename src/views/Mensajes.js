@@ -1,4 +1,4 @@
-import MessCard from '../components/cards/MessCard';
+import MessageCard from '../components/cards/MessageCard';
 
 let mensajes = [
   {
@@ -22,7 +22,7 @@ const Mensajes = () => {
       <div style={{ maxWidth: 600 }} className="mx-auto">
         <h2 className="mb-4">Mensajes</h2>
         {mensajes.map((mensaje, idx) => {
-          return <MessCard key={idx} {...mensaje} />;
+          return <MessageCard key={idx} {...mensaje} />;
         })}
       </div>
     </div>

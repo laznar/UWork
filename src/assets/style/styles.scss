@@ -180,6 +180,23 @@ textarea {
   opacity: 0;
 }
 
+/*========= Styles for react-clamp-lines =========*/
+
+.clamp-lines > * {
+  margin: 0;
+}
+
+.clamp-lines__button {
+  background: none;
+  border: 0;
+  color: $primary;
+  cursor: pointer;
+  padding: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 /*========= Keyframes =========*/
 
 @keyframes fade {

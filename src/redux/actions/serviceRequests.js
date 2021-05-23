@@ -11,7 +11,7 @@ export const startCreateServiceRequest = (
   return async (dispatch) => {
     dispatch(authUiLoading(true));
     try {
-      const collectionRef = db.collection('serviceRequests');
+      const collectionRef = db.collection('opportunities');
       const customerUid = firebase.auth().currentUser.uid;
       await collectionRef.add({
         customerUid,

@@ -6,7 +6,7 @@ const iconsConfig = {
   className: 'text-secondary me-2'
 };
 
-const MessCard = ({ titulo, skill, precio, mensaje }) => {
+const MessageCard = ({ titulo, skill, precio, mensaje }) => {
   return (
     <div className="px-4 py-3 border rounded shadow-sm bg-white mb-3 d-flex align-items-center justify-content-between cursor-pointer">
       <div>
@@ -25,4 +25,4 @@ const MessCard = ({ titulo, skill, precio, mensaje }) => {
   );
 };
 
-export default MessCard;
+export default MessageCard;

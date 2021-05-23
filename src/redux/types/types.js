@@ -2,7 +2,9 @@ export const types = {
   login: '[Auth] Login',
   logout: '[Auth] Logout',
   loading: '[Auth UI] Loading',
-  setUserData: '[Auth] Set user data',
-  setResults: '[Results] Update results',
-  setResultsLoading: '[Results] Update results loading'
+  setUserData: '[Auth] Update',
+  setResults: '[Results] Update',
+  setResultsLoading: '[Results] Loading',
+  setOpportunities: '[Opportunities] Update',
+  setOpportunitiesLoading: '[Opportunities] Loading'
 };

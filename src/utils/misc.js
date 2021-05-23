@@ -38,6 +38,10 @@ export const renderName = (name) => {
   return name ? name.split(' ')[0] : null;
 };
 
+export const renderNameAndSurnameInitial = (name, surname) => {
+  return `${name} ${surname ? `${surname.charAt(0)}.` : ''}`;
+};
+
 export const renderInitials = (name) => {
   return name
     ? name

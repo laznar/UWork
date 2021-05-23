@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 import Ofertar from '../Ofertar';
+import { renderNameAndSurnameInitial } from '../../utils/misc';
 
 Modal.setAppElement('#root');
 
@@ -23,7 +24,7 @@ const iconsConfig = {
   className: 'text-secondary me-2'
 };
 
-const ResCard = ({
+const ResultCard = ({
   workerUid,
   name,
   surname,
@@ -99,25 +100,21 @@ const ResCard = ({
             className="rounded-circle border me-2 object-fit-cover object-position-center"
           />
           <div>
-            <strong>{`${name} ${
-              surname ? `${surname.charAt(0)}.` : ''
-            }`}</strong>
+            <strong>{renderNameAndSurnameInitial(name, surname)}</strong>
             <div className="d-flex align-items-center">
               <span className="fs-5 me-2">{value}</span>
               <ReactStars {...scoreReview} />
             </div>
           </div>
         </div>
-        <div className="d-none d-md-inline-block text-center">
-          {auth.uid && (
-            <button
-              onClick={openModal}
-              className="btn btn-primary text-white border-primary ms-2"
-            >
-              Ofertar
-            </button>
-          )}
-        </div>
+        {!smallScreen && auth.uid && (
+          <button
+            onClick={openModal}
+            className="btn btn-primary text-white border-primary ms-2"
+          >
+            Ofertar
+          </button>
+        )}
       </div>
 
       <div className="p-4 pt-3">
@@ -155,20 +152,17 @@ const ResCard = ({
           </li>
         </ul>
       </div>
-      <div className="d-md-none">
-        {auth.uid && (
-          <>
-            <button
-              onClick={() => {
-                setIsOpen(true);
-              }}
-              className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom"
-            >
-              Ofertar
-            </button>
-          </>
-        )}
-      </div>
+
+      {smallScreen && auth.uid && (
+        <button
+          onClick={() => {
+            setIsOpen(true);
+          }}
+          className="btn border-primary w-100 btn-primary text-white rounded-0 rounded-bottom"
+        >
+          Ofertar
+        </button>
+      )}
 
       <Modal
         isOpen={isOpen}
@@ -185,4 +179,4 @@ const ResCard = ({
   );
 };
 
-export default ResCard;
+export default ResultCard;
