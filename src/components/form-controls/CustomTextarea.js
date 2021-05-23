@@ -18,7 +18,7 @@ const CustomTextarea = ({ name, placeholder, type = 'text', ...rest }) => {
       <textarea
         name={name}
         id="textarea"
-        placeholder="Acerca de mi"
+        placeholder={placeholder}
         className={clsx('form-control', errors[name] && 'is-invalid')}
         {...register(name)}
         {...rest}

@@ -30,7 +30,7 @@ export const renderError = (code) => {
     case firebaseErrors.auth.userMismatch:
       return 'Debes seleccionar la cuenta correcta';
     default:
-      return 'Ocurrió un error';
+      return code;
   }
 };
 

@@ -24,6 +24,7 @@ const iconsConfig = {
 };
 
 const ResCard = ({
+  workerUid,
   name,
   surname,
   value = 5,
@@ -178,7 +179,7 @@ const ResCard = ({
         shouldCloseOnEsc={false}
         shouldCloseOnOverlayClick={false}
       >
-        <Ofertar closeModal={closeModal} />
+        <Ofertar closeModal={closeModal} workerUid={workerUid} />
       </Modal>
     </div>
   );

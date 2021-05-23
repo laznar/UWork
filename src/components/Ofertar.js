@@ -8,16 +8,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
 import OverlayScrollbars from 'overlayscrollbars';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import 'overlayscrollbars/css/OverlayScrollbars.css';
-
 import * as yup from 'yup';
 
 import CustomInput from './form-controls/CustomInput';
 import CustomTextarea from './form-controls/CustomTextarea';
 import CustomButton from './form-controls/CustomButton';
 
+import { startCreateServiceRequest } from '../redux/actions/serviceRequests';
 import {
   customSelectStyles,
   customErrorSelectStyles
@@ -50,10 +51,10 @@ const withValueLimit = (inputObj) => {
   if (value.length <= MAX_LENGTH && value <= MAX_VAL) return inputObj;
 };
 
-const Ofertar = ({ closeModal }) => {
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+const Ofertar = ({ closeModal, workerUid }) => {
+  const authUi = useSelector((state) => state.authUi);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const instance = OverlayScrollbars(document.body);
@@ -63,7 +64,18 @@ const Ofertar = ({ closeModal }) => {
     };
   }, []);
 
-  const methods = useForm({ resolver: yupResolver(schema) });
+  const onSubmit = (data) => {
+    if (!authUi.loading) {
+      console.log(data);
+      dispatch(
+        startCreateServiceRequest(data, workerUid, closeModal, methods.reset)
+      );
+    }
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(schema)
+  });
   return (
     <div className="d-flex flex-column h-100">
       <div
@@ -81,7 +93,11 @@ const Ofertar = ({ closeModal }) => {
             onSubmit={methods.handleSubmit(onSubmit)}
             className="row gx-0 gy-3 p-3"
           >
-            <CustomInput name={fieldNames.title} placeholder="Ingrese título" />
+            <CustomInput
+              name={fieldNames.title}
+              placeholder="Título de la oferta"
+              autoComplete="off"
+            />
             <Controller
               name={fieldNames.date}
               control={methods.control}
@@ -136,10 +152,9 @@ const Ofertar = ({ closeModal }) => {
                     prefix="$"
                     onValueChange={({ floatValue }) => {
                       field.onChange(floatValue);
-                      console.log(floatValue);
                     }}
                     className={clsx('form-control', error && 'is-invalid')}
-                    placeholder="Ingrese precio"
+                    placeholder="Precio"
                   />
                   {error && (
                     <span className="text-danger small">{error.message}</span>
@@ -174,14 +189,16 @@ const Ofertar = ({ closeModal }) => {
               )}
             />
             <CustomInput
+              autoComplete="off"
               name={fieldNames.neighborhood}
-              placeholder="Ingrese barrio / localidad"
+              placeholder="Barrio / localidad"
             />
             <CustomTextarea
               name={fieldNames.description}
-              placeholder="Descripción"
+              placeholder="Descripción de la oferta"
             />
             <CustomButton
+              loading={authUi.loading}
               type="submit"
               className="w-100 btn btn-primary text-white position-sticky bottom-0"
             >

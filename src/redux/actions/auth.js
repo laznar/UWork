@@ -295,7 +295,7 @@ export const logout = () => ({
   type: types.logout
 });
 
-const authUiLoading = (loading = false) => ({
+export const authUiLoading = (loading = false) => ({
   type: types.loading,
   payload: loading
 });
