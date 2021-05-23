@@ -124,18 +124,18 @@ const Footer = () => {
                 </li>
                 <li className="mb-1">
                   <Link
-                    to={location.pathname}
+                    to="/privacidad"
                     className="link-secondary text-decoration-none"
                   >
-                    Privacy
+                    Privacidad
                   </Link>
                 </li>
                 <li className="mb-1">
                   <Link
-                    to={location.pathname}
+                    to="/terminos-condiciones"
                     className="link-secondary text-decoration-none"
                   >
-                    Terms
+                    Términos y condiciones
                   </Link>
                 </li>
               </ul>

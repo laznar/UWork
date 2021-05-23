@@ -28,6 +28,8 @@ import Servicios from '../views/Servicios';
 import Dashboard from '../views/Dashboard';
 import Mensajes from '../views/Mensajes';
 import Proyectos from '../views/Proyectos';
+import PrivacyPolicy from '../views/legal/PrivacyPolicy';
+import TermsConditions from '../views/legal/TermsConditions';
 
 const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
@@ -155,6 +157,12 @@ const AppRouter = () => {
             exact
           />
 
+          <Route exact path="/privacidad" component={PrivacyPolicy} />
+          <Route
+            exact
+            path="/terminos-condiciones"
+            component={TermsConditions}
+          />
           <Route exact path="/" component={Home} />
 
           <Redirect to="/" />
