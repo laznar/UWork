@@ -10,6 +10,7 @@ import {
   PencilIcon,
   LightBulbIcon
 } from '@heroicons/react/outline';
+import ClampLines from 'react-clamp-lines';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
@@ -21,7 +22,7 @@ Modal.setAppElement('#root');
 const iconsConfig = {
   width: 20,
   height: 20,
-  className: 'text-secondary me-2'
+  className: 'text-secondary me-2 flex-shrink-0'
 };
 
 const ResultCard = ({
@@ -61,7 +62,7 @@ const ResultCard = ({
     size: 25,
     value,
     edit: false,
-    color: ' #D3D3D3',
+    color: '#D3D3D3',
     activeColor: '#45a8d8',
     isHalf: true
   };
@@ -146,9 +147,17 @@ const ResultCard = ({
               </Link>
             ))}
           </li>
-          <li>
+          <li className="d-flex">
             <PencilIcon {...iconsConfig} />
-            {aboutMe}
+            <ClampLines
+              text={aboutMe}
+              id="aboutMe"
+              lines={1}
+              ellipsis="..."
+              moreText="Ver más"
+              lessText="Ver menos"
+              innerElement="p"
+            />
           </li>
         </ul>
       </div>

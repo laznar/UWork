@@ -22,7 +22,7 @@ const Oportunidades = () => {
 
   return (
     <div className="container custom-container">
-      <div style={{ maxWidth: 600 }} className="mx-auto">
+      <div style={{ maxWidth: 600, width: '90%' }} className="mx-auto">
         {opportunities.loading ? (
           <div className="d-flex">
             <div

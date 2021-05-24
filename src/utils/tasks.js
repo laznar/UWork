@@ -25,6 +25,7 @@ const tasks = [
     label: 'Asistencia y cuidado de personas',
     value: 'Asistencia y cuidado de personas'
   },
+  { label: 'Albañilería', value: 'Albañilería' },
   { label: 'Servicio de mudanza', value: 'Servicio de mudanza' },
   { label: 'Construcción', value: 'Construcción' },
   { label: 'Servicio de pintura', value: 'Servicio de pintura' },

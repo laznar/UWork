@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   UserGroupIcon,
   UserIcon,
-  BriefcaseIcon
+  BriefcaseIcon,
+  SpeakerphoneIcon
 } from '@heroicons/react/outline';
 
 import {
@@ -176,7 +177,7 @@ const Dashboard = ({ history }) => {
                 height: 40
               }}
             >
-              <UserIcon {...iconsConfig} color="rgb(244, 117, 96)" />
+              <SpeakerphoneIcon {...iconsConfig} color="rgb(244, 117, 96)" />
             </div>
 
             {dashboard.opportunitiesCountLoading ? (
