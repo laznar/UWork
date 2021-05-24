@@ -13,7 +13,7 @@ const Proyectos = () => {
   }, [dispatch]);
 
   return (
-    <div className="container custom-container">
+    <div className="container custom-container fade-anim">
       <div style={{ maxWidth: 600 }} className="mx-auto">
         {opportunities.loading ? (
           <div className="d-flex">
@@ -26,7 +26,7 @@ const Proyectos = () => {
             </div>
           </div>
         ) : opportunities.results.length > 0 ? (
-          <>
+          <div className="fade-anim">
             <h2 className="mb-4">Proyectos</h2>
             {opportunities.results.map((proyect, idx) => {
               if (proyect.inProgress || proyect.completed) {
@@ -34,7 +34,7 @@ const Proyectos = () => {
               }
               return null;
             })}
-          </>
+          </div>
         ) : (
           <h3>No se encontraron oportunidades</h3>
         )}

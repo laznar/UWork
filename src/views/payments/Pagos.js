@@ -29,7 +29,7 @@ const Pagos = () => {
   return (
     <div
       style={{ maxWidth: 600, paddingTop: 30 }}
-      className="mx-auto container"
+      className="mx-auto container custom-container fade-anim"
     >
       <h2 className="mb-4">Pagos</h2>
       {pagos.map((pago, idx) => {

@@ -35,7 +35,7 @@ const averageScore = () => {
 const Reviews = () => {
   return (
     <div
-      className="container mx-auto"
+      className="container mx-auto fade-anim"
       style={{ paddingTop: 30, maxWidth: 600 }}
     >
       <h3>Mis Reviews</h3>

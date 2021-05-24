@@ -21,7 +21,7 @@ const Oportunidades = () => {
   }, [dispatch]);
 
   return (
-    <div className="container custom-container">
+    <div className="container custom-container fade-anim">
       <div style={{ maxWidth: 600, width: '90%' }} className="mx-auto">
         {opportunities.loading ? (
           <div className="d-flex">
@@ -34,7 +34,7 @@ const Oportunidades = () => {
             </div>
           </div>
         ) : opportunities.results.length > 0 ? (
-          <>
+          <div className="fade-anim">
             <h2 className="mb-4">Oportunidades</h2>
             {opportunities.results.map((opportunity, idx) => {
               if (
@@ -46,7 +46,7 @@ const Oportunidades = () => {
               }
               return null;
             })}
-          </>
+          </div>
         ) : (
           <h3>No se encontraron oportunidades</h3>
         )}

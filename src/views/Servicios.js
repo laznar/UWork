@@ -32,7 +32,7 @@ let servicios = [
 
 const Servicios = () => {
   return (
-    <div className="container custom-container">
+    <div className="container custom-container fade-anim">
       <div style={{ maxWidth: 600 }} className="mx-auto">
         <h2 className="mb-4">Servicios</h2>
         <Card>
