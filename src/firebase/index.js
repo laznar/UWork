@@ -3,13 +3,13 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCH3-0RkU6hmWLIE_-dnc46vFA9xxFtJxU',
-  authDomain: 'uwork-prot.firebaseapp.com',
-  projectId: 'uwork-prot',
-  storageBucket: 'uwork-prot.appspot.com',
-  messagingSenderId: '597508500628',
-  appId: '1:597508500628:web:b4388d5ef90c46d6849881',
-  measurementId: 'G-8DGGHPJH7Q'
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 firebase.initializeApp(firebaseConfig);

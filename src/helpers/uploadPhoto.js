@@ -5,7 +5,7 @@ export const uploadPhoto = async (file) => {
     const formData = new FormData();
     formData.append(
       'upload_preset',
-      process.env.REACT_APP_CLOUDINARY_UPLOAD_PROFILE_PICS
+      process.env.REACT_APP_CLOUDINARY_PROFILE_PICS_UPLOAD_PRESET
     );
     formData.append('file', file);
 
