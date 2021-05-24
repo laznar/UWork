@@ -2,7 +2,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Profile from '../views/profile/Profile';
 import Password from '../views/profile/Password';
 import NameSurname from '../views/profile/EditNameSurname';
-import DeleteAccount from '../views/profile/DeleteAccount';
 import EditEmail from '../views/profile/EditEmail';
 import EditPersonalData from '../views/profile/EditPersonalData';
 import EditServicesData from '../views/profile/EditServicesData';
@@ -18,7 +17,6 @@ const ProfileRoutes = () => {
             path="/perfil/nombre-apellidos"
             component={NameSurname}
           />
-          <Route exact path="/perfil/borrar" component={DeleteAccount} />
           <Route exact path="/perfil/correo" component={EditEmail} />
           <Route exact path="/perfil/personal" component={EditPersonalData} />
           <Route exact path="/perfil/servicio" component={EditServicesData} />

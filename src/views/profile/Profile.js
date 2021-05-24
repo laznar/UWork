@@ -93,16 +93,6 @@ const Profile = () => {
             </Link>
           </div>
 
-          <div className="list-group shadow-sm mb-3">
-            <Link
-              to="/perfil/borrar"
-              className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            >
-              Borrar cuenta
-              <ChevronRightIcon width={20} height={20} />
-            </Link>
-          </div>
-
           <div className="list-group shadow-sm">
             <button
               onClick={handleLogout}
