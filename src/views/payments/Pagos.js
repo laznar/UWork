@@ -32,8 +32,8 @@ const Pagos = () => {
       className="mx-auto container"
     >
       <h2 className="mb-4">Pagos</h2>
-      {pagos.map((pago) => {
-        return <PayCard {...pago} />;
+      {pagos.map((pago, idx) => {
+        return <PayCard key={idx} {...pago} />;
       })}
     </div>
   );

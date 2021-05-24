@@ -107,7 +107,7 @@ const ResultCard = ({
             </div>
           </div>
         </div>
-        {!smallScreen && auth.uid && (
+        {!smallScreen && auth.uid && auth.uid !== workerUid && (
           <button
             onClick={openModal}
             className="btn btn-primary text-white border-primary ms-2"
@@ -153,7 +153,7 @@ const ResultCard = ({
         </ul>
       </div>
 
-      {smallScreen && auth.uid && (
+      {smallScreen && auth.uid && auth.uid !== workerUid && (
         <button
           onClick={() => {
             setIsOpen(true);

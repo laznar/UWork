@@ -1,15 +1,17 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { authReducer } from '../reducers/authReducer';
 import { authUiReducer } from '../reducers/authUiReducer';
 import { resultsReducer } from '../reducers/resultsReducer';
 import { opportunitiesReducer } from '../reducers/opportunitiesReducer';
-import thunk from 'redux-thunk';
+import { dashboardReducer } from '../reducers/dashboardReducer';
 
 const reducers = combineReducers({
   auth: authReducer,
   authUi: authUiReducer,
   results: resultsReducer,
-  opportunities: opportunitiesReducer
+  opportunities: opportunitiesReducer,
+  dashboard: dashboardReducer
 });
 
 const composeEnhancers =
