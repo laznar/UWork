@@ -4,11 +4,7 @@ import ResultCard from '../../components/cards/ResultCard';
 import useQuery from '../../hooks/useQuery';
 import tasks from '../../utils/tasks';
 import { useDispatch } from 'react-redux';
-import {
-  setResults,
-  setResultsLoading,
-  startSearchResults
-} from '../../redux/actions/results';
+import { startSearchResults } from '../../redux/actions/results';
 
 const Resultados = ({ history }) => {
   const query = useQuery();
@@ -26,11 +22,6 @@ const Resultados = ({ history }) => {
     } else {
       history.replace('/');
     }
-
-    return () => {
-      dispatch(setResults([]));
-      dispatch(setResultsLoading(true));
-    };
   }, [term, history, dispatch]);
 
   return (

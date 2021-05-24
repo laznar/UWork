@@ -20,16 +20,27 @@ export const startSearchOpportunities = (proyects = false) => {
   return async (dispatch, getState) => {
     dispatch(setOpportunitiesLoading(true));
     try {
+      const isWorker = getState().auth.userData.isWorker;
       const opportunitiesRef = db.collection('opportunities');
-      const query = proyects
-        ? opportunitiesRef
-            .where('workerUid', '==', getState().auth.uid)
-            .where('rejected', '==', false)
-        : opportunitiesRef
-            .where('workerUid', '==', getState().auth.uid)
-            .where('rejected', '==', false)
-            .where('inProgress', '==', false)
-            .where('completed', '==', false);
+      let query;
+
+      if (isWorker) {
+        query = proyects
+          ? opportunitiesRef
+              .where('workerUid', '==', getState().auth.uid)
+              .where('rejected', '==', false)
+          : opportunitiesRef
+              .where('workerUid', '==', getState().auth.uid)
+              .where('rejected', '==', false)
+              .where('inProgress', '==', false)
+              .where('completed', '==', false);
+      } else {
+        query = opportunitiesRef.where(
+          'customerUid',
+          '==',
+          getState().auth.uid
+        );
+      }
 
       const querySnapshot = await query.get();
       const opportunities = [];

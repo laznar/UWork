@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   CurrencyDollarIcon,
   OfficeBuildingIcon,
@@ -7,7 +7,8 @@ import {
   PencilIcon,
   LocationMarkerIcon,
   StatusOnlineIcon,
-  CheckIcon
+  CheckIcon,
+  ExclamationIcon
 } from '@heroicons/react/outline';
 import { UserIcon } from '@heroicons/react/solid';
 import NumberFormat from 'react-number-format';
@@ -37,6 +38,13 @@ const completedIconConfig = {
   color: 'rgb(136, 191, 77)'
 };
 
+const rejectedIconConfig = {
+  width: 20,
+  height: 20,
+  className: 'me-2 flex-shrink-0',
+  color: 'rgb(239, 140, 140)'
+};
+
 const OpportunityCard = ({
   id,
   title,
@@ -47,6 +55,7 @@ const OpportunityCard = ({
   city,
   completed,
   inProgress,
+  rejected,
   neighborhood,
   skill,
   description
@@ -54,6 +63,8 @@ const OpportunityCard = ({
   const [acceptLoading, setAcceptLoading] = useState(false);
   const [rejectLoading, setRejectLoading] = useState(false);
   const [completeLoading, setCompleteLoading] = useState(false);
+
+  const auth = useSelector((state) => state.auth);
 
   const smallScreen = useMediaQuery({ query: '(max-width: 700px)' });
 
@@ -90,16 +101,21 @@ const OpportunityCard = ({
               <StatusOnlineIcon {...inProgressIconConfig} />
               En progreso
             </div>
+          ) : completed ? (
+            <div>
+              <CheckIcon {...completedIconConfig} />
+              Completado
+            </div>
           ) : (
-            completed && (
+            rejected && (
               <div>
-                <CheckIcon {...completedIconConfig} />
-                Completado
+                <ExclamationIcon {...rejectedIconConfig} />
+                Rechazado
               </div>
             )
           )}
         </div>
-        {!smallScreen && !completed && (
+        {!smallScreen && !completed && auth.userData.isWorker && (
           <div className="d-inline-block flex-shrink-0">
             <CustomButton
               wrapperClassName="d-inline-block"
@@ -167,7 +183,7 @@ const OpportunityCard = ({
           </li>
         </ul>
       </div>
-      {smallScreen && !completed && (
+      {smallScreen && !completed && auth.userData.isWorker && (
         <div className="row gx-0">
           <CustomButton
             loading={rejectLoading}

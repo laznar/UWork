@@ -13,7 +13,10 @@ const Proyectos = () => {
   }, [dispatch]);
 
   return (
-    <div className="container custom-container fade-anim">
+    <div
+      className="container custom-container fade-anim"
+      style={{ width: '90%' }}
+    >
       <div style={{ maxWidth: 600 }} className="mx-auto">
         {opportunities.loading ? (
           <div className="d-flex">

@@ -13,6 +13,7 @@ export const setResultsLoading = (loading) => ({
 
 export const startSearchResults = (term) => {
   return async (dispatch) => {
+    dispatch(setResultsLoading(true));
     try {
       const usersRef = db.collection('users');
 

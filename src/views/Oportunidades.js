@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OpportunityCard from '../components/cards/OpportunityCard';
-import {
-  setOpportunities,
-  setOpportunitiesLoading,
-  startSearchOpportunities
-} from '../redux/actions/opportunities';
+import { startSearchOpportunities } from '../redux/actions/opportunities';
 
 const Oportunidades = () => {
   const dispatch = useDispatch();
@@ -14,10 +10,6 @@ const Oportunidades = () => {
 
   useEffect(() => {
     dispatch(startSearchOpportunities());
-    return () => {
-      dispatch(setOpportunities([]));
-      dispatch(setOpportunitiesLoading(true));
-    };
   }, [dispatch]);
 
   return (
