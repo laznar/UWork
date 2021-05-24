@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import ReactStars from 'react-rating-stars-component';
-import NumberFormat from 'react-number-format';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import {
-  CurrencyDollarIcon,
+  // CurrencyDollarIcon,
   OfficeBuildingIcon,
   PencilIcon,
   LightBulbIcon
@@ -13,6 +12,7 @@ import {
 import ClampLines from 'react-clamp-lines';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+// import NumberFormat from 'react-number-format';
 
 import Ofertar from '../Ofertar';
 import { renderNameAndSurnameInitial } from '../../utils/misc';
@@ -97,7 +97,7 @@ const ResultCard = ({
             src={photoURL}
             height={80}
             width={80}
-            alt=""
+            alt="Profile pic"
             className="rounded-circle border me-2 object-fit-cover object-position-center"
           />
           <div>
@@ -120,7 +120,7 @@ const ResultCard = ({
 
       <div className="p-4 pt-3">
         <ul className="list-unstyled m-0">
-          <li>
+          {/* <li>
             <CurrencyDollarIcon {...iconsConfig} />
             <NumberFormat
               decimalSeparator={','}
@@ -129,7 +129,7 @@ const ResultCard = ({
               value={precio}
               displayType="text"
             />
-          </li>
+          </li> */}
           <li>
             <OfficeBuildingIcon {...iconsConfig} />
             {city}

@@ -4,7 +4,11 @@ export const types = {
   loading: '[Auth UI] Loading',
   setUserData: '[Auth] Update',
   setResults: '[Results] Update',
-  setResultsLoading: '[Results] Loading',
+  setResultsLoading: '[Results] Loading'
+};
+
+export const opportunitiesTypes = {
+  updateOpportunity: '[Opportunities] Update opportunitie',
   setOpportunities: '[Opportunities] Update',
   setOpportunitiesLoading: '[Opportunities] Loading'
 };

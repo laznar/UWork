@@ -1,30 +1,35 @@
-import { db } from '../../firebase';
+import { db, firebase } from '../../firebase';
 import toast from 'react-hot-toast';
 import { renderError } from '../../utils/misc';
-import { types } from '../types/types';
+import { authUiLoading } from './auth';
+import { opportunitiesTypes } from '../types/types';
 
 export const setOpportunitiesLoading = (loading) => ({
-  type: types.setOpportunitiesLoading,
+  type: opportunitiesTypes.setOpportunitiesLoading,
   payload: loading
 });
 
 export const setOpportunities = (opportunities) => {
   return {
-    type: types.setOpportunities,
+    type: opportunitiesTypes.setOpportunities,
     payload: opportunities
   };
 };
 
-export const startSearchOpportunities = () => {
+export const startSearchOpportunities = (proyects = false) => {
   return async (dispatch, getState) => {
     dispatch(setOpportunitiesLoading(true));
     try {
       const opportunitiesRef = db.collection('opportunities');
-      const query = opportunitiesRef.where(
-        'workerUid',
-        '==',
-        getState().auth.uid
-      );
+      const query = proyects
+        ? opportunitiesRef
+            .where('workerUid', '==', getState().auth.uid)
+            .where('rejected', '==', false)
+        : opportunitiesRef
+            .where('workerUid', '==', getState().auth.uid)
+            .where('rejected', '==', false)
+            .where('inProgress', '==', false)
+            .where('completed', '==', false);
 
       const querySnapshot = await query.get();
       const opportunities = [];
@@ -36,6 +41,7 @@ export const startSearchOpportunities = () => {
 
         opportunities.push({
           ...doc.data(),
+          id: doc.id,
           customerName: customerSnap.data().name,
           customerSurname: customerSnap.data().surname
         });
@@ -47,5 +53,51 @@ export const startSearchOpportunities = () => {
       toast.error(renderError(error.code));
     }
     dispatch(setOpportunitiesLoading(false));
+  };
+};
+
+export const startCreateOpportunity = (data, workerUid, closeModal, reset) => {
+  return async (dispatch) => {
+    dispatch(authUiLoading(true));
+    try {
+      const collectionRef = db.collection('opportunities');
+      const customerUid = firebase.auth().currentUser.uid;
+      await collectionRef.add({
+        customerUid,
+        workerUid,
+        ...data,
+        completed: false,
+        inProgress: false,
+        rejected: false
+      });
+      reset();
+      toast.success('Solicitud exitosa');
+      closeModal();
+    } catch (error) {
+      toast.error(renderError(error.code));
+      console.error(error);
+    }
+    dispatch(authUiLoading(false));
+  };
+};
+
+export const updateOpportunity = (id, data) => ({
+  type: opportunitiesTypes.updateOpportunity,
+  payload: { id, data }
+});
+
+export const startUpdateOpportunity = (id, data, setLoading) => {
+  return async (dispatch) => {
+    setLoading(true);
+    try {
+      const opportunityRef = db.collection('opportunities').doc(id);
+      await opportunityRef.update(data);
+      dispatch(updateOpportunity(id, data));
+      toast.success('Oportunidad actualizada');
+    } catch (error) {
+      toast.error('Oportunidad actualizada');
+      console.error(error);
+    }
+    setLoading(false);
   };
 };

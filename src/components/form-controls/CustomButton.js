@@ -1,6 +1,6 @@
-const CustomButton = ({ loading, children, ...rest }) => {
+const CustomButton = ({ loading, children, wrapperClassName, ...rest }) => {
   return (
-    <div>
+    <div className={wrapperClassName}>
       <button aria-disabled={loading} disabled={loading} {...rest}>
         {loading ? (
           <span

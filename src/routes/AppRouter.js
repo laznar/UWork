@@ -90,7 +90,7 @@ const AppRouter = () => {
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               component={MultiStepForm}
-              path="/complete"
+              path="/completar"
               exact
             />
           )}

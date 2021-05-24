@@ -100,7 +100,7 @@ const NavBar = () => {
                           state: { worker: true }
                         }
                       : !auth?.userData?.isWorker
-                      ? '/complete'
+                      ? '/completar'
                       : '/'
                   }
                 >

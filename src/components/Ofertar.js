@@ -18,7 +18,7 @@ import CustomInput from './form-controls/CustomInput';
 import CustomTextarea from './form-controls/CustomTextarea';
 import CustomButton from './form-controls/CustomButton';
 
-import { startCreateServiceRequest } from '../redux/actions/serviceRequests';
+import { startCreateOpportunity } from '../redux/actions/opportunities';
 import {
   customSelectStyles,
   customErrorSelectStyles
@@ -67,7 +67,7 @@ const Ofertar = ({ closeModal, workerUid }) => {
   const onSubmit = (data) => {
     if (!authUi.loading) {
       dispatch(
-        startCreateServiceRequest(data, workerUid, closeModal, methods.reset)
+        startCreateOpportunity(data, workerUid, closeModal, methods.reset)
       );
     }
   };

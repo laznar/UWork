@@ -38,7 +38,7 @@ const Dashboard = ({ history }) => {
         confirmButtonColor: '#45a8d8'
       }).then((result) => {
         if (result.isConfirmed) {
-          history.push('/complete');
+          history.push('/completar');
         }
       });
     }

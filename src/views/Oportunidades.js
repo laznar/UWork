@@ -37,7 +37,14 @@ const Oportunidades = () => {
           <>
             <h2 className="mb-4">Oportunidades</h2>
             {opportunities.results.map((opportunity, idx) => {
-              return <OpportunityCard {...opportunity} key={idx} />;
+              if (
+                !opportunity.completed &&
+                !opportunity.rejected &&
+                !opportunity.inProgress
+              ) {
+                return <OpportunityCard {...opportunity} key={idx} />;
+              }
+              return null;
             })}
           </>
         ) : (
