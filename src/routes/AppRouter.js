@@ -26,7 +26,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import Oportunidades from '../views/Oportunidades';
 import Servicios from '../views/Servicios';
 import Dashboard from '../views/Dashboard';
-import Mensajes from '../views/Mensajes';
+import Messages from '../views/Messages';
 import Proyectos from '../views/Proyectos';
 import PrivacyPolicy from '../views/legal/PrivacyPolicy';
 import TermsConditions from '../views/legal/TermsConditions';
@@ -122,7 +122,7 @@ const AppRouter = () => {
 
           <PrivateRoute
             isAuthenticated={isAuthenticated}
-            component={Mensajes}
+            component={Messages}
             path="/mensajes"
             exact
           />

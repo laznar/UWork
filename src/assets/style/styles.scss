@@ -44,6 +44,14 @@ textarea {
   color: $gray;
 }
 
+.message-icon {
+  background-color: white;
+  transition: background-color 250ms ease;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+}
+
 /*========= Helpers =========*/
 
 .cursor-pointer {

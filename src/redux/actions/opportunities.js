@@ -67,6 +67,33 @@ export const startSearchOpportunities = (proyects = false) => {
   };
 };
 
+export const startSearchOpportunitiesChats = () => {
+  return async (dispatch, getState) => {
+    dispatch(setOpportunitiesLoading(true));
+    try {
+      const opportunitiesRef = db.collection('opportunities');
+      const currentUid = getState().auth.uid;
+      const customerQuery = opportunitiesRef.where(
+        'customerUid',
+        '==',
+        currentUid
+      );
+      const workerQuery = opportunitiesRef.where('workerUid', '==', currentUid);
+
+      const customerSnap = await customerQuery.get();
+      const workerSnap = await workerQuery.get();
+
+      const opportunities = customerSnap.docs
+        .map((doc) => doc.data())
+        .concat(workerSnap.docs.map((doc) => doc.data()));
+      dispatch(setOpportunities(opportunities));
+    } catch (error) {
+      console.error(error);
+    }
+    dispatch(setOpportunitiesLoading(false));
+  };
+};
+
 export const startCreateOpportunity = (data, workerUid, closeModal, reset) => {
   return async (dispatch) => {
     dispatch(authUiLoading(true));
