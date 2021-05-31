@@ -33,7 +33,7 @@ const Messages = () => {
             })}
           </div>
         ) : (
-          <h3>No se encontraron oportunidades</h3>
+          <h3>No se encontraron chats</h3>
         )}
       </div>
     </div>

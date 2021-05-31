@@ -23,6 +23,6 @@ export const dashboardTypes = {
 };
 
 export const chatTypes = {
-  getChatData: '[Chat] Get chat data',
+  setChatData: '[Chat] Set chat data',
   setChatLoading: '[Chat] Loading chat'
 };

@@ -2,7 +2,7 @@ import { chatTypes } from '../types/types';
 
 export const chatReducer = (state = { loading: true }, action) => {
   switch (action.type) {
-    case chatTypes.getChatData:
+    case chatTypes.setChatData:
       return { ...state, ...action.payload };
     case chatTypes.setChatLoading:
       return { ...state, loading: action.payload };

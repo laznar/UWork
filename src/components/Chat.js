@@ -4,6 +4,8 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { XIcon, PaperAirplaneIcon } from '@heroicons/react/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { startSearchChatData } from '../redux/actions/chat';
+import ProfilePhoto from './ProfilePhoto';
+import { renderName } from '../utils/misc';
 
 const iconsConfig = {
   width: 20,
@@ -45,7 +47,15 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
             className="d-flex justify-content-between align-items-center position-sticky top-0 p-3 bg-white border-bottom"
             style={{ zIndex: 2 }}
           >
-            <h4 className="mb-0">Chat</h4>
+            <ProfilePhoto
+              width={40}
+              height={40}
+              photoURL={chat.receiverData.photoURL}
+            />
+            <strong className="ms-2 me-auto">
+              {renderName(chat.receiverData.name)}{' '}
+              {renderName(chat.receiverData.surname)}
+            </strong>
             <button onClick={closeModal} className="btn p-1">
               <XIcon width={20} height={20} />
             </button>
@@ -66,7 +76,7 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
             />
             <button
               onClick={closeModal}
-              className="d-flex align-items-center justify-content-center btn p-2 rounded-circle ms-2 border-primary"
+              className="d-flex align-items-center justify-content-center btn p-2 rounded-circle ms-2 border-primary send-message-icon"
             >
               <PaperAirplaneIcon {...iconsConfig} />
             </button>

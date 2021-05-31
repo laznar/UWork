@@ -88,6 +88,7 @@ const MessageCard = ({
             ellipsis="..."
             moreText="Ver más"
             lessText="Ver menos"
+            className="lh-sm"
             innerElement="li"
           />
         </ul>

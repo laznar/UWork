@@ -52,6 +52,16 @@ textarea {
   }
 }
 
+.send-message-icon {
+  transition: background-color 250ms;
+  & svg {
+    transform: rotate(90deg) translateY(-1px);
+  }
+  &:hover {
+    background-color: transparentize($color: $primary, $amount: 0.9);
+  }
+}
+
 /*========= Helpers =========*/
 
 .cursor-pointer {
