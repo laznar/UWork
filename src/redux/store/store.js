@@ -5,13 +5,15 @@ import { authUiReducer } from '../reducers/authUiReducer';
 import { resultsReducer } from '../reducers/resultsReducer';
 import { opportunitiesReducer } from '../reducers/opportunitiesReducer';
 import { dashboardReducer } from '../reducers/dashboardReducer';
+import { chatReducer } from '../reducers/chatReducer';
 
 const reducers = combineReducers({
   auth: authReducer,
   authUi: authUiReducer,
   results: resultsReducer,
   opportunities: opportunitiesReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
+  chat: chatReducer
 });
 
 const composeEnhancers =

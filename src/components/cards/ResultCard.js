@@ -4,7 +4,6 @@ import ReactStars from 'react-rating-stars-component';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import {
-  // CurrencyDollarIcon,
   OfficeBuildingIcon,
   PencilIcon,
   LightBulbIcon
@@ -12,7 +11,6 @@ import {
 import ClampLines from 'react-clamp-lines';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-// import NumberFormat from 'react-number-format';
 
 import Ofertar from '../Ofertar';
 import { renderNameAndSurnameInitial } from '../../utils/misc';
@@ -120,16 +118,6 @@ const ResultCard = ({
 
       <div className="p-4 pt-3">
         <ul className="list-unstyled m-0">
-          {/* <li>
-            <CurrencyDollarIcon {...iconsConfig} />
-            <NumberFormat
-              decimalSeparator={','}
-              thousandSeparator={'.'}
-              prefix={'$'}
-              value={precio}
-              displayType="text"
-            />
-          </li> */}
           <li>
             <OfficeBuildingIcon {...iconsConfig} />
             {city}

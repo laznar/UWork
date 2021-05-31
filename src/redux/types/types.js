@@ -21,3 +21,8 @@ export const dashboardTypes = {
   setOpportunitiesCount: '[Dashboard] Update opportunities count',
   setOpportunitiesCountLoading: '[Dashboard] Loading opportunities count'
 };
+
+export const chatTypes = {
+  getChatData: '[Chat] Get chat data',
+  setChatLoading: '[Chat] Loading chat'
+};

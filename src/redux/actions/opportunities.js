@@ -83,9 +83,18 @@ export const startSearchOpportunitiesChats = () => {
       const customerSnap = await customerQuery.get();
       const workerSnap = await workerQuery.get();
 
-      const opportunities = customerSnap.docs
-        .map((doc) => doc.data())
-        .concat(workerSnap.docs.map((doc) => doc.data()));
+      const customerDocs = customerSnap.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+
+      const workerDocs = workerSnap.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+
+      const opportunities = customerDocs.concat(workerDocs);
+
       dispatch(setOpportunities(opportunities));
     } catch (error) {
       console.error(error);
