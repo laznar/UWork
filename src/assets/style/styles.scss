@@ -47,22 +47,29 @@ textarea {
 /*========= Styles for chat =========*/
 
 .message {
-  width: 90%;
+  max-width: 90%;
   border-radius: 10px;
   margin-bottom: 0.2em;
 
-  & span {
+  & .hour {
     font-size: 0.7rem;
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
   }
 
   &--not-own {
     border-bottom-left-radius: 0;
     background-color: white;
+    & .hour {
+      color: transparentize($color: darkgrey, $amount: 0.1);
+    }
   }
   &--own {
-    background-color: #efefef;
+    background-color: $primary;
     border-bottom-right-radius: 0;
+    color: white;
+    & .hour {
+      color: transparentize($color: white, $amount: 0.2);
+    }
   }
 
   &--own + &--not-own,
@@ -87,6 +94,29 @@ textarea {
   &:hover {
     background-color: transparentize($color: $primary, $amount: 0.9);
   }
+}
+
+/*========= Custom scrollbar =========*/
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.33) lightgrey;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 11px;
+}
+
+*::-webkit-scrollbar-track {
+  background: lightgrey;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  border: 2px solid lightgrey;
 }
 
 /*========= Helpers =========*/

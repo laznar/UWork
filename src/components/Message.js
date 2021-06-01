@@ -13,14 +13,14 @@ const Message = ({ content, ownMessage, messageDate, showDate }) => {
 
       <div
         className={clsx(
-          'pt-2 pb-1 px-2 small message lh-1 border d-flex flex-column',
+          'py-2 px-2 small message lh-1 border d-flex flex-wrap',
           ownMessage
             ? 'align-self-end message--own'
             : 'align-self-start message--not-own'
         )}
       >
-        {content}
-        <span className="small text-secondary align-self-end">
+        <span className="me-1">{content}</span>
+        <span className="small ms-auto lh-sm hour">
           {format(messageDate, 'p', { locale: es })}
         </span>
       </div>

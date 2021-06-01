@@ -3,6 +3,7 @@ import { XIcon, PaperAirplaneIcon } from '@heroicons/react/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { compareAsc } from 'date-fns';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 import {
   detachMessagesListener,
@@ -88,13 +89,13 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
             </div>
             <button
               onClick={closeModal}
-              className="btn btn-outline-danger p-1  d-flex"
+              className="btn btn-outline-danger p-1 d-flex"
             >
               <XIcon width={20} height={20} />
             </button>
           </div>
 
-          <div className="flex-grow-1 overflow-auto">
+          <ScrollToBottom className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column px-3 py-2">
               {chat.messages.map(({ content, id, senderUid, sentAt }) => {
                 const messageDate = sentAt.toDate();
@@ -124,7 +125,7 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
                 );
               })}
             </div>
-          </div>
+          </ScrollToBottom>
 
           <form
             className="d-flex justify-content-between align-items-center position-sticky bottom-0 p-3 bg-white border-top"
