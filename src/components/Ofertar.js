@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { FormProvider, useForm, Controller } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,9 +8,6 @@ import Select from 'react-select';
 import { XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import OverlayScrollbars from 'overlayscrollbars';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import 'overlayscrollbars/css/OverlayScrollbars.css';
 import * as yup from 'yup';
 
 import CustomInput from './form-controls/CustomInput';
@@ -56,14 +52,6 @@ const Ofertar = ({ closeModal, workerUid }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const instance = OverlayScrollbars(document.body);
-    instance.options('className', null);
-    return () => {
-      instance.options('className', 'os-theme-dark');
-    };
-  }, []);
-
   const onSubmit = (data) => {
     if (!authUi.loading) {
       dispatch(
@@ -82,12 +70,15 @@ const Ofertar = ({ closeModal, workerUid }) => {
         style={{ zIndex: 2 }}
       >
         <h4 className="mb-0">Completar oferta</h4>
-        <button onClick={closeModal} className="btn p-1">
+        <button
+          onClick={closeModal}
+          className="btn btn-outline-danger d-flex p-1"
+        >
           <XIcon width={20} height={20} />
         </button>
       </div>
       <FormProvider {...methods}>
-        <OverlayScrollbarsComponent className="flex-grow-1">
+        <div className="flex-grow-1">
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
             className="row gx-0 gy-3 p-3"
@@ -203,7 +194,7 @@ const Ofertar = ({ closeModal, workerUid }) => {
               Crear oferta
             </CustomButton>
           </form>
-        </OverlayScrollbarsComponent>
+        </div>
       </FormProvider>
     </div>
   );

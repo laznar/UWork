@@ -24,5 +24,6 @@ export const dashboardTypes = {
 
 export const chatTypes = {
   setChatData: '[Chat] Set chat data',
-  setChatLoading: '[Chat] Loading chat'
+  setChatLoading: '[Chat] Loading chat',
+  setSendingLoading: '[Chat] Loading sending'
 };

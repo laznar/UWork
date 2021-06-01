@@ -44,6 +44,33 @@ textarea {
   color: $gray;
 }
 
+/*========= Styles for chat =========*/
+
+.message {
+  width: 90%;
+  border-radius: 10px;
+  margin-bottom: 0.2em;
+
+  & span {
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
+  }
+
+  &--not-own {
+    border-bottom-left-radius: 0;
+    background-color: white;
+  }
+  &--own {
+    background-color: #efefef;
+    border-bottom-right-radius: 0;
+  }
+
+  &--own + &--not-own,
+  &--not-own + &--own {
+    margin-top: 0.3em;
+  }
+}
+
 .message-icon {
   background-color: white;
   transition: background-color 250ms ease;

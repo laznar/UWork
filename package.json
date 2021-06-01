@@ -15,8 +15,6 @@
     "date-fns": "^2.21.3",
     "firebase": "^8.5.0",
     "lodash": "^4.17.21",
-    "overlayscrollbars": "^1.13.1",
-    "overlayscrollbars-react": "^0.2.2",
     "react": "^17.0.2",
     "react-clamp-lines": "^3.0.2",
     "react-datepicker": "^3.8.0",

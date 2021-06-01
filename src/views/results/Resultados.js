@@ -28,11 +28,10 @@ const Resultados = ({ history }) => {
     <div
       style={{
         maxWidth: 600,
-        minHeight: 500,
         paddingTop: 30,
-        paddingBottom: 100
+        paddingBottom: 50
       }}
-      className="mx-auto container"
+      className="container custom-container"
     >
       {results.loading ? (
         <div className="d-flex">

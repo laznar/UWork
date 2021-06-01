@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MessageCard from '../components/cards/MessageCard';
+import ChatCard from '../components/cards/ChatCard';
 import { startSearchOpportunitiesChats } from '../redux/actions/opportunities';
 
-const Messages = () => {
+const Chats = () => {
   const dispatch = useDispatch();
 
   const opportunities = useSelector((state) => state.opportunities);
@@ -29,7 +29,7 @@ const Messages = () => {
           <div className="fade-anim">
             <h2 className="mb-4">Mensajes</h2>
             {opportunities.results.map((mensaje, idx) => {
-              return <MessageCard key={idx} {...mensaje} />;
+              return <ChatCard key={idx} {...mensaje} />;
             })}
           </div>
         ) : (
@@ -40,4 +40,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Chats;

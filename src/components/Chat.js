@@ -1,11 +1,18 @@
-import { useEffect } from 'react';
-import OverlayScrollbars from 'overlayscrollbars';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import { useEffect, useRef } from 'react';
 import { XIcon, PaperAirplaneIcon } from '@heroicons/react/outline';
 import { useDispatch, useSelector } from 'react-redux';
-import { startSearchChatData } from '../redux/actions/chat';
+import { useForm } from 'react-hook-form';
+import { compareAsc } from 'date-fns';
+
+import {
+  detachMessagesListener,
+  attachMessagesListener,
+  startSearchChatData,
+  startSendMessage
+} from '../redux/actions/chat';
 import ProfilePhoto from './ProfilePhoto';
 import { renderName } from '../utils/misc';
+import Message from './Message';
 
 const iconsConfig = {
   width: 20,
@@ -14,20 +21,38 @@ const iconsConfig = {
 };
 
 const Chat = ({ closeModal, id, workerUid, customerUid }) => {
+  const { register, handleSubmit, reset } = useForm({
+    mode: 'onChange',
+    defaultValues: { content: '' }
+  });
   const dispatch = useDispatch();
   const chat = useSelector((state) => state.chat);
+  const auth = useSelector((state) => state.auth);
+
+  const lastDate = useRef(new Date());
 
   useEffect(() => {
-    const instance = OverlayScrollbars(document.body);
-    instance.options('className', null);
+    dispatch(attachMessagesListener(id));
     return () => {
-      instance.options('className', 'os-theme-dark');
+      dispatch(detachMessagesListener());
     };
-  }, []);
+  }, [dispatch, id]);
+
+  const sendIconConfig = {
+    ...iconsConfig,
+    className: `${iconsConfig.className} ${chat.sendingLoading && 'invisible'}`
+  };
 
   useEffect(() => {
     dispatch(startSearchChatData({ id, customerUid, workerUid }));
   }, [dispatch, id, customerUid, workerUid]);
+
+  const onSubmit = ({ content }) => {
+    if (!chat.sendingLoading) {
+      const sentAt = new Date();
+      dispatch(startSendMessage({ chatId: id, content, sentAt, reset }));
+    }
+  };
 
   return (
     <div className="w-100 h-100">
@@ -42,7 +67,7 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
           </div>
         </div>
       ) : (
-        <div className="fade-anim h-100 d-flex flex-column">
+        <div className="fade-anim h-100 d-flex flex-column bg-light">
           <div
             className="d-flex justify-content-between align-items-center position-sticky top-0 p-3 bg-white border-bottom"
             style={{ zIndex: 2 }}
@@ -52,35 +77,83 @@ const Chat = ({ closeModal, id, workerUid, customerUid }) => {
               height={40}
               photoURL={chat.receiverData.photoURL}
             />
-            <strong className="ms-2 me-auto">
-              {renderName(chat.receiverData.name)}{' '}
-              {renderName(chat.receiverData.surname)}
-            </strong>
-            <button onClick={closeModal} className="btn p-1">
+            <div className="ms-2 me-auto d-flex flex-column justify-content-center">
+              <strong>
+                {renderName(chat.receiverData.name)}{' '}
+                {renderName(chat.receiverData.surname)}
+              </strong>
+              <span className="small text-secondary">
+                ({chat.receiverData.isWorker ? 'Worker' : 'Cliente'})
+              </span>
+            </div>
+            <button
+              onClick={closeModal}
+              className="btn btn-outline-danger p-1  d-flex"
+            >
               <XIcon width={20} height={20} />
             </button>
           </div>
 
-          <OverlayScrollbarsComponent className="flex-grow-1">
-            <div className="row flex-colum gx-0 p-3"></div>
-          </OverlayScrollbarsComponent>
+          <div className="flex-grow-1 overflow-auto">
+            <div className="d-flex flex-column px-3 py-2">
+              {chat.messages.map(({ content, id, senderUid, sentAt }) => {
+                const messageDate = sentAt.toDate();
+                const messageDateWithoutHour = new Date(
+                  messageDate.getFullYear(),
+                  messageDate.getMonth(),
+                  messageDate.getDate()
+                );
 
-          <div
+                const dateComparison = compareAsc(
+                  lastDate.current,
+                  messageDateWithoutHour
+                );
+
+                if (dateComparison !== 0) {
+                  lastDate.current = messageDateWithoutHour;
+                }
+
+                return (
+                  <Message
+                    showDate={dateComparison !== 0}
+                    key={id}
+                    content={content}
+                    messageDate={messageDate}
+                    ownMessage={auth.uid === senderUid}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          <form
             className="d-flex justify-content-between align-items-center position-sticky bottom-0 p-3 bg-white border-top"
             style={{ zIndex: 2 }}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <input
-              type="text"
+              {...register('content', { required: true })}
               className="form-control rounded-pill"
               placeholder="Escribe un mensaje"
+              autoComplete="off"
             />
             <button
-              onClick={closeModal}
-              className="d-flex align-items-center justify-content-center btn p-2 rounded-circle ms-2 border-primary send-message-icon"
+              type="submit"
+              disabled={chat.sendingLoading}
+              className="d-flex align-items-center justify-content-center btn p-2 rounded-circle ms-2 border-primary send-message-icon position-relative"
             >
-              <PaperAirplaneIcon {...iconsConfig} />
+              {chat.sendingLoading && (
+                <div
+                  className="spinner-border spinner-border-sm position-absolute text-primary"
+                  role="status"
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              )}
+
+              <PaperAirplaneIcon {...sendIconConfig} />
             </button>
-          </div>
+          </form>
         </div>
       )}
     </div>

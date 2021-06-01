@@ -14,7 +14,7 @@ const iconsConfig = {
   className: 'text-secondary flex-shrink-0'
 };
 
-const MessageCard = ({
+const ChatCard = ({
   id,
   workerUid,
   customerUid,
@@ -52,7 +52,8 @@ const MessageCard = ({
       maxWidth: !smallScreen && 500,
       width: '100%',
       height: '100%',
-      maxHeight: !smallScreen && 300,
+      maxHeight: !smallScreen && '80%',
+      minHeight: !smallScreen && 300,
       overflow: 'auto'
     }
   };
@@ -66,9 +67,9 @@ const MessageCard = ({
   };
 
   return (
-    <div className="px-4 py-3 border rounded shadow-sm mb-3 bg-white d-flex align-items-center justify-content-between">
+    <div className="px-4 py-3 border rounded shadow-sm mb-2 bg-white d-flex align-items-center justify-content-between">
       <div>
-        <strong>{title}</strong>
+        <strong className="lh-sm">{title}</strong>
         <ul className="list-unstyled m-0">
           <li className="small text-muted">
             {`${skill ? `${skill} • ` : ''}`}
@@ -119,4 +120,4 @@ const MessageCard = ({
   );
 };
 
-export default MessageCard;
+export default ChatCard;
