@@ -1,6 +1,9 @@
 const TaskList = ({ text, setText, results, unFocus }) => {
   return (
-    <div className="position-absolute rounded-3 top-100 border shadow-sm col-12 col-md-8">
+    <div
+      className="position-absolute rounded-3 top-100 border shadow-sm col-12 col-md-8"
+      style={{ zIndex: 5 }}
+    >
       <ul className="list-group list-group-flush font-small">
         {!text && (
           <li

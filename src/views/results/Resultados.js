@@ -5,6 +5,7 @@ import useQuery from '../../hooks/useQuery';
 import tasks from '../../utils/tasks';
 import { useDispatch } from 'react-redux';
 import { startSearchResults } from '../../redux/actions/results';
+import TaskSearch from '../../components/TaskSearch/TaskSearch';
 
 const Resultados = ({ history }) => {
   const query = useQuery();
@@ -33,6 +34,7 @@ const Resultados = ({ history }) => {
       }}
       className="container custom-container"
     >
+      <TaskSearch />
       {results.loading ? (
         <div className="d-flex">
           <div
@@ -44,12 +46,12 @@ const Resultados = ({ history }) => {
           </div>
         </div>
       ) : results.results.length > 0 ? (
-        <>
+        <div className="mt-3">
           <h2 className="mb-3">{query.get('servicio')}</h2>
           {results.results.map((result, idx) => {
             return <ResultCard key={idx} {...result} />;
           })}
-        </>
+        </div>
       ) : (
         <h3>No se encontraron resultados</h3>
       )}
