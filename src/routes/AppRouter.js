@@ -24,7 +24,7 @@ import Pagos from '../views/payments/Pagos';
 import MultiStepForm from '../views/worker/MultiStepForm';
 import ScrollToTop from '../components/ScrollToTop';
 import Oportunidades from '../views/Oportunidades';
-import Servicios from '../views/Servicios';
+import Services from '../views/Services';
 import Dashboard from '../views/Dashboard';
 import Chats from '../views/Chats';
 import Proyectos from '../views/Proyectos';
@@ -107,7 +107,7 @@ const AppRouter = () => {
           {auth?.userData?.isWorker && (
             <PrivateRoute
               isAuthenticated={isAuthenticated}
-              component={Servicios}
+              component={Services}
               path="/mis-servicios"
               exact
             />
